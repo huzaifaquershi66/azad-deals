@@ -204,7 +204,7 @@ const handleCityClick = (city) => {
       {/* Background Image */}
       <img
         className='object-cover w-full h-full rounded-lg'
-        src='https://www.shutterstock.com/image-photo/businessman-drawing-increasing-trend-graph-600nw-2188781551.jpg'
+        src='https://img.freepik.com/free-photo/arrangement-black-friday-shopping-carts-with-copy-space_23-2148667047.jpg'
         alt='Background'
       />
 
