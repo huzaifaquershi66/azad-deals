@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.background1{
+  background-color: #838EAA;
+}
+
+.color1{
+  color: #484848;
+}
+
+.color2{
+color: #e40046;
+}
+
+.background2{
+background-color:#008080
+
+
+
+  ;
+}
+.backing {
+  /* Start off-screen */
+  
+   /* background-color: #3a3b3c; */
+   transform: translateX(-100%); /* Start off-screen */
+   transition: transform 0.3s ease-in-out;
+ }
+ 
+ .backing.show {
+   transform: translateX(0); /* Move into view */
+ }
+ .color3{
+  color: #e40046;
+ }
+ .color4{
+  color: #838eaa;
+ }
