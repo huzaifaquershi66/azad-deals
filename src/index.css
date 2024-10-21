@@ -16,7 +16,7 @@ color: #e40046;
 }
 
 .background2{
-background-color:#008080
+background-color:#DC2626
 
 
 
@@ -39,3 +39,129 @@ background-color:#008080
  .color4{
   color: #838eaa;
  }
+
+ .product-container {
+  display: flex;
+  overflow-x: hidden; /* Horizontal scrolling band kar diya gaya */
+  scroll-behavior: smooth; /* Smooth scrolling effect */
+}
+
+.product {
+  flex: 0 0 calc(50% - 16px); /* Mobile mein 2 products */
+  margin-right: 16px; /* Space between items */
+  border-radius: 16px; /* Rounded corners increased */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Increased shadow for depth */
+  height: auto;
+  background-color: #fff; /* Clean white background */
+  transition: box-shadow 0.3s ease, border 0.3s ease; /* Smooth transition */
+  border: 2px solid transparent; /* Border by default transparent */
+  overflow: hidden; /* Ensure contents stay inside */
+}
+
+.product img {
+  height: 300px; /* Image height increased */
+  object-fit: cover; /* Maintain aspect ratio */
+  border-bottom: 1px solid #ddd; /* Border below image */
+  transition: filter 0.3s ease; /* Smooth transition for image effects */
+}
+
+.product:hover {
+  border-color: #3498db; /* Blue border on hover */
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25); /* Slightly more intense shadow on hover */
+}
+
+@media (min-width: 768px) {
+  .product {
+    flex: 0 0 calc(25% - 16px); /* PC mein 4 products */
+    height: 400px; /* Height decreased from 500px to 400px */
+  }
+  
+  .product img {
+    height: 200px; /* Image height decreased for PC */
+  }
+}
+
+@media (max-width: 640px) {
+  .product {
+    flex: 0 0 100%; /* Mobile mein sirf 1 product */
+    margin-right: 0; /* No margin for full-width */
+  }
+}
+
+
+
+.color5{
+  color: #121112
+  
+  
+  
+}
+
+.fixede{
+ position: fixed;
+ /* bottom: 0;
+top: 35px;
+ left: 0; */
+ z-index: 50;
+}
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
