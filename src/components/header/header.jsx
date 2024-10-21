@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faCarSide,faTableCellsLarge,faCity,faCar,faMobile, faMobileScreenButton, faWarehouse, faGraduationCap,faLocationDot,faAngleDown, faMessage,faBars, faHeart, faBell, faCirclePlus, faUser, faMagnifyingGlass, faXmark } from '@fortawesome/free-solid-svg-icons';
-import Logo from './Logo';
+import Logo from "./logo"
 
 
 import cities from './cites';
