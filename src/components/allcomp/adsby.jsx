@@ -2,7 +2,7 @@ import React from 'react';
 
 const AdsByLocation = () => {
   return (
-    <div className="max-w-[1230px] mx-auto p-4 my-8">
+    <div className=" w-full mx-auto p-4 my-8">
       <h2 className="text-3xl font-extrabold font-roboto text-gray-800 mb-6 text-center">Explore Ads by Location</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
         {/* City 1 */}
@@ -96,16 +96,16 @@ const AdsByLocation = () => {
           </div>
         </div>
 
-        {/* City 8 */}
+        {/* City 8 - Rawalpindi */}
         <div className="relative h-40 border rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:border-blue-500">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRbetvobYxM_aHhu65e0UXgkZusgOkvRx55A&s"
-            alt="Gilgit"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-vFQpVNVuGo3FEsMWOENc9uACxlb5uM5rBA&s"
+            alt="Rawalpindi"
             className="object-cover w-full h-full brightness-75 transition duration-300 hover:brightness-110 rounded-lg"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
           <div className="absolute bottom-0 left-0 right-0 text-white text-center font-semibold text-lg py-2 bg-black bg-opacity-60 transition duration-300 hover:bg-blue-500 hover:text-white">
-            Gilgit
+            Rawalpindi
           </div>
         </div>
       </div>

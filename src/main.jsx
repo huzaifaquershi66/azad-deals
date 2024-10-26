@@ -3,7 +3,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import App from './App'; // Main App component
 import Home from './components/home/Home'; // Home component
- // Optional: A 404 not found component
+import Listing from './components/Listingpage'; // Listing component
+import ScrollToTop from './components/Scroolontop'; // Import the ScrollToTop component
 import './index.css'; // Ensure your CSS is being loaded
 
 // Create the router
@@ -16,14 +17,20 @@ const router = createBrowserRouter([
         path: '', // Default route that renders when the path is '/'
         element: <Home />, // Render the Home component
       },
-   
+      {
+        path: '/listing', // Route for the Listing component
+        element: <Listing />, // Render the Listing component
+      },
     ],
   },
 ]);
 
 const Main = () => {
   return (
-    <RouterProvider router={router} /> // Set up the router provider
+    <RouterProvider router={router}>
+      <ScrollToTop /> {/* Make sure ScrollToTop is included here */}
+      <App /> {/* Render the App component here if needed */}
+    </RouterProvider>
   );
 };
 
