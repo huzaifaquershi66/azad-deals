@@ -8,6 +8,8 @@ import AdsByLocation from '../allcomp/adsby';
 import products from './mobile';
 import cars from './cars';
 import properties from './Properties';
+import banner from "../../assets/banner.jpg"
+import logo from "../../assets/logo2.png"
 
 import { useEffect } from 'react';
 import academics from './academics';
@@ -278,31 +280,14 @@ const handleCityClick = (city) => {
   {/* Background Image */}
   <img
     className='object-cover w-full h-full rounded-lg'
-    src='https://images.pexels.com/photos/34577/pexels-photo.jpg?cs=srgb&dl=pexels-negativespace-34577.jpg&fm=jpg'
+    src={banner}
     alt='Background'
   />
 
     
-<div className="absolute inset-0 flex items-center justify-center space-x-4" style={{ bottom: '48%' }}>
-  {/* Logo Icon with enhanced shadow, glow, and hover rotation */}
-  <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-r from-gray-800 to-black flex items-center justify-center shadow-2xl hover:shadow-[0_0_30px_15px_rgba(255,0,0,0.7)] transition-transform transform hover:scale-110 hover:rotate-12 border-4 border-white hover:border-opacity-50">
-    <div className="absolute inset-0 bg-white rounded-full opacity-20"></div>
-    <h1 className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400 z-10 drop-shadow-2xl">
-      AD
-    </h1>
-  </div>
-
-  <h1 className="text-3xl md:text-5xl font-extrabold font-raleway text-transparent bg-clip-text bg-gradient-to-r from-orange-700 to-red-700 z-10 shadow-md drop-shadow-2xl transition-all duration-300 transform hover:scale-105 hover:tracking-wider">
-    Azad Deal
-</h1>
-
-
-
-
-
-
-
-</div>
+{/* <div className='absolute inset-0 h-40 w-40 flex items-center z-50 justify-center  md:my-0 md:mx-[630px]'>
+  <img src={logo} className='object-cover h-full w-full z-50'/>
+</div> */}
 <div className='absolute  inset-0 flex items-center justify-center md:mt-[289px] mt-0'>
       <div className='flex items-center md:space-x-4 space-x-2 bg-white h-14 md:w-96 w-[310px] md:px-6 px-2 font-sans md:text-[14px] text-[12px] rounded-t-xl z-10 shadow-lg'>
         
