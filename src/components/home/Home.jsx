@@ -276,19 +276,20 @@ const handleCityClick = (city) => {
   
   return (
     <>
-    <div className='relative w-full h-[450px]  px-0 md:px-4 flex my-[3px] items-center justify-center'>
-  {/* Background Image */}
+<div className='relative w-full h-[450px] rounded-lg px-0 flex lg:my-[20px] my-0 items-center justify-center'>
+  {/* Background Image with Darken Filter */}
   <img
-    className='object-cover w-full h-full rounded-lg'
+    className='object-cover w-full h-full xl:px-40 md:px-4 filter brightness-90' // Adjusted brightness value for less darkness
     src={banner}
     alt='Background'
   />
+
 
     
 {/* <div className='absolute inset-0 h-40 w-40 flex items-center z-50 justify-center  md:my-0 md:mx-[630px]'>
   <img src={logo} className='object-cover h-full w-full z-50'/>
 </div> */}
-<div className='absolute  inset-0 flex items-center justify-center md:mt-[289px] mt-0'>
+<div className='absolute  inset-0 flex items-center justify-center md:mt-[270px] mt-0'>
       <div className='flex items-center md:space-x-4 space-x-2 bg-white h-14 md:w-96 w-[310px] md:px-6 px-2 font-sans md:text-[14px] text-[12px] rounded-t-xl z-10 shadow-lg'>
         
         <button 
@@ -321,8 +322,8 @@ const handleCityClick = (city) => {
       </div>
     </div>
 
-<div className='absolute inset-0 flex items-center justify-center md:mt-[400px] mt-52 px-4'>
-  <div className='flex flex-col md:flex-row items-center md:h-14 h-40 w-[400px] xl:w-[1100px] lg:w-[900px] md:w-[700px] bg-white rounded-lg shadow-xl p-4 transition-transform duration-300 hover:shadow-2xl bg-opacity-95'>
+<div className='absolute inset-0 flex items-center justify-center md:mt-[380px] mt-52 px-4'>
+  <div className='flex flex-col md:flex-row items-center md:h-14 h-40 w-[400px] xl:w-[900px] lg:w-[900px] md:w-[700px] bg-white rounded-lg shadow-xl p-4 transition-transform duration-300 hover:shadow-2xl bg-opacity-95'>
     
     <div className='flex items-center mx-2 relative w-full md:w-[45%]'>
       <div className='relative w-full'>
@@ -366,7 +367,8 @@ const handleCityClick = (city) => {
         )}
       </div>
     </div>
-    
+   
+
 
     <div className='flex items-center mx-2 relative w-full md:w-[45%] mt-2 md:mt-0'>
       <input
@@ -757,80 +759,72 @@ const handleCityClick = (city) => {
       )}
   
     </div>
-<div className='w-full mx-auto p-4 mt-2 md:mt-52 translate-y-[0px] md:translate-y-[-180px]'>
-  <div className='text-center mb-12'>
-    <h2 className='text-4xl font-bold font-helveticaLight text-gray-900 relative inline-block'>
-      <span className='absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-[#D50055] to-[#FF4081] transition-all duration-300 transform scale-x-0 origin-left group-hover:scale-x-100' />
-      Explore Our Categories
-    </h2>
-    <p className='mt-2 text-gray-700 text-lg font-sansing'>
-      Discover a wide range of products tailored just for you!
-    </p>
+    <div className="w-full  mx-auto py-12 xl:px-36 px-4">
+  <div className="text-center mb-12">
+    <h2 className="text-4xl md:text-5xl font-bold font-roboto text-gray-800 mb-4">Our Premium Categories</h2>
+    <p className="text-lg text-gray-600 font-sansing">Explore a variety of exclusive collections curated just for you</p>
   </div>
 
-  <div className='flex justify-center'>
-  <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-20 gap-y-6 gap-x-6 px-4 md:px-0 max-w-7xl'>
-
-    {/* Mobile Card */}
-    <div className='relative h-80 sm:h-96 w-full sm:w-72 border border-gray-300 bg-gray-100 rounded-xl shadow-xl overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer group'>
-      <img 
-        src='https://www.igeeksblog.com/wp-content/uploads/2024/09/Download-iPhone-16-and-16-Pro-Max-Wallpapers.jpg' 
-        className='object-cover w-full h-3/5 transition-transform duration-300 ease-in-out group-hover:scale-110' 
-        alt='Mobiles'
-      />
-      <h3 className='absolute left-4 bottom-4 font-raleway font-bold text-[18px] sm:text-[20px] text-white bg-black bg-opacity-80 p-2 rounded-md shadow-lg'>
-        Mobiles
-      </h3>
-      <div className='absolute top-4 right-4 bg-white text-gray-800 text-xs font-semibold py-1 px-2 rounded-full shadow-lg'>
-        Trending
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    {/* Mobiles Card */}
+    <div className="relative rounded-2xl overflow-hidden bg-gray-800 shadow-xl hover:shadow-2xl transition-transform duration-300 transform hover:scale-105 hover:bg-gray-700 h-80 flex flex-col opacity-0 transition-opacity duration-500 animate-fadeIn">
+      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-2xl"></div> {/* Gradient overlay */}
+      <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
+        <img 
+          src="https://www.igeeksblog.com/wp-content/uploads/2024/09/Download-iPhone-16-and-16-Pro-Max-Wallpapers.jpg" 
+          alt="Mobiles" 
+          className="object-cover rounded-lg w-40 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
+        />
+        <h3 className="text-3xl font-semibold text-white mb-2">Mobiles</h3>
+        <p className="text-white text-sm text-center">Discover the latest trends and technology.</p>
+        <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300">Shop Now</button>
       </div>
     </div>
 
     {/* Properties Card */}
-    <div className='relative h-80 sm:h-96 w-full sm:w-72 border border-gray-300 bg-gray-100 rounded-xl shadow-xl overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer group'>
-      <img 
-        src='https://cdn.pixabay.com/photo/2017/07/17/00/54/house-2511060_640.jpg' 
-        className='object-cover w-full h-3/5 transition-transform duration-300 ease-in-out group-hover:scale-110' 
-        alt='Properties'
-      />
-      <h3 className='absolute left-4 bottom-4 font-raleway font-bold text-[18px] sm:text-[20px] text-white bg-black bg-opacity-80 p-2 rounded-md shadow-lg'>
-        Properties
-      </h3>
-      <div className='absolute top-4 right-4 bg-white text-gray-800 text-xs font-semibold py-1 px-2 rounded-full shadow-lg'>
-        New Arrival
+    <div className="relative rounded-2xl overflow-hidden bg-gray-800 shadow-xl hover:shadow-2xl transition-transform duration-300 transform hover:scale-105 hover:bg-gray-700 h-80 flex flex-col opacity-0 transition-opacity duration-500 animate-fadeIn">
+      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-2xl"></div> {/* Gradient overlay */}
+      <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
+        <img 
+          src="https://cdn.pixabay.com/photo/2017/07/17/00/54/house-2511060_640.jpg" 
+          alt="Properties" 
+          className="object-cover rounded-lg w-40 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
+        />
+        <h3 className="text-3xl font-semibold text-white mb-2">Properties</h3>
+        <p className="text-white text-sm text-center">Find your perfect home today.</p>
+        <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300">Explore</button>
       </div>
     </div>
 
     {/* Cars Card */}
-    <div className='relative h-80 sm:h-96 w-full sm:w-72 border border-gray-300 bg-gray-100 rounded-xl shadow-xl overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer group'>
-      <img 
-        src='https://www.isharearena.com/wp-content/uploads/2012/11/wallpaper-2426837.jpg' 
-        className='object-cover w-full h-3/5 transition-transform duration-300 ease-in-out group-hover:scale-110' 
-        alt='Cars'
-      />
-      <h3 className='absolute left-4 bottom-4 font-raleway font-bold text-[18px] sm:text-[20px] text-white bg-black bg-opacity-80 p-2 rounded-md shadow-lg'>
-        Cars
-      </h3>
-      <div className='absolute top-4 right-4 bg-white text-gray-800 text-xs font-semibold py-1 px-2 rounded-full shadow-lg'>
-        Popular
+    <div className="relative rounded-2xl overflow-hidden bg-gray-800 shadow-xl hover:shadow-2xl transition-transform duration-300 transform hover:scale-105 hover:bg-gray-700 h-80 flex flex-col opacity-0 transition-opacity duration-500 animate-fadeIn">
+      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-2xl"></div> {/* Gradient overlay */}
+      <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
+        <img 
+          src="https://www.isharearena.com/wp-content/uploads/2012/11/wallpaper-2426837.jpg" 
+          alt="Cars" 
+          className="object-cover rounded-lg w-40 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
+        />
+        <h3 className="text-3xl font-semibold text-white mb-2">Cars</h3>
+        <p className="text-white text-sm text-center">Explore our range of luxury cars.</p>
+        <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300">View Cars</button>
       </div>
     </div>
 
-    {/* Education Card */}
-    <div className='relative h-80 sm:h-96 w-full sm:w-72 border border-gray-300 bg-gray-100 rounded-xl shadow-xl overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer group'>
-      <img 
-        src='https://watermark.lovepik.com/photo/50089/0761.jpg_wh1200.jpg' 
-        className='object-cover w-full h-3/5 transition-transform duration-300 ease-in-out group-hover:scale-110' 
-        alt='Education'
-      />
-      <h3 className='absolute left-4 bottom-4 font-raleway font-bold text-[18px] sm:text-[20px] text-white bg-black bg-opacity-80 p-2 rounded-md shadow-lg'>
-        Azad Education
-      </h3>
-      <div className='absolute top-4 right-4 bg-white text-gray-800 text-xs font-semibold py-1 px-2 rounded-full shadow-lg'>
-        Recommended
+    {/* Azad Education Card */}
+    <div className="relative rounded-2xl overflow-hidden bg-gray-800 shadow-xl hover:shadow-2xl transition-transform duration-300 transform hover:scale-105 hover:bg-gray-700 h-80 flex flex-col opacity-0 transition-opacity duration-500 animate-fadeIn">
+      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-2xl"></div> {/* Gradient overlay */}
+      <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
+        <img 
+          src="https://watermark.lovepik.com/photo/50089/0761.jpg_wh1200.jpg" 
+          alt="Education" 
+          className="object-cover rounded-lg w-40 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
+        />
+        <h3 className="text-2xl font-semibold text-white mb-2">Azad Education</h3>
+        <p className="text-white text-sm text-center">Empower yourself with education.</p>
+        <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300">Learn More</button>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -838,87 +832,104 @@ const handleCityClick = (city) => {
 
 
 
-  {/* Footer Section */}
 
+
+<div className='w-full mx-auto p-4 xl:px-40 md:translate-y-[-50px] translate-y-[-0px]'>
+  <div className='md:flex justify-between items-center flex-auto mb-4'>
+    <h1 className='font-montserrat font-bold text-2xl my-2 py-7 text-gray-800'>Mobiles for Sale</h1>
+    <Link to="listing">
+      <button className='font-sans font-bold text-base bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out shadow-md'>
+        See More
+      </button>
+    </Link>
+  </div>
+
+  <div className='relative'>
+    {/* Left Scroll Button */}
+    {!isLeftDisabled && (
+      <button
+        className='absolute left-4 top-40 transform -translate-y-1/2 z-10 
+                   text-black bg-white rounded-full shadow-lg 
+                   w-10 h-10 flex items-center justify-center 
+                   hover:bg-gray-200 transition duration-300 ease-in-out'
+        onClick={() => scroll('left')}>
+        <FontAwesomeIcon icon={faChevronLeft} className='text-lg' />
+      </button>
+    )}
+
+    <div
+      ref={carouselRef}
+      className='flex overflow-x-hidden snap-x snap-mandatory'>
+      {products.map((property, index) => (
+        <div key={index} className='flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-2 snap-center'>
+          <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 relative'>
+            <img
+              src={property.image}
+              className='object-cover w-full h-80 cursor-pointer transition-transform duration-300 transform hover:scale-105' // Image scaling on hover
+              alt='Property'
+            />
+            {/* "For Rent" or "For Sale" Label */}
+            {/* <div className='absolute top-2 left-2 bg-white bg-opacity-80 text-black font-bold text-sm p-1 rounded'>
+              {property.forSale ? 'For Sale' : 'For Rent'}
+            </div> */}
+            {/* Favorite Icon on top of the image */}
+            <div
+              className={`flex items-center justify-center w-8 h-8 rounded-full group cursor-pointer transition-colors duration-300 
+                          ${favorites[index] ? 'bg-red-500' : 'bg-slate-200'} absolute top-2 right-2 shadow hover:bg-red-600`}
+              onClick={() => toggleFavorite(index)}
+            >
+              <FontAwesomeIcon icon={faHeart} className={`text-${favorites[index] ? 'white' : 'red-500'} text-[17px] group-hover:text-white`} />
+            </div>
+            <div className='p-4'>
+              <div className='flex justify-between items-center mb-2'>
+                <div className='price-location'>
+                  <h3 className='font-bold font-roboto text-2xl text-gray-800'>{property.price}</h3>
+                  <h3 className='font-helveticaLight text-base line-through text-gray-500'>{property.originalPrice}</h3>
+                </div>
+              </div>
+              <div className='font-sans font-semibold my-2'>
+                <h1 className='text-lg text-gray-800'>{property.name}</h1>
+              </div>
+              <div className='location flex items-center'>
+                <FontAwesomeIcon icon={faLocationDot} className='text-[14px] text-gray-500' />
+                <h3 className='ml-1 text-gray-700'>{property.location}</h3>
+              </div>
+              <div className='details font-montserrat text-[14px] text-gray-500'>
+                {property.details}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* Right Scroll Button */}
+    <button
+      className='absolute right-4 top-40 transform -translate-y-1/2 z-10 
+                 text-black bg-white rounded-full shadow-lg 
+                 w-10 h-10 flex items-center justify-center 
+                 hover:bg-gray-200 transition duration-300 ease-in-out'
+      onClick={() => scroll('right')}>
+      <FontAwesomeIcon icon={faChevronRight} className='text-lg' />
+    </button>
+  </div>
 </div>
 
 
-<div className='w-full mx-auto p-4 md:translate-y-[-130px] translate-y-[-0px]'>
-      <div className='md:flex justify-between items-center flex-auto'>
-        <h1 className='font-montserrat font-bold color5 text-[22px] my-2 py-7'>Mobiles on Sale</h1>
-        <Link to="listing">
-     
-        <button className='font-sansing font-bold translate-y-[-30px] md:translate-y-[-0px] text-[14px]'>See More</button>
-        </Link>
-      </div>
 
-      <div className='relative'>
-        {/* Left Scroll Button */}
-        {!isLeftDisabled && (
-          <button
-            className='absolute left-4 top-40 transform -translate-y-1/2 z-10 
-                       text-black bg-white rounded-full shadow-lg 
-                       w-8 h-8 flex items-center justify-center 
-                       hover:bg-gray-100 transition duration-300 ease-in-out'
-                      onClick={() => scroll('left')}> 
-          
-            <FontAwesomeIcon icon={faChevronLeft} className='text-lg' />
-          </button>
-        )}
 
-        <div ref={carouselRef} className='product-container flex overflow-x-scroll'>
-          {products.map((product, index) => (
-            <div key={index} className='product flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-2'>
-              <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 relative'>
-                <img
-                  src={product.image}
-                  className='object-cover w-full h-48 cursor-pointer'
-                  alt='Mobiles'
-                />
-                {/* Favorite Icon on top of the image */}
-                <div
-                  className={`flex items-center justify-center w-8 h-8 rounded-full group cursor-pointer transition-colors duration-300 
-                    ${favorites[index] ? 'bg-red-500' : 'bg-slate-200'} absolute top-2 right-2 shadow hover:bg-red-600`}
-                  onClick={() => toggleFavorite(index)}
-                >
-                  <FontAwesomeIcon icon={faHeart} className={`text-${favorites[index] ? 'white' : 'red-500'} text-[17px] group-hover:text-white`} />
-                </div>
-                <div className='product-info p-4'>
-                  <div className='flex justify-between items-center'>
-                    <div className='price-location'>
-                      <h3 className='font-bold font-roboto text-[18px]'>{product.price}</h3>
-                      <h3 className='font-helveticaLight text-[14px] line-through text-gray-500'>{product.originalPrice}</h3>
-                    </div>
-                  </div>
-                  <div className='font-sans font-semibold my-2'>
-                    <h1>{product.name}</h1>
-                  </div>
-                  <div className='location flex items-center'>
-                    <FontAwesomeIcon icon={faLocationDot} className='text-[13px] text-gray-500' />
-                    <h3 className='ml-1'>{product.location}</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
 
-        {/* Right Scroll Button */}
-        <button
-          className='absolute right-4 top-[calc(160px+1px)] transform -translate-y-1/2 z-10 
-                     text-black bg-white rounded-full shadow-lg 
-                     w-8 h-8 flex items-center justify-center 
-                     hover:bg-gray-100 transition duration-300 ease-in-out md:invisible visible'
-                  onClick={() => scroll('Right')}>  
-        
-          <FontAwesomeIcon icon={faChevronRight} className='text-lg' />
-        </button>
-      </div>
-    </div>
-    <div className='w-full mx-auto p-4 md:translate-y-[-130px] translate-y-[-0px]'>
-  <div className='md:flex justify-between items-center flex-auto'>
-    <h1 className='font-montserrat font-bold color5 text-[22px] my-2 py-7 whitespace-nowrap'>Properties for Sale</h1>
-    <button className='font-sansing font-bold translate-y-[-30px] md:translate-y-[-0px] text-[14px]'>See More</button>
+
+
+
+<div className='w-full mx-auto p-4 xl:px-40 md:translate-y-[-50px] translate-y-[-0px]'>
+  <div className='md:flex justify-between items-center flex-auto mb-4'>
+    <h1 className='font-montserrat font-bold text-2xl my-2 py-7 text-gray-800'>Properties for Sale</h1>
+    <Link to="listing">
+      <button className='font-sans font-bold text-base bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out shadow-md'>
+        See More
+      </button>
+    </Link>
   </div>
 
   <div className='relative'>
@@ -927,20 +938,22 @@ const handleCityClick = (city) => {
       <button
         className='absolute left-4 top-40 transform -translate-y-1/2 z-10 
                    text-black bg-white rounded-full shadow-lg 
-                   w-8 h-8 flex items-center justify-center 
-                   hover:bg-gray-100 transition duration-300 ease-in-out'
+                   w-10 h-10 flex items-center justify-center 
+                   hover:bg-gray-200 transition duration-300 ease-in-out'
         onClick={() => scrollproperty('left')}>
         <FontAwesomeIcon icon={faChevronLeft} className='text-lg' />
       </button>
     )}
 
-    <div ref={propertyCarouselRef} className='product-container flex overflow-x-scroll'>
+    <div
+      ref={propertyCarouselRef}
+      className='flex overflow-x-hidden snap-x snap-mandatory'>
       {properties.map((property, index) => (
-        <div key={index} className='product flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-2'>
-          <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 relative'>
+        <div key={index} className='flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-2 snap-center'>
+          <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 relative'>
             <img
               src={property.image}
-              className='object-cover w-full h-48 cursor-pointer'
+              className='object-cover w-full h-80 cursor-pointer transition-transform duration-300 transform hover:scale-105' // Image scaling on hover
               alt='Property'
             />
             {/* "For Rent" or "For Sale" Label */}
@@ -950,42 +963,27 @@ const handleCityClick = (city) => {
             {/* Favorite Icon on top of the image */}
             <div
               className={`flex items-center justify-center w-8 h-8 rounded-full group cursor-pointer transition-colors duration-300 
-                ${favoritesproperty[index] ? 'bg-red-500' : 'bg-slate-200'} absolute top-2 right-2 shadow hover:bg-red-600`}
+                          ${favoritesproperty[index] ? 'bg-red-500' : 'bg-slate-200'} absolute top-2 right-2 shadow hover:bg-red-600`}
               onClick={() => toggleFavoriteproperty(index)}
             >
               <FontAwesomeIcon icon={faHeart} className={`text-${favoritesproperty[index] ? 'white' : 'red-500'} text-[17px] group-hover:text-white`} />
             </div>
-            <div className='product-info p-4'>
-              <div className='flex justify-between items-center'>
+            <div className='p-4'>
+              <div className='flex justify-between items-center mb-2'>
                 <div className='price-location'>
-                  <h3 className='font-bold font-roboto text-[18px]'>{property.price}</h3>
-                  <h3 className='font-helveticaLight text-[14px] line-through text-gray-500'>{property.originalPrice}</h3>
+                  <h3 className='font-bold font-roboto text-2xl text-gray-800'>{property.price}</h3>
+                  <h3 className='font-helveticaLight text-base line-through text-gray-500'>{property.originalPrice}</h3>
                 </div>
               </div>
               <div className='font-sans font-semibold my-2'>
-                <h1>{property.name}</h1>
+                <h1 className='text-lg text-gray-800'>{property.name}</h1>
               </div>
               <div className='location flex items-center'>
-                <FontAwesomeIcon icon={faLocationDot} className='text-[13px] text-gray-500' />
-                <h3 className='ml-1'>{property.location}</h3>
+                <FontAwesomeIcon icon={faLocationDot} className='text-[14px] text-gray-500' />
+                <h3 className='ml-1 text-gray-700'>{property.location}</h3>
               </div>
               <div className='details font-montserrat text-[14px] text-gray-500'>
                 {property.details}
-              </div>
-              {/* Property Icons */}
-              <div className='property-icons flex mt-2'>
-                {property.type === 'Bedroom' && (
-                  <FontAwesomeIcon icon={faBed} className='text-gray-500 mr-2' title='Bedroom' />
-                )}
-                {property.type === 'Kitchen' && (
-                  <FontAwesomeIcon icon={faKitchenSet} className='text-gray-500 mr-2' title='Kitchen' />
-                )}
-                {property.type === 'Bathroom' && (
-                  <FontAwesomeIcon icon={faBathtub} className='text-gray-500 mr-2' title='Bathroom' />
-                )}
-                {property.type === 'Living Room' && (
-                  <FontAwesomeIcon icon={faCouch} className='text-gray-500 mr-2' title='Living Room' />
-                )}
               </div>
             </div>
           </div>
@@ -995,11 +993,11 @@ const handleCityClick = (city) => {
 
     {/* Right Scroll Button */}
     <button
-      className='absolute right-4 top-[calc(160px+1px)] transform -translate-y-1/2 z-10 
+      className='absolute right-4 top-40 transform -translate-y-1/2 z-10 
                  text-black bg-white rounded-full shadow-lg 
-                 w-8 h-8 flex items-center justify-center 
-                 hover:bg-gray-100 transition duration-300 ease-in-out md:invisible visible'
-      onClick={() => scrollproperty('Right')}>
+                 w-10 h-10 flex items-center justify-center 
+                 hover:bg-gray-200 transition duration-300 ease-in-out'
+      onClick={() => scrollproperty('right')}>
       <FontAwesomeIcon icon={faChevronRight} className='text-lg' />
     </button>
   </div>
@@ -1007,10 +1005,16 @@ const handleCityClick = (city) => {
 
 
 
-    <div className='w-full mx-auto p-4 md:translate-y-[-130px] translate-y-[-0px]'>
-  <div className='md:flex justify-between items-center flex-auto'>
-    <h1 className='font-montserrat font-bold color5 text-[22px] my-2 py-7 whitespace-nowrap'>Cars for Sale</h1>
-    <button className='font-sansing font-bold translate-y-[-30px] md:translate-y-[-0px] text-[14px]'>See More</button>
+
+
+<div className='w-full mx-auto p-4 xl:px-40 md:translate-y-[-50px] translate-y-[-0px]'>
+  <div className='md:flex justify-between items-center flex-auto mb-4'>
+    <h1 className='font-montserrat font-bold text-2xl my-2 py-7 text-gray-800'>Cars for Sale</h1>
+    <Link to="listing">
+      <button className='font-sans font-bold text-base bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out shadow-md'>
+        See More
+      </button>
+    </Link>
   </div>
 
   <div className='relative'>
@@ -1019,47 +1023,52 @@ const handleCityClick = (city) => {
       <button
         className='absolute left-4 top-40 transform -translate-y-1/2 z-10 
                    text-black bg-white rounded-full shadow-lg 
-                   w-8 h-8 flex items-center justify-center 
-                   hover:bg-gray-100 transition duration-300 ease-in-out'
-        onClick={() => scrollcars('left')}> 
-      
+                   w-10 h-10 flex items-center justify-center 
+                   hover:bg-gray-200 transition duration-300 ease-in-out'
+        onClick={() => scrollcars('left')}>
         <FontAwesomeIcon icon={faChevronLeft} className='text-lg' />
       </button>
     )}
-  
-    <div ref={carsref} className='product-container flex overflow-x-scroll'>
-      {cars.map((car, index) => (
-        <div key={index} className='product flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-2'>
-          <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 relative'>
+
+    <div
+      ref={carsref}
+      className='flex overflow-x-hidden snap-x snap-mandatory'>
+      {cars.map((property, index) => (
+        <div key={index} className='flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-2 snap-center'>
+          <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 relative'>
             <img
-              src={car.image}
-              className='object-cover w-full h-48 cursor-pointer'
-              alt='Car'
+              src={property.image}
+              className='object-cover w-full h-80 cursor-pointer transition-transform duration-300 transform hover:scale-105' // Image scaling on hover
+              alt='Property'
             />
+            {/* "For Rent" or "For Sale" Label */}
+            {/* <div className='absolute top-2 left-2 bg-white bg-opacity-80 text-black font-bold text-sm p-1 rounded'>
+              {property.forSale ? 'For Sale' : 'For Rent'}
+            </div> */}
             {/* Favorite Icon on top of the image */}
             <div
               className={`flex items-center justify-center w-8 h-8 rounded-full group cursor-pointer transition-colors duration-300 
-                ${favoritescars[index] ? 'bg-red-500' : 'bg-slate-200'} absolute top-2 right-2 shadow hover:bg-red-600`}
+                          ${favoritescars[index] ? 'bg-red-500' : 'bg-slate-200'} absolute top-2 right-2 shadow hover:bg-red-600`}
               onClick={() => toggleFavoritecars(index)}
             >
               <FontAwesomeIcon icon={faHeart} className={`text-${favoritescars[index] ? 'white' : 'red-500'} text-[17px] group-hover:text-white`} />
             </div>
-            <div className='product-info p-4'>
-              <div className='flex justify-between items-center'>
+            <div className='p-4'>
+              <div className='flex justify-between items-center mb-2'>
                 <div className='price-location'>
-                  <h3 className='font-bold font-roboto text-[18px]'>{car.price}</h3>
-                  <h3 className='font-helveticaLight text-[14px] line-through text-gray-500'>{car.originalPrice}</h3>
+                  <h3 className='font-bold font-roboto text-2xl text-gray-800'>{property.price}</h3>
+                  <h3 className='font-helveticaLight text-base line-through text-gray-500'>{property.originalPrice}</h3>
                 </div>
               </div>
               <div className='font-sans font-semibold my-2'>
-                <h1>{car.name}</h1>
+                <h1 className='text-lg text-gray-800'>{property.name}</h1>
               </div>
               <div className='location flex items-center'>
-                <FontAwesomeIcon icon={faLocationDot} className='text-[13px] text-gray-500' />
-                <h3 className='ml-1'>{car.location}</h3>
+                <FontAwesomeIcon icon={faLocationDot} className='text-[14px] text-gray-500' />
+                <h3 className='ml-1 text-gray-700'>{property.location}</h3>
               </div>
               <div className='details font-montserrat text-[14px] text-gray-500'>
-                {car.details}
+                {property.details}
               </div>
             </div>
           </div>
@@ -1069,21 +1078,24 @@ const handleCityClick = (city) => {
 
     {/* Right Scroll Button */}
     <button
-      className='absolute right-4 top-[calc(160px+1px)] transform -translate-y-1/2 z-10 
+      className='absolute right-4 top-40 transform -translate-y-1/2 z-10 
                  text-black bg-white rounded-full shadow-lg 
-                 w-8 h-8 flex items-center justify-center 
-                 hover:bg-gray-100 transition duration-300 ease-in-out md:invisible visible'
-      onClick={() => scrollcars('right')}> 
-        
+                 w-10 h-10 flex items-center justify-center 
+                 hover:bg-gray-200 transition duration-300 ease-in-out'
+      onClick={() => scrollcars('right')}>
       <FontAwesomeIcon icon={faChevronRight} className='text-lg' />
     </button>
   </div>
 </div>
 
-<div className='w-full mx-auto p-4 md:translate-y-[-130px] translate-y-[-0px]'>
-  <div className='md:flex justify-between items-center flex-auto'>
-    <h1 className='font-montserrat font-bold color5 text-[22px] my-2 py-7 whitespace-nowrap'>Azad Education</h1>
-    <button className='font-sansing font-bold translate-y-[-30px] md:translate-y-[-0px] text-[14px]'>See More</button>
+<div className='w-full mx-auto p-4 xl:px-40 md:translate-y-[-50px] translate-y-[-0px]'>
+  <div className='md:flex justify-between items-center flex-auto mb-4'>
+    <h1 className='font-montserrat font-bold text-2xl my-2 py-7 text-gray-800'>Academic Courses Available</h1>
+    <Link to="listing">
+      <button className='font-sans font-bold text-base bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out shadow-md'>
+        See More
+      </button>
+    </Link>
   </div>
 
   <div className='relative'>
@@ -1092,50 +1104,58 @@ const handleCityClick = (city) => {
       <button
         className='absolute left-4 top-40 transform -translate-y-1/2 z-10 
                    text-black bg-white rounded-full shadow-lg 
-                   w-8 h-8 flex items-center justify-center 
-                   hover:bg-gray-100 transition duration-300 ease-in-out'
-        onClick={() => scrollacademics('left')}> 
-      
+                   w-10 h-10 flex items-center justify-center 
+                   hover:bg-gray-200 transition duration-300 ease-in-out'
+        onClick={() => scrollacademics('left')}>
         <FontAwesomeIcon icon={faChevronLeft} className='text-lg' />
       </button>
     )}
-  
-    <div ref={Academicsref} className='product-container flex overflow-x-scroll'>
-      {academics.map((car, index) => (
-        <div key={index} className='product flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-2'>
-          <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 relative'>
+
+    <div
+      ref={Academicsref}
+      className='flex overflow-x-hidden snap-x snap-mandatory'>
+      {academics.map((property, index) => (
+        <div key={index} className='flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-2 snap-center'>
+          <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 relative'>
             <img
-              src={car.image}
-              className='object-cover w-full h-48 cursor-pointer'
-              alt='Car'
+              src={property.image}
+              className='object-cover w-full h-80 cursor-pointer transition-transform duration-300 transform hover:scale-105' // Image scaling on hover
+              alt='Property'
             />
+            {/* "For Rent" or "For Sale" Label */}
+            {/* <div className='absolute top-2 left-2 bg-white bg-opacity-80 text-black font-bold text-sm p-1 rounded'>
+              {property.forSale ? 'For Sale' : 'For Rent'}
+            </div> */}
             {/* Favorite Icon on top of the image */}
             <div
               className={`flex items-center justify-center w-8 h-8 rounded-full group cursor-pointer transition-colors duration-300 
-                ${favoritesacademics[index] ? 'bg-red-500' : 'bg-slate-200'} absolute top-2 right-2 shadow hover:bg-red-600`}
-              onClick={() => toggleFavoriteacademics(index)}
+                          ${favoritesacademics[index] ? 'bg-red-500' : 'bg-slate-200'} absolute top-2 right-2 shadow hover:bg-red-600`}
+              onClick={() => toggleFavoriteproperty(index)}
             >
               <FontAwesomeIcon icon={faHeart} className={`text-${favoritesacademics[index] ? 'white' : 'red-500'} text-[17px] group-hover:text-white`} />
             </div>
-            <div className='product-info p-4'>
-              <div className='flex justify-between items-center'>
+            <div className='p-4'>
+              <div className='flex justify-between items-center mb-2'>
                 <div className='price-location'>
-                  <h3 className='font-bold font-roboto text-[18px]'>{car.price}</h3>
-                  <h3 className='font-helveticaLight text-[14px]  text-gray-500'>{car.duration}</h3>
+                  <h3 className='font-bold font-roboto text-2xl text-gray-800'>{property.price}</h3>
+                  <h3 className='font-helveticaLight text-base line-through text-gray-500'>{property.originalPrice}</h3>
                 </div>
               </div>
               <div className='font-sans font-semibold my-2'>
-                <h1>{car.title}</h1>
+                <h1 className='text-lg text-gray-800'>{property.title}</h1>
+              </div>
+              <div className='font-sans font-semibold my-2'>
+                <h1 className='text-lg text-gray-800'>{property.duration}</h1>
+              </div>
+              <div className='font-sans font-semibold my-2'>
+                <h1 className='text-lg text-gray-800'>{property.university}</h1>
               </div>
               <div className='location flex items-center'>
-                <FontAwesomeIcon icon={faLocationDot} className='text-[13px] text-gray-500' />
-                <h3 className='ml-1'>{car.location}</h3>
+                <FontAwesomeIcon icon={faLocationDot} className='text-[14px] text-gray-500' />
+                <h3 className='ml-1 text-gray-700'>{property.location}</h3>
               </div>
               <div className='details font-montserrat text-[14px] text-gray-500'>
-                {car.university}
-              </div>
-              <div className='details font-montserrat text-[14px] text-gray-500'>
-                {car.description}
+                {property.description}
               </div>
             </div>
           </div>
@@ -1145,17 +1165,15 @@ const handleCityClick = (city) => {
 
     {/* Right Scroll Button */}
     <button
-      className='absolute right-4 top-[calc(160px+1px)] transform -translate-y-1/2 z-10 
+      className='absolute right-4 top-40 transform -translate-y-1/2 z-10 
                  text-black bg-white rounded-full shadow-lg 
-                 w-8 h-8 flex items-center justify-center 
-                 hover:bg-gray-100 transition duration-300 ease-in-out md:invisible visible'
-      onClick={() => scrollacademics('right')}> 
-        
+                 w-10 h-10 flex items-center justify-center 
+                 hover:bg-gray-200 transition duration-300 ease-in-out'
+      onClick={() => scrollacademics('right')}>
       <FontAwesomeIcon icon={faChevronRight} className='text-lg' />
     </button>
   </div>
 </div>
-
 
 <AdsByLocation/>
 

@@ -19,7 +19,7 @@ const academics = [
     },
     {
         image: 'https://focusme.com/wp-content/uploads/2020/07/shutterstock_610111481-600-x-400-jpg-1.jpeg',
-        title: 'Bachelor of Arts in Psychology',
+        title: 'Bachelor  of Arts in Science of Psychology',
         university: 'Stanford University',
         duration: '4 Years',
         location: 'Stanford, CA',

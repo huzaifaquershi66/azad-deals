@@ -2,7 +2,7 @@ import React from 'react';
 
 const AdsByLocation = () => {
   return (
-    <div className=" w-full mx-auto p-4 my-8">
+    <div className=" w-full mx-auto p-4 my-8 xl:px-40 px-4">
       <h2 className="text-3xl font-extrabold font-roboto text-gray-800 mb-6 text-center">Explore Ads by Location</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
         {/* City 1 */}
