@@ -224,7 +224,7 @@ const handleCityClick = (city) => {
 <div className="w-full md:px-10 px-0 flex flex-col md:flex-row bg-white shadow-2xl rounded-3xl overflow-hidden">
 
     {/* Left Side: Ad Form */}
-    <div className="w-full md:w-2/3 p-8 sm:p-12 text-gray-800 flex flex-col bg-white rounded-3xl shadow-lg border border-gray-200 transition duration-300 transform hover:scale-105">
+    <div className="w-full md:w-2/3 p-8 sm:p-12 text-gray-800 flex flex-col bg-white rounded-3xl shadow-lg border border-gray-200 transition duration-300 transform">
         <h2 className="text-5xl font-roboto font-extrabold text-center mb-8 text-blue-600 tracking-wide uppercase shadow-md">
             Post Your Ad
         </h2>
@@ -381,9 +381,9 @@ const handleCityClick = (city) => {
     </div>
 
     {/* Right Side: Live Preview */}
-    <div className="relative w-full md:w-1/3 bg-white p-6 sm:p-8 rounded-2xl shadow-2xl border border-gray-200 transform transition-transform duration-300 ease-out hover:scale-105 hover:shadow-3xl hover:border-purple-500/50 md:mx-4 lg:mx-8">
+    <div className="relative w-full md:w-1/3 bg-white p-6 sm:p-8 rounded-2xl shadow-2xl border border-gray-200 transform transition-transform duration-300 ease-out  hover:shadow-3xl hover:border-purple-500/50 md:mx-4 lg:mx-8">
         {/* Live Preview Badge with Pulse Effect */}
-        <span className="absolute top-2 left-1/2 transform -translate-x-1/2 text-white font-bold bg-gradient-to-r from-purple-700 to-purple-900 rounded-full px-4 py-2 shadow-md z-20 transition-transform duration-200 hover:scale-110 animate-pulse">
+        <span className="absolute top-2 left-1/2 transform -translate-x-1/2 text-white font-bold bg-gradient-to-r from-orange-700 to-purple-900 rounded-full px-4 py-2 shadow-md z-20 transition-transform duration-200 hover:scale-110 animate-pulse">
             Live Preview
         </span>
 
