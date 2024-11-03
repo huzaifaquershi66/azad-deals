@@ -117,3 +117,23 @@ top: 35px;
 .animate-fadeIn {
   animation: fadeIn 0.5s forwards;
 }
+
+.input-style {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.input-style:focus {
+  border-color: #6b5eaf;
+  outline: none;
+}
+
+
+
+.bg-purple-600 {
+  background: linear-gradient(to bottom right, #ff7e5f, #feb47b);
+}

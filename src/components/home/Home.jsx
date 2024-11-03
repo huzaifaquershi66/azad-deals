@@ -279,7 +279,7 @@ const handleCityClick = (city) => {
 <div className='relative w-full h-[450px] rounded-lg px-0 flex lg:my-[20px] my-0 items-center justify-center'>
   {/* Background Image with Darken Filter */}
   <img
-    className='object-cover w-full h-full xl:px-40 md:px-4 filter brightness-90' // Adjusted brightness value for less darkness
+    className='object-cover w-full h-full xl:px-40 md:px-4 filter brightness-100' // Adjusted brightness value for less darkness
     src={banner}
     alt='Background'
   />

@@ -5,6 +5,7 @@ import Logo from "./logo"
 
 
 import cities from './cites';
+import { Link } from 'react-router-dom';
   const uniqueCities = Array.from(new Set(cities));
 const Header = ()=>{
   
@@ -133,10 +134,12 @@ const handletoggleform =()=>{
   </div>
 
   {/* Right Section - Buttons */}
+  <Link to={"/placeadd"}>
   <button className='bg-[#D50055] hover:bg-[#b3004588] transition duration-300 ease-in-out  text-white font-bold h-10 w-36 py-2 px-4 rounded-lg text-[13px] flex items-center space-x-2'>
     <FontAwesomeIcon icon={faCirclePlus} className='text-[17px] text-gray-100' />
     <span className='whitespace-nowrap text-[13px] font-helveticaLight '>Place an Ad</span>
   </button>
+  </Link>
 
   <button className='bg-[#36454fd3] hover:bg-[#36454f71] text-white font-bold h-10 w-24 mx-3 py-2 px-4 rounded-lg text-[13px] flex items-center space-x-2'>
     <FontAwesomeIcon icon={faUser} className='text-[17px] text-gray-100' />
