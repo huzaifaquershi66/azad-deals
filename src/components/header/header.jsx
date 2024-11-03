@@ -5,7 +5,7 @@ import Logo from "./logo"
 
 
 import cities from './cites';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
   const uniqueCities = Array.from(new Set(cities));
 const Header = ()=>{
   
@@ -37,7 +37,7 @@ const Header = ()=>{
  const [instituteType, setInstituteType] = useState('');
  const [gradeType, setGradeType] = useState('');
 
-
+const navigate = useNavigate()
  
 if (!toggleform) {
   document.body.style.overflow = 'auto'; // Scroll hide
@@ -46,6 +46,11 @@ if (!toggleform) {
 }
 
 const handletoggleform =()=>{
+  settoggleform(!toggleform)
+}
+
+const handleclick = ()=>{
+  navigate("/placeadd")
   settoggleform(!toggleform)
 }
   return (
@@ -204,7 +209,8 @@ const handletoggleform =()=>{
   </div>
 
   {/* Place an Ad Button */}
-  <button className='bg-[#D50055] hover:bg-[#b3004588] text-white translate-y-[-90px] font-bold h-12 w-[90%] max-w-[350px] text-center py-2 px-4 rounded-2xl text-[14px] flex items-center justify-center space-x-2 mx-auto shadow-lg hover:bg-red-700 transition duration-200'>
+ 
+  <button onClick={handleclick} className='bg-[#D50055] hover:bg-[#b3004588] text-white translate-y-[-90px] font-bold h-12 w-[90%] max-w-[350px] text-center py-2 px-4 rounded-2xl text-[14px] flex items-center justify-center space-x-2 mx-auto shadow-lg hover:bg-red-700 transition duration-200'>
     <FontAwesomeIcon icon={faCirclePlus} className='text-[17px]' />
     <span className='whitespace-nowrap font-sansing'>Place an Ad</span>
   </button>
