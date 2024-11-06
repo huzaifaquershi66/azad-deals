@@ -8,7 +8,7 @@ import AdsByLocation from '../allcomp/adsby';
 import products from './mobile';
 import cars from './cars';
 import properties from './Properties';
-import banner from "../../assets/banner.jpg"
+import banner from "../../assets/imgg.jpg"
 import logo from "../../assets/logo2.png"
 
 import { useEffect } from 'react';
@@ -289,7 +289,7 @@ const handleCityClick = (city) => {
 {/* <div className='absolute inset-0 h-40 w-40 flex items-center z-50 justify-center  md:my-0 md:mx-[630px]'>
   <img src={logo} className='object-cover h-full w-full z-50'/>
 </div> */}
-<div className='absolute  inset-0 flex items-center justify-center md:mt-[270px] mt-0'>
+<div className='absolute  inset-0 flex items-center justify-center md:mt-[300px] mt-0'>
       <div className='flex items-center md:space-x-4 space-x-2 bg-white h-14 md:w-96 w-[310px] md:px-6 px-2 font-sans md:text-[14px] text-[12px] rounded-t-xl z-10 shadow-lg'>
         
         <button 
@@ -322,7 +322,7 @@ const handleCityClick = (city) => {
       </div>
     </div>
 
-<div className='absolute inset-0 flex items-center justify-center md:mt-[380px] mt-52 px-4'>
+<div className='absolute inset-0 flex items-center justify-center md:mt-[410px] mt-52 px-4'>
   <div className='flex flex-col md:flex-row items-center md:h-14 h-40 w-[400px] xl:w-[900px] lg:w-[900px] md:w-[700px] bg-white rounded-lg shadow-xl p-4 transition-transform duration-300 hover:shadow-2xl bg-opacity-95'>
     
     <div className='flex items-center mx-2 relative w-full md:w-[45%]'>
@@ -392,7 +392,7 @@ const handleCityClick = (city) => {
 
 
 {toggleAdvancedSearch && searchCategory === 'Property' && (
-  <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border  border-gray-300 ${advancedSearchInput ? 'h-[293px]' : 'h-20'} rounded-lg ${advancedSearchInput ? 'w-2/3 ' : 'w-2/3 '} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
+  <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border  border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'w-3/5 ' : 'w-3/5 '} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
     <div className='flex items-center space-x-5'>
     <h3 className='font-helveticaLight text-lg '>Advanced Search</h3>
     <label class="switch" >
@@ -403,7 +403,7 @@ const handleCityClick = (city) => {
 </div>
 
 {advancedSearchInput && (
-  <div className='w-full flex flex-wrap justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-200 rounded-lg shadow-lg'>
+  <div className='w-auto flex flex-wrap justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-200 rounded-lg shadow-lg'>
     {/* No of Rooms Input */}
     <div className='flex flex-col w-[32%] mb-6'> {/* Increased width */}
       <label className='font-helveticaLight text-md mb-1 text-gray-800 transition-transform duration-200 transform hover:translate-y-[-2px]'>No of Rooms:</label>
@@ -482,7 +482,7 @@ const handleCityClick = (city) => {
 )}
 
 {toggleAdvancedSearch && searchCategory === 'Cars' && (
-  <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border  border-gray-300 ${advancedSearchInput ? 'h-[293px]' : 'h-20'} rounded-lg ${advancedSearchInput ? 'w-2/3 ' : 'w-2/3 '} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
+  <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border  border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'w-3/5 ' : 'w-3/5 '} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
     <div className='flex items-center space-x-5'>
     <h3 className='font-helveticaLight text-lg '>Advanced Search</h3>
     <label class="switch" >
@@ -493,7 +493,7 @@ const handleCityClick = (city) => {
 </div>
 
 {advancedSearchInput && (
-  <div className='w-full flex flex-wrap justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-200 rounded-lg shadow-lg'>
+  <div className='w-auto flex flex-wrap justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-200 rounded-lg shadow-lg'>
     {/* No of Rooms Input */}
     <div className='flex flex-col w-[32%] mb-6'> {/* Increased width */}
       <label className='font-helveticaLight text-md mb-1 text-gray-800 transition-transform duration-200 transform hover:translate-y-[-2px]'>Transmission</label>
@@ -574,7 +574,7 @@ const handleCityClick = (city) => {
   </div>
 )}
  {toggleAdvancedSearch && searchCategory === 'Mobile' && (
-        <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border border-gray-300 ${advancedSearchInput ? 'h-[293px]' : 'h-20'} rounded-lg ${advancedSearchInput ? 'w-2/3 ' : 'w-2/3 '} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
+        <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'w-3/5 ' : 'w-3/5 '} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
           <div className='flex items-center space-x-5'>
             <h3 className='font-helveticaLight text-lg'>Advanced Search</h3>
             <label className="switch">
@@ -585,7 +585,7 @@ const handleCityClick = (city) => {
           </div>
 
           {advancedSearchInput && (
-            <div className='w-full flex flex-wrap justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-200 rounded-lg shadow-lg'>
+            <div className='w-auto flex flex-wrap justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-200 rounded-lg shadow-lg'>
               
               {/* Model Input */}
               <div className='flex flex-col w-[32%] mb-6'>
@@ -667,7 +667,7 @@ const handleCityClick = (city) => {
       )}
 
 {toggleAdvancedSearch && searchCategory === 'Academics' && (
-        <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border border-gray-300 ${advancedSearchInput ? 'h-[293px]' : 'h-20'} rounded-lg ${advancedSearchInput ? 'w-3/4 ' : 'w-3/4 '} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
+        <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'w-3/5 ' : 'w-3/5 '} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
           <div className='flex items-center space-x-5'>
             <h3 className='font-helveticaLight text-lg'>Advanced Search</h3>
             <label className="switch">
@@ -678,7 +678,7 @@ const handleCityClick = (city) => {
           </div>
 
           {advancedSearchInput && (
-            <div className='w-full flex flex-wrap justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-200 rounded-lg shadow-lg'>
+            <div className='w-auto flex flex-wrap justify-between p-4 bg-gradient-to-r from-gray-50 to-gray-200 rounded-lg shadow-lg'>
               
               {/* Degree Input */}
               <div className='flex flex-col w-[32%] mb-6'>
@@ -759,7 +759,7 @@ const handleCityClick = (city) => {
       )}
   
     </div>
-    <div className="w-full  mx-auto py-12 xl:px-36 px-4">
+    <div className="w-full  mx-auto py-20 xl:px-36 px-4">
   <div className="text-center mb-12">
     <h2 className="text-4xl md:text-5xl font-bold font-roboto text-gray-800 mb-4">Our Premium Categories</h2>
     <p className="text-lg text-gray-600 font-sansing">Explore a variety of exclusive collections curated just for you</p>
@@ -773,7 +773,7 @@ const handleCityClick = (city) => {
         <img 
           src="https://www.igeeksblog.com/wp-content/uploads/2024/09/Download-iPhone-16-and-16-Pro-Max-Wallpapers.jpg" 
           alt="Mobiles" 
-          className="object-cover rounded-lg w-40 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
+          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
         />
         <h3 className="text-3xl font-semibold text-white mb-2">Mobiles</h3>
         <p className="text-white text-sm text-center">Discover the latest trends and technology.</p>
@@ -788,7 +788,7 @@ const handleCityClick = (city) => {
         <img 
           src="https://cdn.pixabay.com/photo/2017/07/17/00/54/house-2511060_640.jpg" 
           alt="Properties" 
-          className="object-cover rounded-lg w-40 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
+          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
         />
         <h3 className="text-3xl font-semibold text-white mb-2">Properties</h3>
         <p className="text-white text-sm text-center">Find your perfect home today.</p>
@@ -803,7 +803,7 @@ const handleCityClick = (city) => {
         <img 
           src="https://www.isharearena.com/wp-content/uploads/2012/11/wallpaper-2426837.jpg" 
           alt="Cars" 
-          className="object-cover rounded-lg w-40 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
+          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
         />
         <h3 className="text-3xl font-semibold text-white mb-2">Cars</h3>
         <p className="text-white text-sm text-center">Explore our range of luxury cars.</p>
@@ -818,7 +818,7 @@ const handleCityClick = (city) => {
         <img 
           src="https://watermark.lovepik.com/photo/50089/0761.jpg_wh1200.jpg" 
           alt="Education" 
-          className="object-cover rounded-lg w-40 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
+          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
         />
         <h3 className="text-2xl font-semibold text-white mb-2">Azad Education</h3>
         <p className="text-white text-sm text-center">Empower yourself with education.</p>
@@ -861,7 +861,7 @@ const handleCityClick = (city) => {
       ref={carouselRef}
       className='flex overflow-x-hidden snap-x snap-mandatory'>
       {products.map((property, index) => (
-        <div key={index} className='flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-2 snap-center'>
+        <div key={index} className='flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-3 snap-center'>
           <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 relative'>
             <img
               src={property.image}
@@ -949,7 +949,7 @@ const handleCityClick = (city) => {
       ref={propertyCarouselRef}
       className='flex overflow-x-hidden snap-x snap-mandatory'>
       {properties.map((property, index) => (
-        <div key={index} className='flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-2 snap-center'>
+        <div key={index} className='flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-3 snap-center'>
           <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 relative'>
             <img
               src={property.image}
@@ -1034,7 +1034,7 @@ const handleCityClick = (city) => {
       ref={carsref}
       className='flex overflow-x-hidden snap-x snap-mandatory'>
       {cars.map((property, index) => (
-        <div key={index} className='flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-2 snap-center'>
+        <div key={index} className='flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-3 snap-center'>
           <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 relative'>
             <img
               src={property.image}
@@ -1115,7 +1115,7 @@ const handleCityClick = (city) => {
       ref={Academicsref}
       className='flex overflow-x-hidden snap-x snap-mandatory'>
       {academics.map((property, index) => (
-        <div key={index} className='flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-2 snap-center'>
+        <div key={index} className='flex-shrink-0 w-full sm:w-1/2 md:w-1/4 p-3 snap-center'>
           <div className='bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 relative'>
             <img
               src={property.image}

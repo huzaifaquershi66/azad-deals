@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback,useRef } from 'react';
 import cities from './header/cites';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot, faAngleDown ,faPhone,faComments,faHeart,faTimes} from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faAngleDown ,faPhone,faComments,faHeart,faTimes,faSearch} from '@fortawesome/free-solid-svg-icons';
 
 import { faBars, faTh } from '@fortawesome/free-solid-svg-icons'
 
@@ -12,106 +12,226 @@ const popularCities = ['Karachi', 'Lahore', 'Islamabad', 'Faisalabad', 'Rawalpin
 
 
 const initialProducts = [
+  // Mobiles
   {
+    category: 'Mobiles',
     image: 'https://i.ytimg.com/vi/bE_3r_Eu7SU/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCU6jEwJ6TB8hqIZ36Lx3AwNYheMg',
     price: 'Rs 3,00,000',
     originalPrice: 'Rs 3,40,000',
-    desc:"Experience vibrant visuals on the expansive 6.8-inch Quad HD+ display with a 120Hz refresh rate. Whether you’re streaming your favorite shows or gaming, every detail pops with true-to-life colors and silky smooth scrolling",
+    desc: "Experience vibrant visuals on the expansive 6.8-inch Quad HD+ display with a 120Hz refresh rate.",
     name: 'Iphone 14 Pro Max',
     location: 'Faisalabad',
-   },
+  },
   {
-   image: 'https://cdn.mos.cms.futurecdn.net/BHiwWkpNWGCUmuA5g66Dgi.jpg',
+    category: 'Mobiles',
+    image: 'https://cdn.mos.cms.futurecdn.net/BHiwWkpNWGCUmuA5g66Dgi.jpg',
     price: 'Rs 2,00,000',
     originalPrice: 'Rs 2,40,000',
+    desc: "The iPhone 13 Pro Max delivers top-tier performance.",
     name: 'Iphone 13 Pro Max',
     location: 'Lahore',
   },
   {
+    category: 'Mobiles',
     image: 'https://cdn.mos.cms.futurecdn.net/oNrqmEW2Y5HN8ixWPxLweP.jpg',
     price: 'Rs 4,00,000',
     originalPrice: 'Rs 3,40,000',
+    desc: "The Samsung S20 Ultra features an impressive camera system.",
     name: 'Samsung S20 Ultra',
     location: 'Faisalabad',
   },
   {
+    category: 'Mobiles',
     image: 'https://www.screenfixed.com.au/wp-content/uploads/2020/10/samsung-galaxy-s20-ultra-vs-iphone-12-pro-max.jpg',
     price: 'Rs 2,00,000',
     originalPrice: 'Rs 2,20,000',
+    desc: "Samsung S21 Ultra offers a stunning display and great battery life.",
     name: 'Samsung S21 Ultra',
     location: 'Jhang',
   },
   {
+    category: 'Mobiles',
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7K-HLmf3U9-cr8EOXZ2En0QsOb26nJbAqPg&s',
     price: 'Rs 2,50,000',
     originalPrice: 'Rs 2,80,000',
+    desc: "The iPhone 14 combines performance with sleek design.",
     name: 'Iphone 14',
     location: 'Karachi',
   },
   {
+    category: 'Mobiles',
     image: 'https://cdn.mos.cms.futurecdn.net/W5nsEqQhWmX3MKgUc8Y4Af.jpg',
     price: 'Rs 1,80,000',
     originalPrice: 'Rs 2,00,000',
+    desc: "OnePlus 9 offers high performance at an affordable price.",
     name: 'OnePlus 9',
     location: 'Islamabad',
   },
   {
+    category: 'Mobiles',
     image: 'https://www.androidauthority.com/wp-content/uploads/2021/02/Xiaomi-Mi-11-blue-and-pink-hues.jpg',
     price: 'Rs 1,00,000',
     originalPrice: 'Rs 1,20,000',
+    desc: "Xiaomi Mi 11 features a stunning display and powerful camera.",
     name: 'Xiaomi Mi 11',
     location: 'Karachi',
   },
+
+  // Cars
   {
-    image: 'https://estorepakistan.com/cdn/shop/products/google-pixel-6-proestore-pakistancloudy-white128gbsim-locked-550350_1024x1024.webp?v=1701694247',
-    price: 'Rs 2,20,000',
-    originalPrice: 'Rs 2,50,000',
-    name: 'Google Pixel 6',
-    location: 'Lahore',
-  },
-  {
-    image: 'https://www.androidauthority.com/wp-content/uploads/2021/02/Xiaomi-Mi-11-blue-and-pink-hues.jpg',
-    price: 'Rs 1,00,000',
-    originalPrice: 'Rs 1,20,000',
-    name: 'Xiaomi Mi 11',
+    category: 'Cars',
+    image: 'https://media.drive.com.au/obj/tx_q:50,rs:auto:1920:1080:1/driveau/upload/cms/uploads/loqpsjfvmcu4bbqnh4vl',
+    price: 'Rs 3,000,000',
+    originalPrice: 'Rs 3,500,000',
+    name: 'Luxury Sedan',
     location: 'Karachi',
-  },
-  {
-    image: 'https://estorepakistan.com/cdn/shop/products/google-pixel-6-proestore-pakistancloudy-white128gbsim-locked-550350_1024x1024.webp?v=1701694247',
-    price: 'Rs 2,20,000',
-    originalPrice: 'Rs 2,50,000',
-    name: 'Google Pixel 6',
+    details: '4 Doors, 5 Seats, Automatic Transmission',
+},
+{
+  category: 'Cars',
+    image: 'https://static.pakwheels.com/2020/07/2f58da326bf5c5b42e33e9b6b531e324.jpg',
+    price: 'Rs 4,500,000',
+    originalPrice: 'Rs 5,000,000',
+    name: 'Sporty Coupe',
     location: 'Lahore',
-  },
-  {
-    image: 'https://cdn.mos.cms.futurecdn.net/oNrqmEW2Y5HN8ixWPxLweP.jpg',
-    price: 'Rs 4,00,000',
-    originalPrice: 'Rs 3,40,000',
-    name: 'Samsung S20 Ultra',
+    details: '2 Doors, 4 Seats, Manual Transmission',
+},
+{
+  category: 'Cars',
+    image: 'https://media.ed.edmunds-media.com/audi/q7/2025/oem/2025_audi_q7_4dr-suv_prestige_fq_oem_1_1600.jpg',
+    price: 'Rs 2,500,000',
+    originalPrice: 'Rs 3,000,000',
+    name: 'Compact Hatchback',
+    location: 'Islamabad',
+    details: '5 Doors, 5 Seats, Automatic Transmission',
+},
+{
+  category: 'Cars',
+    image: 'https://global.toyota/pages/news/images/2021/08/02/1330/001.jpg',
+    price: 'Rs 7,000,000',
+    originalPrice: 'Rs 7,500,000',
+    name: 'Luxury SUV',
     location: 'Faisalabad',
-  },
+    details: '4 Doors, 7 Seats, All Wheel Drive',
+},
+{
+  category: 'Cars',
+    image: 'https://www.topgear.com/sites/default/files/news-listicle/image/2023/12/Mustang%20GTD%20on%20Track%204.jpg',
+    price: 'Rs 6,000,000',
+    originalPrice: 'Rs 6,500,000',
+    name: 'Family Minivan',
+    location: 'Peshawar',
+    details: '4 Doors, 8 Seats, Automatic Transmission',
+},
+  // Academics
   {
-    image: 'https://www.screenfixed.com.au/wp-content/uploads/2020/10/samsung-galaxy-s20-ultra-vs-iphone-12-pro-max.jpg',
-    price: 'Rs 2,00,000',
-    originalPrice: 'Rs 2,20,000',
-    name: 'Samsung S21 Ultra',
-    location: 'Jhang',
-  },
+    category: 'Academics',
+    image: 'https://nwc.edu/academics/photos/program-photos/computer-science.jpg',
+    title: 'Bachelor of Science in Computer Science',
+    university: 'University of California',
+    duration: '4 Years',
+    location: 'Los Angeles, CA',
+    price: '$50,000',
+    description: 'Advanced computing.'
+},
+{
+  category: 'Academics',
+    image: 'https://reti.edu.my/wp-content/uploads/2021/04/17.jpg',
+    title: 'Master of Business Administration',
+    university: 'Harvard Business School',
+    duration: '2 Years',
+    location: 'Boston, MA',
+    price: '$70,000',
+    description: 'Leadership and strategy.'
+},
+{
+  category: 'Academics',
+    image: 'https://focusme.com/wp-content/uploads/2020/07/shutterstock_610111481-600-x-400-jpg-1.jpeg',
+    title: 'Bachelor  of Arts in Science of Psychology',
+    university: 'Stanford University',
+    duration: '4 Years',
+    location: 'Stanford, CA',
+    price: '$45,000',
+    description: 'Study human behavior.'
+},
+{
+  category: 'Academics',
+    image: 'https://www.mygreatlearning.com/blog/wp-content/uploads/2019/09/What-is-data-science-2.jpg',
+    title: 'Master of Science in Data Science',
+    university: 'Columbia University',
+    duration: '2 Years',
+    location: 'New York, NY',
+    price: '$60,000',
+    description: 'Data analysis and AI.'
+},
+{
+  category: 'Academics',
+    image: 'https://www.nsu.edu/NSU/media/Photos/2017/06/Fine%20Arts/TMC-2479-B15-Fine-Arts-005.jpg',
+    title: 'Bachelor of Fine Arts',
+    university: 'Rhode Island School of Design',
+    duration: '4 Years',
+    location: 'Providence, RI',
+    price: '$40,000',
+    description: 'Creative arts and design.'
+},
+
+  // Properties
   {
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7K-HLmf3U9-cr8EOXZ2En0QsOb26nJbAqPg&s',
-    price: 'Rs 2,50,000',
-    originalPrice: 'Rs 2,80,000',
-    name: 'Iphone 14',
+    category: 'Properties',
+    image: 'https://img-v2.gtsstatic.net/reno/imagereader.aspx?imageurl=https%3A%2F%2Fsir.azureedge.net%2F1103i215%2Fcrtzsmmyfhja41ejt4v18vmza4i215&option=N&h=472&permitphotoenlargement=false',
+    price: 'Rs 5,000,000',
+    originalPrice: 'Rs 5,500,000',
+    name: 'Luxury 3-Bedroom Apartment',
     location: 'Karachi',
-  },
-  {
-    image: 'https://cdn.mos.cms.futurecdn.net/W5nsEqQhWmX3MKgUc8Y4Af.jpg',
-    price: 'Rs 1,80,000',
-    originalPrice: 'Rs 2,00,000',
-    name: 'OnePlus 9',
+    details: '3 Bedrooms, 2 Bathrooms, 1 Living Room, 1 Kitchen',
+},
+{
+  category: 'Properties',
+    image: 'https://img-v2.gtsstatic.net/reno/imagereader.aspx?imageurl=https%3A%2F%2Fsir.azureedge.net%2F977i215%2F0ppj3ftfj8xkmvyyqhfgzqnda4i215&option=N&h=472&permitphotoenlargement=false',
+    price: 'Rs 3,500,000',
+    originalPrice: 'Rs 4,000,000',
+    name: 'Cozy 2-Bedroom House',
+    location: 'Lahore',
+    details: '2 Bedrooms, 1 Bathroom, 1 Living Room, 1 Kitchen',
+},
+{
+  category: 'Properties',
+    image: 'https://img.jamesedition.com/listing_images/2023/11/21/16/27/19/296cf528-d5a8-4c49-87bd-3b3ccf83c501/je/507x312xc.jpg',
+    price: 'Rs 8,000,000',
+    originalPrice: 'Rs 8,500,000',
+    name: 'Spacious Villa with Garden',
     location: 'Islamabad',
-  },
- ];
+    details: '4 Bedrooms, 3 Bathrooms, 2 Living Rooms, 1 Kitchen',
+},
+{
+  category: 'Properties',
+    image: 'https://www.sothebysrealty-france.com/datas/biens/images/36471/36471_19-2023-07-25-1751.jpg',
+    price: 'Rs 7,000,000',
+    originalPrice: 'Rs 7,500,000',
+    name: 'Modern Studio Apartment',
+    location: 'Faisalabad',
+    details: '1 Bedroom, 1 Bathroom, 1 Living Room, 1 Kitchen',
+},
+{
+  category: 'Properties',
+    image: 'https://psgroup.in/blog/wp-content/uploads/2020/12/photo-1591247378418-c77f1532d2f8.jpeg',
+    price: 'Rs 6,000,000',
+    originalPrice: 'Rs 6,500,000',
+    name: 'Stylish Townhouse',
+    location: 'Peshawar',
+    details: '3 Bedrooms, 2 Bathrooms, 1 Living Room, 2 Kitchens',
+},
+{
+  category: 'Properties',
+    image: 'https://mljdb885ttsd.i.optimole.com/w:auto/h:auto/q:mauto/ig:avif/f:best/id:552066c333774db816a1db7a24104c60/https://www.7thheavenproperties.com/homes-for-sale-hambani-estates-kingston-jamaica-9.jpg',
+    price: 'Rs 4,500,000',
+    originalPrice: 'Rs 5,000,000',
+    name: 'Charming Bungalow',
+    location: 'Quetta',
+    details: '2 Bedrooms, 1 Bathroom, 1 Living Room, 1 Kitchen',
+},
+];
+
 
 const ListingPage = () => {
   const [minPrice, setMinPrice] = useState(0);
@@ -120,16 +240,40 @@ const ListingPage = () => {
   const [showCities, setShowCities] = useState(false);
   const [filteredCities, setFilteredCities] = useState(uniqueCities);
   const [sortOption, setSortOption] = useState('default');
-  const [products, setProducts] = useState(initialProducts.slice(0, 6)); // Show only 6 products initially
-  const [visibleCount, setVisibleCount] = useState(6); // Track number of visible products
+  const [visibleCount, setVisibleCount] = useState(6); // Start with 6 visible products
+  const [products, setProducts] = useState([])// Track number of visible products
   const [isGridView, setIsGridView] = useState(true);
-  const [sortOptions, setSortOptions] = useState('newlyListed');
   const [likedProducts, setLikedProducts] = useState({});
+  const [selectedState, setSelectedState] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("mobiles");
+  const [featured, setFeatured] = useState(false);  // State for Featured checkbox
+  const [urgent, setUrgent] = useState(false);
+  
   const observerRef = useRef(null);
+  const stateOptions = ['Punjab', 'Sindh', 'Balochistan', 'KPK', 'Gilgit-Baltistan'];
+  
+  // Handle state selection
+  const handleStateChange = (e) => {
+    setSelectedState(e.target.value);
+  };
+  
+  // Handle category selection
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+    setVisibleCount(6); // Reset visible count on category change
+    filterProducts(6); // Filter products for the new category immediately
+};
+
+  useEffect(() => {
+    filterProducts(initialProducts.length); // Only call filterProducts with initial count when category changes
+  }, [selectedCategory]);
+  
+  
+  
   // Function to sort products based on selected option
   const sortedProducts = () => {
     let sortedArray = [...products];
-
+  
     switch (sortOption) {
       case 'newlyListed':
         // Assuming there is a listedDate field in the products, sort by that
@@ -144,41 +288,39 @@ const ListingPage = () => {
         return sortedArray;
     }
   };
-
+  
   const toggleHeart = (productName) => {
     setLikedProducts((prev) => ({
       ...prev,
       [productName]: !prev[productName],
     }));
   };
+  
   useEffect(() => {
     setFilteredCities(uniqueCities);
   }, [uniqueCities]);
-
-  useEffect(() => {
-    filterProducts();
-  }, [searchTerm, minPrice, maxPrice, sortOption]);
-
+  
   const handleInputClick = () => {
     setShowCities((prev) => !prev);
   };
-
+  
   const handleSearchChange = useCallback((e) => {
     const term = e.target.value;
     setSearchTerm(term);
     setFilteredCities(term ? uniqueCities.filter(city => city.toLowerCase().includes(term.toLowerCase())) : uniqueCities);
     setShowCities(!!term);
   }, [uniqueCities]);
-
+  
   const handleCityClick = (city) => {
     setSearchTerm(city);
     setShowCities(false);
   };
-
+  const handleFeaturedChange = () => setFeatured(!featured); // Toggle Featured checkbox state
+  const handleUrgentChange = () => setUrgent(!urgent); 
   const handleSortChange = (e) => {
     setSortOption(e.target.value);
   };
-
+  
   const resetFilters = () => {
     setMinPrice(0);
     setMaxPrice(400000);
@@ -186,57 +328,79 @@ const ListingPage = () => {
     setSortOption('default');
     setFilteredCities(uniqueCities);
     setShowCities(false);
-    setVisibleCount(6); // Reset to show 6 products
+    setVisibleCount(initialProducts.length); // Reset to show 6 products
+  };
+  useEffect(() => {
+    setVisibleCount(6); // Reset visible count on category change
+    filterProducts(6); // Filter products for the new category
+  }, [selectedCategory, initialProducts]);
+
+  // Effect to handle loading more products
+  const filterProducts = (count) => {
+    const filtered = initialProducts.filter(product =>
+        product.category.toLowerCase() === selectedCategory.toLowerCase()
+    );
+    setProducts(filtered.slice(0, count)); // Set products based on filtered results
+};
+
+  
+   // Function to load more products
+  // Function to load more products
+  const loadMoreProducts = () => {
+    setVisibleCount((prevCount) => {
+      const newCount = prevCount + 6; // Increment visible count
+      const filteredProducts = initialProducts.filter(product =>
+        product.category.toLowerCase() === selectedCategory.toLowerCase()
+      );
+      return Math.min(newCount, filteredProducts.length); // Prevent exceeding total number of filtered products
+    });
   };
 
-  const loadMoreProducts = () => {
-    // Increase visible count and filter products
-    setVisibleCount(prevCount => {
-      const newCount = prevCount + 6;
-      filterProducts(newCount); // Pass the new count to filterProducts
-      return newCount; // Return the new count to update state
-    });
-  };
-  
-  const filterProducts = (count) => {
-    let filteredProducts = initialProducts;
-  
-    // Apply search and price filters
-    if (searchTerm) {
-      filteredProducts = filteredProducts.filter(product => product.location === searchTerm);
-    }
-  
-    filteredProducts = filteredProducts.filter(product => {
-      const priceValue = parseInt(product.price.replace(/[^\d]/g, ''));
-      return priceValue >= minPrice && priceValue <= maxPrice;
-    });
-  
-    // Sort filtered products
-    if (sortOption === 'asc') {
-      filteredProducts.sort((a, b) => parseInt(a.price.replace(/[^\d]/g, '')) - parseInt(b.price.replace(/[^\d]/g, '')));
-    } else if (sortOption === 'desc') {
-      filteredProducts.sort((a, b) => parseInt(b.price.replace(/[^\d]/g, '')) - parseInt(a.price.replace(/[^\d]/g, '')));
-    }
-  
-    // Update products to show based on the current count
-    setProducts(filteredProducts.slice(0, count)); // Use the passed count
-  };
-  
-  // In the useEffect for filtering products, include visibleCount
   useEffect(() => {
-    filterProducts(visibleCount);
-  }, [searchTerm, minPrice, maxPrice, sortOption, visibleCount]);
+    setProducts(initialProducts.slice(0, visibleCount)); // Update displayed products
+  }, [visibleCount]);
+
+  // Scroll event listener
+  useEffect(() => {
+    const handleScroll = () => {
+        const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 200; // Check if near bottom
+        if (nearBottom) {
+            loadMoreProducts(); // Load more products when near the bottom
+        }
+    };
+
+    window.addEventListener('scroll', handleScroll); // Attach scroll event listener
+
+    return () => {
+        window.removeEventListener('scroll', handleScroll); // Clean up on unmount
+    };
+}, [selectedCategory]); 
+
+useEffect(() => {
+  filterProducts(visibleCount); // Filter products based on the currently visible count
+}, [visibleCount, selectedCategory]);
+
+
+  const handleFilterClick = () => {
+    filterProducts(visibleCount); // Call filterProducts with the current count
+  };
   
+ 
+  
+  
+  // Intersection observer for lazy loading more products
   const lastProductElementRef = useCallback((node) => {
     if (observerRef.current) observerRef.current.disconnect();
-    observerRef.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        loadMoreProducts();
-      }
-    });
-    if (node) observerRef.current.observe(node);
+    if (node) {
+      observerRef.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          loadMoreProducts();
+        }
+      });
+      observerRef.current.observe(node);
+    }
   }, []);
-
+  
 
   return (
     <>
@@ -282,6 +446,19 @@ const ListingPage = () => {
   <h2 className="font-sans text-4xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-gradient">
     Filters
   </h2>
+  <div className="mb-6">
+    <label className="text-lg font-semibold text-gray-800">Category</label>
+    <select
+      value={selectedCategory}
+      onChange={handleCategoryChange}
+      className="mt-3 p-3 border border-gray-300 rounded-full w-full focus:outline-none focus:ring-4 focus:ring-blue-400 shadow-md transition-all duration-300 hover:bg-blue-50/90 hover:border-blue-400 hover:shadow-lg"
+    >
+      <option value="mobiles">Mobiles</option>
+      <option value="cars">Cars</option>
+      <option value="properties">Properties</option>
+      <option value="academics">Academics</option>
+    </select>
+  </div>
 
   {/* Sort Options */}
   <div className="mb-6">
@@ -295,6 +472,23 @@ const ListingPage = () => {
       <option value="asc">Price: Low to High</option>
       <option value="desc">Price: High to Low</option>
       <option value="popular">Most Popular</option>
+    </select>
+  </div>
+
+  {/* State Selection */}
+  <div className="mb-6">
+    <label className="text-lg font-semibold text-gray-800">Select State</label>
+    <select
+      value={selectedState}
+      onChange={handleStateChange}
+      className="mt-3 p-3 border border-gray-300 rounded-full w-full focus:outline-none focus:ring-4 focus:ring-blue-400 shadow-md transition-all duration-300 hover:bg-blue-50/90 hover:border-blue-400 hover:shadow-lg"
+    >
+      <option value="" disabled>Select State</option>
+      <option value="punjab">Punjab</option>
+      <option value="sindh">Sindh</option>
+      <option value="balochistan">Balochistan</option>
+      <option value="kpk">Khyber Pakhtunkhwa</option>
+      <option value="gilgit-baltistan">Gilgit Baltistan</option>
     </select>
   </div>
 
@@ -317,8 +511,30 @@ const ListingPage = () => {
       <span className="ml-4 text-lg font-semibold text-blue-600">₨{maxPrice}</span>
     </div>
     <div className="flex justify-between font-semibold text-sm text-gray-500 mt-2">
-      <span>₨0</span>
-      <span>₨400,000</span>
+      <span>From pkr 0</span>
+      <span>Min pkr 400,000</span>
+    </div>
+  </div>
+
+  {/* Featured and Urgent Checkboxes */}
+  <div className="mb-6">
+    <div className="flex items-center space-x-4">
+      <label className="flex items-center text-lg font-semibold text-gray-800">
+        <input
+          type="checkbox"
+          className="mr-3 h-5 w-5 text-purple-500 border-gray-300 rounded focus:ring-purple-400 transition-transform duration-200 hover:scale-110"
+          onChange={handleFeaturedChange}
+        />
+        Featured
+      </label>
+      <label className="flex items-center text-lg font-semibold text-gray-800">
+        <input
+          type="checkbox"
+          className="mr-3 h-5 w-5 text-red-500 border-gray-300 rounded focus:ring-red-400 transition-transform duration-200 hover:scale-110"
+          onChange={handleUrgentChange}
+        />
+        Urgent
+      </label>
     </div>
   </div>
 
@@ -384,17 +600,26 @@ const ListingPage = () => {
     </div>
   </div>
 
-  {/* Reset Button */}
-  <div className="flex justify-center mt-10">
+  {/* Action Buttons */}
+  <div className="justify-center mt-10">
+    <button
+      onClick={handleFilterClick}
+      className="bg-gradient-to-r from-green-500 to-teal-500 text-white w-full max-w-xs px-12 py-3 mb-4 rounded-full shadow-lg transition-transform transform hover:scale-105 hover:from-teal-500 hover:to-green-500 focus:outline-none font-semibold hover:shadow-2xl focus:ring-4 focus:ring-teal-300 focus:ring-opacity-50 active:scale-95"
+    >
+      <FontAwesomeIcon icon={faSearch} className="mr-2 text-lg" />
+      Search
+    </button>
+
     <button
       onClick={resetFilters}
-      className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-10 py-3 rounded-full shadow-lg transition-transform transform hover:scale-105 hover:from-purple-500 hover:to-blue-500 focus:outline-none font-semibold"
+      className="bg-gradient-to-r from-blue-500 to-purple-500 text-white w-full max-w-xs px-12 py-3 rounded-full shadow-lg transition-transform transform hover:scale-105 hover:from-purple-500 hover:to-blue-500 focus:outline-none font-semibold"
     >
       <FontAwesomeIcon icon={faTimes} className="mr-2" />
       Reset Filters
     </button>
   </div>
 </div>
+
 
 <div className="bg-white rounded-lg p-8 shadow-xl transition-transform duration-300 hover:shadow-2xl md:col-span-3">
   <div className="flex justify-between items-center mb-6">
@@ -433,39 +658,74 @@ const ListingPage = () => {
 
   {/* Product Display */}
   <div className={`grid ${isGridView ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8' : 'grid-cols-1'}`}>
-    {sortedProducts().map((product) => (
-      <div
-        ref={lastProductElementRef}
-        key={product.name}
-        className={`bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-2xl border border-gray-200 ${isGridView ? 'flex flex-col' : 'flex items-center'}`}
-      >
-        <img
-          src={product.image}
-          alt={product.name}
-          className={`object-cover ${isGridView ? 'h-64 w-full' : 'h-64 w-72'} transition-transform duration-200`} // Removed hover:scale-110
-        />
-        <div className={`${isGridView ? 'p-6' : 'p-4 text-center'} space-y-2`}>
-          <h3 className="font-semibold text-lg text-gray-800 hover:text-green-600 transition duration-200">{product.name}</h3>
-          <p className="text-gray-600 font-bold">
-            {product.price} <span className="line-through font-sans text-gray-400">{product.originalPrice}</span>
-          </p>
-          <p className="text-gray-500 flex items-center justify-center mb-4">
-            <FontAwesomeIcon icon={faLocationDot} className="mr-1" />
-            {product.location}
-          </p>
-          <div className="flex space-x-2 justify-center">
-            <button className="bg-blue-600 text-white font-roboto px-5 py-2 rounded-lg shadow-md hover:bg-blue-700 transition duration-200 flex items-center">
-              <FontAwesomeIcon icon={faPhone} className="mr-2" />
-              Call
-            </button>
-            <button className="bg-green-600 font-roboto text-white px-5 py-2 rounded-lg shadow-md hover:bg-green-700 transition duration-200 flex items-center">
-              <FontAwesomeIcon icon={faComments} className="mr-2" />
-              Chat
-            </button>
+    {products.map((product, index) => {
+      const isLastElement = index === products.length - 1;
+      return (
+        <div
+          ref={isLastElement ? lastProductElementRef : null}
+          key={product.title || product.name} // Use title or name based on your preference
+          className={`bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-2xl border border-gray-200 ${isGridView ? 'flex flex-col' : 'flex items-center'}`}
+        >
+          <img
+            src={product.image}
+            alt={product.title || product.name} // Use title or name for alt text
+            className={`object-cover ${isGridView ? 'h-64 w-full' : 'h-64 w-72'} transition-transform duration-200`}
+          />
+          <div className={`${isGridView ? 'p-6' : 'p-4 text-center'} space-y-2`}>
+            {product.category === 'Academics' ? (
+              <>
+                <h3 className="font-semibold text-lg text-gray-800 hover:text-green-600 transition duration-200">
+                  {product.title} {/* Display title for Academics */}
+                </h3>
+                <p className="text-gray-600 font-bold">
+                  {product.price} <span className="line-through font-sans text-gray-400">{product.originalPrice}</span>
+                </p>
+                <p className="text-gray-500 mb-4">{product.university} - {product.duration}</p> {/* Display university and duration */}
+                <p className="text-gray-500">{product.description}</p> {/* Display description */}
+              </>
+            ) : product.category === 'Cars' ? (
+              <>
+                <h3 className="font-semibold text-lg text-gray-800 hover:text-green-600 transition duration-200">
+                  {product.name} {/* Display name for Cars */}
+                </h3>
+                <p className="text-gray-600 font-bold">
+                  {product.price} <span className="line-through font-sans text-gray-400">{product.originalPrice}</span>
+                </p>
+                <p className="text-gray-500">{product.details}</p> {/* Display details for cars */}
+                <p className="text-gray-500 flex items-center justify-center mb-4">
+                  <FontAwesomeIcon icon={faLocationDot} className="mr-1" />
+                  {product.location} {/* Display location */}
+                </p>
+              </>
+            ) : (
+              <>
+                <h3 className="font-semibold text-lg text-gray-800 hover:text-green-600 transition duration-200">
+                  {product.name} {/* Display name for other categories */}
+                </h3>
+                <p className="text-gray-600 font-bold">
+                  {product.price} <span className="line-through font-sans text-gray-400">{product.originalPrice}</span>
+                </p>
+                <p className="text-gray-500">{product.details}</p> {/* Display details for properties */}
+                <p className="text-gray-500 flex items-center justify-center mb-4">
+                  <FontAwesomeIcon icon={faLocationDot} className="mr-1" />
+                  {product.location} {/* Display location */}
+                </p>
+              </>
+            )}
+            <div className="flex space-x-2 justify-center">
+              <button className="bg-blue-600 text-white font-roboto px-5 py-2 rounded-lg shadow-md hover:bg-blue-700 transition duration-200 flex items-center">
+                <FontAwesomeIcon icon={faPhone} className="mr-2" />
+                Call
+              </button>
+              <button className="bg-green-600 font-roboto text-white px-5 py-2 rounded-lg shadow-md hover:bg-green-700 transition duration-200 flex items-center">
+                <FontAwesomeIcon icon={faComments} className="mr-2" />
+                Chat
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    ))}
+      );
+    })}
   </div>
 
   {/* Load More Button */}
@@ -479,6 +739,8 @@ const ListingPage = () => {
     </button> */}
   </div>
 </div>
+
+
 
 
 
