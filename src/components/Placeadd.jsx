@@ -1,10 +1,68 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera, faUpload, faMobileAlt, faHome, faCar, faGraduationCap,faMapMarkerAlt,faLocationDot,faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import cities from './header/cites';
 import { faHouse, faBuilding, faLandmark, faTags,  faWarehouse } from '@fortawesome/free-solid-svg-icons';
-        
-import { useCallback } from 'react';
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+
+// Leaflet marker icon fix for React Leaflet
+// delete L.Icon.Default.prototype._getIconUrl;
+// L.Icon.Default.mergeOptions({
+//   iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+//   iconUrl: require("leaflet/dist/images/marker-icon.png"),
+//   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+// });
+
+
+import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch'
+import { useRef } from 'react';
+
+// import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+ 
+// delete L.Icon.Default.prototype._getIconUrl;
+// L.Icon.Default.mergeOptions({
+//   iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+//   iconUrl: require("leaflet/dist/images/marker-icon.png"),
+//   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+// });
+const statesWithCities = {
+  Punjab: [
+    "Lahore", "Faisalabad", "Rawalpindi", "Multan", "Gujranwala", "Sialkot", "Bahawalpur",
+    "Sargodha", "Sheikhupura", "Jhang", "Gujrat", "Kasur", "Rahim Yar Khan", "Sahiwal",
+    "Okara", "Wah Cantonment", "Dera Ghazi Khan", "Chiniot", "Kamoke", "Hafizabad",
+    "Mandi Bahauddin", "Toba Tek Singh", "Jhelum", "Sadiqabad", "Muzaffargarh", "Vehari",
+    "Khushab", "Pakpattan", "Narowal", "Khanewal", "Mianwali", "Bhakkar", "Bahawalnagar"
+  ],
+  Sindh: [
+    "Karachi", "Hyderabad", "Sukkur", "Larkana", "Mirpur Khas", "Shaheed Benazirabad",
+    "Jacobabad", "Shikarpur", "Dadu", "Thatta", "Badin", "Khairpur", "Umerkot", "Naushero Feroze",
+    "Ghotki", "Sanghar", "Mithi", "Kandhkot", "Tando Allahyar", "Tando Muhammad Khan",
+    "Moro", "Kotri", "Hala", "Kunri", "Sehwan", "Sakrand"
+  ],
+  Balochistan: [
+    "Quetta", "Gwadar", "Turbat", "Khuzdar", "Sibi", "Zhob", "Loralai", "Chaman",
+    "Pishin", "Kalat", "Dera Murad Jamali", "Hub", "Musakhel", "Jafarabad", "Nushki",
+    "Panjgur", "Surab", "Barkhan", "Dera Allah Yar", "Usta Muhammad", "Lasbela",
+    "Kharan", "Washuk", "Awaran", "Kohlu", "Qila Saifullah", "Qila Abdullah", "Mastung"
+  ],
+  KhyberPakhtunkhwa: [
+    "Peshawar", "Abbottabad", "Mardan", "Swat", "Kohat", "Dera Ismail Khan", "Bannu",
+    "Charsadda", "Nowshera", "Swabi", "Haripur", "Mansehra", "Karak", "Lakki Marwat",
+    "Buner", "Dir", "Shangla", "Tank", "Battagram", "Lower Dir", "Upper Dir", "Hangu",
+    "Mingora", "Timergara", "Parachinar", "Mardan", "Malakand"
+  ],
+  Islamabad: ["Islamabad"],
+  GilgitBaltistan: [
+    "Gilgit", "Skardu", "Hunza", "Chilas", "Ghanche", "Ghizer", "Astore", "Kharmang",
+    "Shigar", "Nagar"
+  ],
+  AzadKashmir: [
+    "Muzaffarabad", "Mirpur", "Rawalakot", "Bagh", "Kotli", "Bhimber", "Pallandri",
+    "Hajira", "Dadyal", "Athmuqam", "Barnala"
+  ]
+};
 
 const uniqueCities = Array.from(new Set(cities));
 const PlaceAdd = () => {
@@ -15,9 +73,24 @@ const PlaceAdd = () => {
   const [advancedSearch, setAdvancedSearch] = useState(false);
   const [showCities, setshowCities] = useState(false);
   const [isLocationSet, setIsLocationSet] = useState(false);
+  
     const [propertyPurpose, setPropertyPurpose] = useState('');
+    const [markerPosition, setMarkerPosition] = useState([51.505, -0.09])
+    const [media, setMedia] = useState(Array(10).fill(null));
+    const [titleImage, setTitleImage] = useState(null);
+
+  
  
   const [propertyType, setPropertyType] = useState('');
+  const [selectedState, setSelectedState] = useState("");
+  const [cities, setCities] = useState([]);
+
+  const handleStateChange = (event) => {
+    const selected = event.target.value;
+    setSelectedState(selected);
+    setCities(statesWithCities[selected] || []);
+  };
+ 
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -70,8 +143,19 @@ const PlaceAdd = () => {
   const handleInputClick = () => {
     setshowCities((prev) => !prev);  };
 
- 
-
+    const handleTitleImageChange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const objectUrl = URL.createObjectURL(file);
+        // Update both titleImage and formData with the blob URL
+        setTitleImage(objectUrl);
+        setFormData({
+          ...formData,
+          titleImage: objectUrl, // Store blob URL in formData
+        });
+      }
+    };
+    
   // Handle search input change
  // Handle search input change
  const handleSearchChange = useCallback((e) => {
@@ -127,40 +211,51 @@ const handleCityClick = (city) => {
     }
     setCategory(cat);
   };
-  const handleInputClicks = () => {
-    // Check if location has already been set
-    if (!isLocationSet) {
-      // Get live location
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
+  const provider = new OpenStreetMapProvider();
 
-            // Set the location in the input field
-            const liveLocation = `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
-            setFormData((prevData) => ({
-              ...prevData,
-              location: liveLocation, // Add live location to input
-            }));
+  // Handle input click to fetch live location using Geosearch API
+  const handleInputClickss = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
 
-            // Set the flag that location is set
-            setIsLocationSet(true);
-          },
-          (error) => {
-            console.error("Error fetching location: ", error);
-            alert("Unable to retrieve your location. Please ensure location services are enabled.");
-          }
-        );
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
-    } else {
-      // Redirect to Google Maps with the saved location
-      const googleMapsUrl = `https://www.google.com/maps?q=${formData.location}`;
-      window.open(googleMapsUrl, '_blank'); // Open in a new tab
+          // Set the marker position
+          setMarkerPosition([latitude, longitude]);
+          setIsLocationSet(true);
+
+          // Optionally fetch the address using a reverse geocoding API
+          fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
+            .then((response) => response.json())
+            .then((data) => {
+              if (data && data.display_name) {
+                const address = data.display_name;
+                setFormData((prevData) => ({ ...prevData, location: address }));
+              } else {
+                alert("Unable to fetch the address.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error fetching address:", error);
+              alert("An error occurred while fetching the address.");
+            });
+        },
+        (error) => {
+          console.error("Error fetching location:", error);
+          alert("Unable to retrieve location.");
+        }
+      );
     }
   };
 
+  const LocationUpdater = () => {
+    const map = useMap();
+    if (isLocationSet) {
+      map.flyTo(markerPosition, map.getZoom());
+    }
+    return null;
+  };
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -192,18 +287,14 @@ const handleCityClick = (city) => {
     setShowCities(false);
   }
 
-  const handleImageChange = (e, isTitleImage = false) => {
-    const files = Array.from(e.target.files);
-    const imageUrls = files.map(file => URL.createObjectURL(file));
-
-    setFormData(prev => ({
-      ...prev,
-      [isTitleImage ? 'titleImage' : 'additionalImages']: isTitleImage 
-        ? imageUrls[0] // For title image, take the first one
-        : [...prev.additionalImages, ...imageUrls.slice(0, 4 - prev.additionalImages.length)], // Limit additional images to 4
-    }));
+  const handleMediaChange = (e, index) => {
+    const file = e.target.files[0];
+    if (file) {
+      const updatedMedia = [...media];
+      updatedMedia[index] = URL.createObjectURL(file);
+      setMedia(updatedMedia);
+    }
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add validation logic here if necessary
@@ -498,10 +589,10 @@ const handleCityClick = (city) => {
 
 
         
-      case 'Cars':
-        return (
-          <>
-  <form onSubmit={handleSubmit} className="space-y-8 font-roboto">
+  case 'Cars':
+    return (
+      <>
+       <form onSubmit={handleSubmit} className="space-y-8 font-roboto">
   {/* Car Make Select */}
   <div className="mb-4">
     <label htmlFor="carMake" className="block text-lg font-roboto mb-2">Car Make</label>
@@ -516,7 +607,15 @@ const handleCityClick = (city) => {
       <option value="Honda">Honda</option>
       <option value="Suzuki">Suzuki</option>
       <option value="Nissan">Nissan</option>
-      {/* Add more car makes as needed */}
+      <option value="BMW">BMW</option>
+      <option value="Mercedes">Mercedes</option>
+      <option value="Audi">Audi</option>
+      <option value="Ford">Ford</option>
+      <option value="Chevrolet">Chevrolet</option>
+      <option value="Hyundai">Hyundai</option>
+      <option value="Kia">Kia</option>
+      <option value="Volkswagen">Volkswagen</option>
+      <option value="Mazda">Mazda</option>
     </select>
   </div>
 
@@ -530,13 +629,14 @@ const handleCityClick = (city) => {
       className="input-style w-full font-roboto cursor-pointer p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
     >
       <option value="" disabled>Select Car Model</option>
-      
       {formData.carMake === "Toyota" && (
         <>
           <option value="Corolla">Corolla</option>
           <option value="Yaris">Yaris</option>
           <option value="Fortuner">Fortuner</option>
           <option value="Land Cruiser">Land Cruiser</option>
+          <option value="Hilux">Hilux</option>
+          <option value="Camry">Camry</option>
         </>
       )}
       {formData.carMake === "Honda" && (
@@ -544,6 +644,8 @@ const handleCityClick = (city) => {
           <option value="Civic">Civic</option>
           <option value="City">City</option>
           <option value="BR-V">BR-V</option>
+          <option value="Jazz">Jazz</option>
+          <option value="CR-V">CR-V</option>
         </>
       )}
       {formData.carMake === "Suzuki" && (
@@ -552,6 +654,7 @@ const handleCityClick = (city) => {
           <option value="Cultus">Cultus</option>
           <option value="Swift">Swift</option>
           <option value="Wagon R">Wagon R</option>
+          <option value="Vitara">Vitara</option>
         </>
       )}
       {formData.carMake === "Nissan" && (
@@ -559,9 +662,78 @@ const handleCityClick = (city) => {
           <option value="Altima">Altima</option>
           <option value="Sunny">Sunny</option>
           <option value="350Z">350Z</option>
+          <option value="Micra">Micra</option>
+          <option value="X-Trail">X-Trail</option>
         </>
       )}
-      {/* Add more models based on the selected car make */}
+      {formData.carMake === "BMW" && (
+        <>
+          <option value="3 Series">3 Series</option>
+          <option value="5 Series">5 Series</option>
+          <option value="X5">X5</option>
+          <option value="M4">M4</option>
+        </>
+      )}
+      {formData.carMake === "Mercedes" && (
+        <>
+          <option value="C-Class">C-Class</option>
+          <option value="E-Class">E-Class</option>
+          <option value="S-Class">S-Class</option>
+          <option value="GLA">GLA</option>
+        </>
+      )}
+      {formData.carMake === "Audi" && (
+        <>
+          <option value="A3">A3</option>
+          <option value="A4">A4</option>
+          <option value="Q5">Q5</option>
+          <option value="A6">A6</option>
+        </>
+      )}
+      {formData.carMake === "Ford" && (
+        <>
+          <option value="Fiesta">Fiesta</option>
+          <option value="Focus">Focus</option>
+          <option value="Mustang">Mustang</option>
+          <option value="Explorer">Explorer</option>
+        </>
+      )}
+      {formData.carMake === "Chevrolet" && (
+        <>
+          <option value="Cruze">Cruze</option>
+          <option value="Malibu">Malibu</option>
+          <option value="Tahoe">Tahoe</option>
+          <option value="Camaro">Camaro</option>
+        </>
+      )}
+      {formData.carMake === "Hyundai" && (
+        <>
+          <option value="Elantra">Elantra</option>
+          <option value="Sonata">Sonata</option>
+          <option value="Tucson">Tucson</option>
+        </>
+      )}
+      {formData.carMake === "Kia" && (
+        <>
+          <option value="Seltos">Seltos</option>
+          <option value="Sportage">Sportage</option>
+          <option value="Forte">Forte</option>
+        </>
+      )}
+      {formData.carMake === "Volkswagen" && (
+        <>
+          <option value="Golf">Golf</option>
+          <option value="Passat">Passat</option>
+          <option value="Tiguan">Tiguan</option>
+        </>
+      )}
+      {formData.carMake === "Mazda" && (
+        <>
+          <option value="Mazda 3">Mazda 3</option>
+          <option value="Mazda 6">Mazda 6</option>
+          <option value="CX-5">CX-5</option>
+        </>
+      )}
     </select>
   </div>
 
@@ -600,7 +772,6 @@ const handleCityClick = (city) => {
       <option value="Red">Red</option>
       <option value="Blue">Blue</option>
       <option value="Green">Green</option>
-      {/* Add more colors as needed */}
     </select>
   </div>
 
@@ -614,48 +785,27 @@ const handleCityClick = (city) => {
       className="input-style w-full font-roboto cursor-pointer p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
     >
       <option value="" disabled>Select Transmission</option>
-      <option value="Automatic">Automatic</option>
       <option value="Manual">Manual</option>
-    </select>
-  </div>
-
-  {/* Mileage Select */}
-  <div className="mb-4">
-    <label htmlFor="mileage" className="block text-lg font-roboto mb-2">Mileage (km)</label>
-    <select
-      name="mileage"
-      value={formData.mileage}
-      onChange={handleInputChange}
-      className="input-style w-full font-roboto cursor-pointer p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
-    >
-      <option value="" disabled>Select Mileage</option>
-      <option value="0-50000">0 - 50,000 km</option>
-      <option value="50001-100000">50,001 - 100,000 km</option>
-      <option value="100001-150000">100,001 - 150,000 km</option>
-      <option value="150001-200000">150,001 - 200,000 km</option>
-      <option value="200001+">200,001+ km</option>
-    </select>
-  </div>
-
-  {/* Condition Select (New/Old) */}
-  <div className="mb-4">
-    <label htmlFor="condition" className="block text-lg font-roboto mb-2">Condition</label>
-    <select
-      name="condition"
-      value={formData.condition}
-      onChange={handleInputChange}
-      className="input-style w-full font-roboto cursor-pointer p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
-    >
-      <option value="New">New</option>
-      <option value="Old">Old</option>
+      <option value="Automatic">Automatic</option>
+      <option value="Semi-Automatic">Semi-Automatic</option>
     </select>
   </div>
 
   {/* Price Input */}
+  <div className="mb-4">
+    <label htmlFor="price" className="block text-lg font-roboto mb-2">Price</label>
+    <input
+      type="number"
+      name="price"
+      value={formData.price}
+      onChange={handleInputChange}
+      className="input-style w-full font-roboto cursor-pointer p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
+    />
+  </div>
+
+  {/* Submit Button */}
 
 </form>
-
-
 
           </>
         );
@@ -840,32 +990,36 @@ const handleCityClick = (city) => {
   };
 
   return (
-<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-5 sm:p-10">
-<div className="w-full md:px-10 px-0 flex flex-col md:flex-row bg-white shadow-2xl rounded-3xl overflow-hidden">
-
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-5 sm:p-10">
+    <div className="w-full flex flex-col md:flex-grow bg-white shadow-2xl rounded-3xl overflow-hidden md:px-32 px-4">
     {/* Left Side: Ad Form */}
-    <div className="w-full md:w-2/3 p-8 sm:p-12 text-gray-800 flex flex-col bg-white rounded-3xl shadow-lg border border-gray-200 transition duration-300 transform">
-        <h2 className="text-4xl font-montserrat font-extrabold text-center mb-8 text-blue-600 tracking-wide uppercase shadow-md">
-            Post Your Ad
-        </h2>
+    <div className="w-full  p-8 sm:p-12 text-gray-800 flex flex-col bg-white rounded-3xl shadow-lg border border-gray-200 transition duration-300 transform">
+    <h2 className="text-4xl font-montserrat font-extrabold text-center mb-8 text-indigo-900 tracking-wide uppercase shadow-lg">
+    Post Your Ad
+</h2>
+
+
+
 
         {/* Category Selection Buttons */}
         <div className="flex flex-wrap justify-center gap-4 mb-10">
-            {categories.map(({ name, icon }) => (
-                <button
-                    key={name}
-                    onClick={() => handleCategorySelect(name)}
-                    className={`flex items-center font-sansing justify-center px-6 py-3 rounded-full font-bold text-lg shadow-lg transition-transform duration-300 
-                        ${category === name 
-                            ? 'bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-xl transform scale-110' 
-                            : 'bg-gray-200 text-gray-700 hover:bg-gradient-to-r hover:from-purple-500 hover:to-purple-600 hover:text-white hover:shadow-md hover:scale-105'}`}
-                    title={`Select ${name}`} // Tooltip for user guidance
-                >
-                    <FontAwesomeIcon icon={icon} className="mr-3 text-xl" />
-                    {name}
-                </button>
-            ))}
-        </div>
+    {categories.map(({ name, icon }) => (
+        <button
+            key={name}
+            onClick={() => handleCategorySelect(name)}
+            className={`flex items-center justify-center px-8 py-4 rounded-full font-bold text-lg shadow-lg transition-all duration-300 transform
+                ${category === name 
+                    ? `bg-gradient-to-r from-blue-600 to-blue-800 text-white shadow-xl scale-110 hover:scale-110` 
+                    : `bg-gray-200 text-gray-700 hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 hover:text-white hover:shadow-lg hover:scale-105`}`}
+            title={`Select ${name}`} // Tooltip for user guidance
+        >
+            <FontAwesomeIcon icon={icon} className="mr-3 text-xl" />
+            {name}
+        </button>
+    ))}
+</div>
+
+
 
         {/* Ad Form */}
         <form onSubmit={handleSubmit} className="space-y-8 font-helveticaLight">
@@ -881,7 +1035,9 @@ const handleCityClick = (city) => {
       placeholder="Ad Title"
       className="input-style w-full p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
     />
+
   </div>
+  
 
   {/* Description Input */}
   <div className="flex flex-col">
@@ -896,6 +1052,97 @@ const handleCityClick = (city) => {
       className="input-style w-full p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
     />
   </div>
+ 
+  <h1 className='font-manrope font-bold text-[20px]'>Title Image</h1>
+  <div className="mb-6 flex flex-col items-center">
+      <input
+        type="file"
+        onChange={handleTitleImageChange}
+        className="hidden"
+        id="title-image-upload"
+        accept="image/*"
+      />
+      <label
+        htmlFor="title-image-upload"
+        className="cursor-pointer flex items-center justify-center bg-gradient-to-br from-blue-400 via-cyan-500 to-green-600 rounded-lg p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 relative overflow-hidden"
+      >
+        {titleImage ? (
+          <img
+            src={titleImage}
+            alt="Title preview"
+            className="h-full w-full object-cover rounded-lg"
+          />
+        ) : (
+          <>
+            <FontAwesomeIcon icon={faUpload} className="mr-1 text-gray-100 text-2xl sm:text-3xl md:text-4xl" />
+            <span className="text-gray-100 font-medium text-sm sm:text-base md:text-lg text-center">
+              Upload Image
+            </span>
+          </>
+        )}
+
+        {/* Overlay that will be displayed when the image is hovered */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-transparent rounded-lg opacity-0 hover:opacity-30 transition-opacity duration-300"></div>
+      </label>
+
+      {/* If there's a selected image, it will display on top of the previous preview */}
+      {titleImage && (
+        <div className="absolute top-0 left-0 w-full h-full rounded-lg overflow-hidden">
+          {/* <img
+            // src={titleImage}
+     
+            className="absolute top-0 left-0 w-full h-full object-cover rounded-lg opacity-70"
+          /> */}
+        </div>
+      )}
+    </div>
+
+
+
+    <div>
+  
+</div>
+
+
+  {/* Title Image Upload */}
+  <h1 className='font-manrope font-bold text-[20px]'>Additional Images</h1>
+  <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      {media.map((item, index) => (
+        <div key={index} className="relative">
+          <input
+            type="file"
+            onChange={(e) => handleMediaChange(e, index)}
+            className="hidden"
+            id={`media-upload-${index}`}
+            accept="image/*,video/*"
+          />
+          <label
+            htmlFor={`media-upload-${index}`}
+            className="flex items-center justify-center bg-gray-800 rounded-md cursor-pointer shadow-lg hover:bg-gray-700 transition duration-300 w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36"
+          >
+            {item ? (
+              item.includes("video") ? (
+                <video
+                  src={item}
+                  controls
+                  className="h-full w-full object-cover rounded-md"
+                />
+              ) : (
+                <img
+                  src={item}
+                  alt="Selected media"
+                  className="h-full w-full object-cover rounded-md"
+                />
+              )
+            ) : (
+              <FontAwesomeIcon icon={faUpload} className="text-white text-xl sm:text-2xl" />
+            )}
+          </label>
+        </div>
+      ))}
+    </div>
+
+
 
   {/* Dynamic Fields */}
   {renderCategoryFields()}
@@ -913,129 +1160,88 @@ const handleCityClick = (city) => {
       className="input-style w-full p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
     />
   </div>
-  <div className="mb-6">
-    <label className="text-lg font-semibold text-gray-800">Select State</label>
-    <select
-   
-      className="mt-3 p-3 border border-gray-300 rounded-full w-full focus:outline-none focus:ring-4 focus:ring-blue-400 shadow-md transition-all duration-300 hover:bg-blue-50/90 hover:border-blue-400 hover:shadow-lg"
-    >
-      <option value="" disabled>Select State</option>
-      <option value="punjab">Punjab</option>
-      <option value="sindh">Sindh</option>
-      <option value="balochistan">Balochistan</option>
-      <option value="kpk">Khyber Pakhtunkhwa</option>
-      <option value="gilgit-baltistan">Gilgit Baltistan</option>
-    </select>
-  </div>
-  <div className="mb-6">
-    <label className="text-lg font-semibold text-gray-800">Search City</label>
-    <div className="relative">
-      <input
-        type="text"
-        readOnly
-        placeholder="Search City"
-        onClick={handleInputClick}
-        className="h-12 w-full rounded-full pl-10 pr-10 border border-gray-300 bg-white/80 shadow-md focus:ring-4 focus:ring-blue-400 hover:bg-blue-50/80 transition-all duration-300"
-      />
-      <FontAwesomeIcon
-        icon={faLocationDot}
-        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 transition-transform duration-200 hover:scale-110 hover:text-blue-500"
-      />
-      <FontAwesomeIcon
-        icon={faAngleDown}
-        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 transition-transform duration-200 hover:scale-110 hover:text-blue-500"
-      />
+  <div className="p-6 w-full mx-auto bg-gray-100 rounded-md shadow-md">
+      <h2 className="text-xl font-semibold text-gray-700">Select State and City</h2>
+      
+      {/* State Selector */}
+      <label htmlFor="state" className="block mt-4 text-gray-600">State</label>
+      <select
+        id="state"
+        value={selectedState}
+        onChange={handleStateChange}
+        className="w-full p-2 mt-1 border rounded-md"
+      >
+        <option value="">Select a State</option>
+        {Object.keys(statesWithCities).map((state) => (
+          <option key={state} value={state}>{state}</option>
+        ))}
+      </select>
 
-      {showCities && (
-        <div className="absolute left-0 right-0 mt-2 border border-gray-300 rounded-2xl bg-white/90 shadow-lg z-50 p-4 backdrop-blur-md animate-fadeIn">
-          <input
-            type="search"
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="h-12 w-full rounded-full pl-10 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-blue-400 transition-all duration-300"
-          />
-          <div className="h-48 overflow-y-auto mt-2">
-            <ul className="space-y-2">
-              {filteredCities.map((city, index) => (
-                <li
-                  key={index}
-                  onClick={() => handleCityClick(city)}
-                  className="cursor-pointer hover:bg-blue-100 rounded-lg p-2 transition duration-200 text-gray-700"
-                >
-                  {city}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
+      {/* City Selector */}
+      <label htmlFor="city" className="block mt-4 text-gray-600">City</label>
+      <select
+        id="city"
+        className="w-full p-2 mt-1 border rounded-md"
+        disabled={!selectedState}
+      >
+        <option value="">Select a City</option>
+        {cities.map((city) => (
+          <option key={city} value={city}>{city}</option>
+        ))}
+      </select>
     </div>
-  </div>
+{/* 
+  
+    <Marker
+      position={[51.505, -0.09]} // Default position, replace with actual coordinates if available
+      icon={new L.Icon({
+        iconUrl: '/marker-icon.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+      })}
+    />
+   */}
 
 
   {/* Location Input */}
-  <div className="relative flex flex-col">
-    <label htmlFor="location" className="text-lg  mb-2">Location</label>
-    <input
-      id="location"
-      type="text"
-      name="location"
-      value={formData.location}
-      onChange={handleInputChanging} // Allow manual edits
-      onClick={handleInputClicks} // Handle location click
-      placeholder="Location"
-      className="h-12 w-full rounded-lg pl-10 font-helveticaLight cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500 border-[1px] border-gray-300 transition duration-200"
-    />
-    <FontAwesomeIcon
-      icon={faMapMarkerAlt} // Specify the icon
-      className="absolute left-4 top-14 transform -translate-y-1/2 text-gray-500"
-    />
-  </div>
-  <div className="mb-6 flex justify-center">
-  <input
-    type="file"
-    onChange={(e) => handleImageChange(e, true)}
-    className="hidden"
-    id="title-image-upload"
-    accept="image/*"
-  />
-  <label
-    htmlFor="title-image-upload"
-    className="flex items-center font-roboto cursor-pointer bg-gradient-to-r from-gray-700 to-gray-900 rounded-full p-4 shadow-lg hover:from-gray-800 hover:to-gray-900 transition duration-300 transform hover:scale-105"
-  >
-    <FontAwesomeIcon icon={faCamera} className="mr-2 text-white" />
-    <span className="text-white">Upload Title Image</span>
-  </label>
-</div>
 
+  
 
-  {/* Title Image Upload */}
-  <div className="mb-6 flex justify-center">
-  <input
-    type="file"
-    onChange={(e) => handleImageChange(e, false)}
-    className="hidden"
-    id="additional-images-upload"
-    multiple
-    accept="image/*"
-  />
-  <label
-    htmlFor="additional-images-upload"
-    className="flex items-center cursor-pointer bg-gradient-to-r from-gray-800 to-gray-900 rounded-full p-4 shadow-lg hover:from-gray-900 hover:to-gray-800 transition duration-300 transform hover:scale-105"
-  >
-    <FontAwesomeIcon icon={faUpload} className="mr-2 text-white" />
-    <span className="text-white">Upload Additional Images (Max 4)</span>
-  </label>
-</div>
+  
+  <div className="relative w-full mx-auto">
+      <div className="relative">
+        <FontAwesomeIcon
+          icon={faLocationDot}
+          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 transition-transform duration-200 hover:scale-110 hover:text-blue-500"
+        />
+        <input
+          type="text"
+          placeholder="Click to get your location"
+          value={formData.location}
+          onClick={handleInputClickss} // Trigger location fetch on click
+          readOnly
+          className="h-12 w-full rounded-full pl-10 pr-4 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-blue-400 transition-all duration-300"
+        />
+      </div>
+      {/* <p className="mt-2 text-gray-700">Location: {formData.location}</p> */}
 
-
+      <MapContainer center={markerPosition} zoom={13} style={{ height: "400px", width: "100%", marginTop:"20px" }}>
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+        />
+        {isLocationSet && <Marker position={markerPosition} />}
+        <LocationUpdater />
+      </MapContainer>
+    </div>
+  
   {/* Additional Images Upload */}
 
 
   {/* Submit Button */}
   <button
   type="submit"
-  className="w-full bg-gradient-to-r from-blue-800 to-black text-white rounded-full py-4 text-lg font-bold shadow-lg hover:from-black hover:to-blue-800 hover:shadow-xl transform transition-all duration-300 hover:scale-105"
+  className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full py-4 text-lg font-bold shadow-lg hover:from-purple-600 hover:to-pink-500 hover:shadow-xl transform transition-all duration-300 hover:scale-105"
 >
   Post Ad
 </button>
@@ -1048,30 +1254,31 @@ const handleCityClick = (city) => {
     </div>
 
     {/* Right Side: Live Preview */}
-    <div className="h-[500px] relative mt-4 md:mt-0 w-full md:w-1/4 bg-gradient-to-r from-gray-700 to-gray-800 p-6 sm:p-8 rounded-2xl shadow-3xl border border-gray-200 transform transition-transform duration-300 ease-out hover:shadow-2xl hover:border-gray-600 md:mx-4 lg:mx-32">
+   
+    <div className="h-[650px] relative mt-4   w-full md:max-w-[500px] bg-gradient-to-r from-gray-600 to-gray-900 p-6 sm:p-8 rounded-2xl shadow-3xl border border-gray-300 transform transition-transform duration-300 ease-out hover:shadow-2xl md:mt-20 hover:border-gray-500 md:mx-4 lg:mx-52">
   {/* Live Preview Badge with Pulse Effect */}
-  <span className="absolute top-2 left-1/2 transform -translate-x-1/2 font-helveticaLight text-white font-bold bg-gradient-to-r from-orange-600 to-purple-800 rounded-full px-4 py-2 shadow-md z-20 transition-transform duration-200 hover:scale-110 animate-pulse">
+  <span className="absolute top-2 left-1/2 transform -translate-x-1/2 font-helveticaLight text-white font-bold bg-gradient-to-r from-orange-500 to-purple-700 rounded-full px-4 py-2 shadow-lg z-20 transition-transform duration-200 hover:scale-110 animate-pulse">
     Live Preview
   </span>
 
   {/* Frosted Glass Effect for Content Wrapper */}
   <div className="border border-transparent rounded-xl p-1 animate-gradient backdrop-blur-lg">
-    <div className="border border-gray-300 rounded-xl p-6 bg-white bg-opacity-90 shadow-inner transform hover:scale-105 transition duration-500 ease-in-out">
+    <div className="border border-gray-300 rounded-xl p-6 bg-white bg-opacity-90 shadow-lg transform hover:scale-105 transition duration-500 ease-in-out">
 
       {/* Image with Overlay and 3D Hover Effect */}
       <div className="relative mb-6 transform transition-transform duration-300 ease-in-out hover:rotate-2 hover:scale-110">
         <div className="absolute inset-0 rounded-xl overflow-hidden">
-          <div className="bg-gray-900 opacity-60 h-full"></div>
+          <div className="bg-gray-900 opacity-50 h-full"></div>
         </div>
         <img
           src={formData.titleImage || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE789NtlOwrGK3Tuby_0mYilvCEZVUmwjfCg&s"}
           alt="Title Preview"
-          className="relative w-full h-48 rounded-xl shadow-lg border border-gray-300 transition-transform duration-300 ease-in-out hover:scale-105 hover:rotate-1"
+          className="relative w-full h-48 rounded-xl shadow-xl border border-gray-400 transition-transform duration-300 ease-in-out hover:scale-105 hover:rotate-1"
         />
       </div>
 
       {/* Title */}
-      <h4 className="text-3xl font-bold font-roboto mb-2 text-center text-transparent bg-gradient-to-r from-gray-600 to-gray-800 bg-clip-text tracking-wide shadow-md">
+      <h4 className="text-3xl font-bold font-roboto mb-2 text-center text-transparent bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text tracking-wide shadow-md">
         {formData.title || 'Your Title'}
       </h4>
 
@@ -1081,7 +1288,7 @@ const handleCityClick = (city) => {
       </p>
 
       {/* Price with Gradient and Shadow */}
-      <p className="text-xl font-semibold text-center font-montserrat text-transparent bg-gradient-to-r from-gray-500 to-gray-700 bg-clip-text shadow-md">
+      <p className="text-xl font-semibold text-center font-montserrat text-transparent bg-gradient-to-r from-gray-500 to-gray-700 bg-clip-text shadow-lg">
         {formData.price ? `Price: Rs. ${formData.price}` : 'Price: Rs. 0'}
       </p>
 
@@ -1092,7 +1299,7 @@ const handleCityClick = (city) => {
       </p>
       
       {/* Additional Images */}
-      <div className="grid grid-cols-2 gap-3 mt-4">
+      {/* <div className="grid grid-cols-2 gap-3 mt-4">
         {formData.additionalImages.map((img, index) => (
           <img
             key={index}
@@ -1101,22 +1308,27 @@ const handleCityClick = (city) => {
             className="w-full h-24 object-cover rounded-lg shadow-md border border-gray-300 transition-transform duration-300 hover:scale-105 hover:shadow-xl transform hover:rotate-3"
           />
         ))}
-      </div>
+      </div> */}
 
     </div>
   </div>
+ </div> 
+
+ 
+
+  </div>
+
+
+
+
+
+
+
+
+
+
 </div>
 
-
-
-
-
-
-
-
-
-</div>
-</div>
 
 
 

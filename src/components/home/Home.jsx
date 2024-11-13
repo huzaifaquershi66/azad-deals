@@ -276,12 +276,12 @@ const handleCityClick = (city) => {
   
   return (
     <>
-<div className='relative w-full h-[450px] rounded-lg px-0 flex lg:my-[20px] my-0 items-center justify-center'>
+<div className="relative w-full h-[450px] rounded-lg px-0 flex lg:my-[20px] my-0 items-center justify-center">
   {/* Background Image with Darken Filter */}
   <img
-    className='object-cover w-full h-full xl:px-40 md:px-4 filter brightness-100' // Adjusted brightness value for less darkness
+    className="object-cover w-full h-full xl:px-10 md:px-4 filter brightness-100 rounded-lg" // Added rounded-lg to image for rounded corners
     src={banner}
-    alt='Background'
+    alt="Background"
   />
 
 
@@ -323,7 +323,7 @@ const handleCityClick = (city) => {
     </div>
 
 <div className='absolute inset-0 flex items-center justify-center md:mt-[410px] mt-52 px-4'>
-  <div className='flex flex-col md:flex-row items-center md:h-14 h-40 w-[400px] xl:w-[900px] lg:w-[900px] md:w-[700px] bg-white rounded-lg shadow-xl p-4 transition-transform duration-300 hover:shadow-2xl bg-opacity-95'>
+  <div className='flex flex-col md:flex-row items-center md:h-14 h-40 w-[400px] xl:w-[900px] lg:w-[900px] md:w-[700px] bg-gray-100 rounded-lg shadow-xl p-4 transition-transform duration-300 hover:shadow-2xl bg-opacity-95'>
     
     <div className='flex items-center mx-2 relative w-full md:w-[45%]'>
       <div className='relative w-full'>
@@ -392,7 +392,7 @@ const handleCityClick = (city) => {
 
 
 {toggleAdvancedSearch && searchCategory === 'Property' && (
-  <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border  border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'w-3/5 ' : 'w-3/5 '} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
+  <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border  border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'md:w-[500px] w-[300px] ' : ' md:w-[500px] w-[300px]'}} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
     <div className='flex items-center space-x-5'>
     <h3 className='font-helveticaLight text-lg '>Advanced Search</h3>
     <label class="switch" >
@@ -482,7 +482,7 @@ const handleCityClick = (city) => {
 )}
 
 {toggleAdvancedSearch && searchCategory === 'Cars' && (
-  <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border  border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'w-3/5 ' : 'w-3/5 '} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
+  <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border  border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'md:w-[500px] w-[300px] ' : ' md:w-[500px] w-[300px]'}} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
     <div className='flex items-center space-x-5'>
     <h3 className='font-helveticaLight text-lg '>Advanced Search</h3>
     <label class="switch" >
@@ -574,7 +574,7 @@ const handleCityClick = (city) => {
   </div>
 )}
  {toggleAdvancedSearch && searchCategory === 'Mobile' && (
-        <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'w-3/5 ' : 'w-3/5 '} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
+        <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'md:w-[500px] w-[300px] ' : ' md:w-[500px] w-[300px]'}} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
           <div className='flex items-center space-x-5'>
             <h3 className='font-helveticaLight text-lg'>Advanced Search</h3>
             <label className="switch">
@@ -667,7 +667,7 @@ const handleCityClick = (city) => {
       )}
 
 {toggleAdvancedSearch && searchCategory === 'Academics' && (
-        <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'w-3/5 ' : 'w-3/5 '} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
+        <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border border-gray-300 ${advancedSearchInput ? 'h-16' : 'h-20'} rounded-lg ${advancedSearchInput ? 'md:w-[500px] w-[300px] ' : ' md:w-[500px] w-[300px]'} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
           <div className='flex items-center space-x-5'>
             <h3 className='font-helveticaLight text-lg'>Advanced Search</h3>
             <label className="switch">
@@ -759,70 +759,78 @@ const handleCityClick = (city) => {
       )}
   
     </div>
-    <div className="w-full  mx-auto py-20 xl:px-36 px-4">
-  <div className="text-center mb-12">
-    <h2 className="text-4xl md:text-5xl font-bold font-roboto text-gray-800 mb-4">Our Premium Categories</h2>
-    <p className="text-lg text-gray-600 font-sansing">Explore a variety of exclusive collections curated just for you</p>
+    <div className="w-full mx-auto py-20 xl:px-36 px-4 bg-gradient-to-b from-white via-gray-100 to-gray-200">
+  <div className="text-center mb-16">
+    <h2 className="text-4xl md:text-5xl font-bold font-serif text-gray-800 mb-4 tracking-wider">Our Premium Categories</h2>
+    <p className="text-lg text-gray-600 font-serif max-w-xl mx-auto">Explore a variety of exclusive collections curated just for you</p>
   </div>
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-    {/* Mobiles Card */}
-    <div className="relative rounded-2xl overflow-hidden bg-gray-800 shadow-xl hover:shadow-2xl transition-transform duration-300 transform hover:scale-105 hover:bg-gray-700 h-80 flex flex-col opacity-0 transition-opacity duration-500 animate-fadeIn">
-      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-2xl"></div> {/* Gradient overlay */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    {/* Sample Card */}
+    <div className="relative rounded-3xl overflow-hidden bg-gray-900 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 h-80 flex flex-col opacity-0 transition-opacity duration-700 animate-fadeIn">
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-transparent rounded-3xl"></div>
       <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
         <img 
           src="https://www.igeeksblog.com/wp-content/uploads/2024/09/Download-iPhone-16-and-16-Pro-Max-Wallpapers.jpg" 
           alt="Mobiles" 
-          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
+          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-lg transform hover:scale-110 transition-all duration-500"
         />
         <h3 className="text-3xl font-semibold text-white mb-2">Mobiles</h3>
         <p className="text-white text-sm text-center">Discover the latest trends and technology.</p>
-        <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300">Shop Now</button>
+        <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-500 transition-colors duration-300 hover:shadow-lg hover:ring-2 hover:ring-blue-300">
+          Shop Now
+        </button>
       </div>
     </div>
 
     {/* Properties Card */}
-    <div className="relative rounded-2xl overflow-hidden bg-gray-800 shadow-xl hover:shadow-2xl transition-transform duration-300 transform hover:scale-105 hover:bg-gray-700 h-80 flex flex-col opacity-0 transition-opacity duration-500 animate-fadeIn">
-      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-2xl"></div> {/* Gradient overlay */}
+    <div className="relative rounded-3xl overflow-hidden bg-gray-900 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 h-80 flex flex-col opacity-0 transition-opacity duration-700 animate-fadeIn">
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-transparent rounded-3xl"></div>
       <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
         <img 
           src="https://cdn.pixabay.com/photo/2017/07/17/00/54/house-2511060_640.jpg" 
           alt="Properties" 
-          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
+          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-lg transform hover:scale-110 transition-all duration-500"
         />
         <h3 className="text-3xl font-semibold text-white mb-2">Properties</h3>
         <p className="text-white text-sm text-center">Find your perfect home today.</p>
-        <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300">Explore</button>
+        <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-500 transition-colors duration-300 hover:shadow-lg hover:ring-2 hover:ring-blue-300">
+          Explore
+        </button>
       </div>
     </div>
 
     {/* Cars Card */}
-    <div className="relative rounded-2xl overflow-hidden bg-gray-800 shadow-xl hover:shadow-2xl transition-transform duration-300 transform hover:scale-105 hover:bg-gray-700 h-80 flex flex-col opacity-0 transition-opacity duration-500 animate-fadeIn">
-      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-2xl"></div> {/* Gradient overlay */}
+    <div className="relative rounded-3xl overflow-hidden bg-gray-900 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 h-80 flex flex-col opacity-0 transition-opacity duration-700 animate-fadeIn">
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-transparent rounded-3xl"></div>
       <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
         <img 
           src="https://www.isharearena.com/wp-content/uploads/2012/11/wallpaper-2426837.jpg" 
           alt="Cars" 
-          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
+          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-lg transform hover:scale-110 transition-all duration-500"
         />
         <h3 className="text-3xl font-semibold text-white mb-2">Cars</h3>
         <p className="text-white text-sm text-center">Explore our range of luxury cars.</p>
-        <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300">View Cars</button>
+        <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-500 transition-colors duration-300 hover:shadow-lg hover:ring-2 hover:ring-blue-300">
+          View Cars
+        </button>
       </div>
     </div>
 
-    {/* Azad Education Card */}
-    <div className="relative rounded-2xl overflow-hidden bg-gray-800 shadow-xl hover:shadow-2xl transition-transform duration-300 transform hover:scale-105 hover:bg-gray-700 h-80 flex flex-col opacity-0 transition-opacity duration-500 animate-fadeIn">
-      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-2xl"></div> {/* Gradient overlay */}
+    {/* Education Card */}
+    <div className="relative rounded-3xl overflow-hidden bg-gray-900 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 h-80 flex flex-col opacity-0 transition-opacity duration-700 animate-fadeIn">
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-transparent rounded-3xl"></div>
       <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
         <img 
           src="https://watermark.lovepik.com/photo/50089/0761.jpg_wh1200.jpg" 
           alt="Education" 
-          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-2xl transition-transform duration-300 transform hover:scale-110" // Enhanced image shadow
+          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-lg transform hover:scale-110 transition-all duration-500"
         />
-        <h3 className="text-2xl font-semibold text-white mb-2">Azad Education</h3>
+        <h3 className="text-2xl font-semibold text-white mb-2">Education</h3>
         <p className="text-white text-sm text-center">Empower yourself with education.</p>
-        <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300">Learn More</button>
+        <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-500 transition-colors duration-300 hover:shadow-lg hover:ring-2 hover:ring-blue-300">
+          Learn More
+        </button>
       </div>
     </div>
   </div>
@@ -834,7 +842,7 @@ const handleCityClick = (city) => {
 
 
 
-<div className='w-full mx-auto p-4 xl:px-40 md:translate-y-[-50px] translate-y-[-0px]'>
+<div className='w-full mx-auto p-4  xl:px-16 md:translate-y-[-20px] translate-y-[-0px]'>
   <div className='md:flex justify-between items-center flex-auto mb-4'>
     <h1 className='font-montserrat font-bold text-2xl my-2 py-7 text-gray-800'>Mobiles for Sale</h1>
     <Link to="listing">
@@ -922,7 +930,7 @@ const handleCityClick = (city) => {
 
 
 
-<div className='w-full mx-auto p-4 xl:px-40 md:translate-y-[-50px] translate-y-[-0px]'>
+<div className='w-full mx-auto p-4 xl:px-16 md:translate-y-[-50px] translate-y-[-0px]'>
   <div className='md:flex justify-between items-center flex-auto mb-4'>
     <h1 className='font-montserrat font-bold text-2xl my-2 py-7 text-gray-800'>Properties for Sale</h1>
     <Link to="listing">
@@ -1007,7 +1015,7 @@ const handleCityClick = (city) => {
 
 
 
-<div className='w-full mx-auto p-4 xl:px-40 md:translate-y-[-50px] translate-y-[-0px]'>
+<div className='w-full mx-auto p-4 xl:px-16 md:translate-y-[-50px] translate-y-[-0px]'>
   <div className='md:flex justify-between items-center flex-auto mb-4'>
     <h1 className='font-montserrat font-bold text-2xl my-2 py-7 text-gray-800'>Cars for Sale</h1>
     <Link to="listing">
@@ -1088,7 +1096,7 @@ const handleCityClick = (city) => {
   </div>
 </div>
 
-<div className='w-full mx-auto p-4 xl:px-40 md:translate-y-[-50px] translate-y-[-0px]'>
+<div className='w-full mx-auto p-4 xl:px-16 md:translate-y-[-50px] translate-y-[-0px]'>
   <div className='md:flex justify-between items-center flex-auto mb-4'>
     <h1 className='font-montserrat font-bold text-2xl my-2 py-7 text-gray-800'>Academic Courses Available</h1>
     <Link to="listing">

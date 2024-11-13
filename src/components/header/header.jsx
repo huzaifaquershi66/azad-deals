@@ -55,43 +55,40 @@ const handleclick = ()=>{
 }
   return (
     <>
-<div className='lg:flex justify-between hidden items-center xl:px-32 px-14 py-2 bg-gradient-to-b from-gray-100 to-gray-300
-
-
- border border-gray-400 rounded-md shadow-md h-14 w-full xl:mt-20 mt-0'>
+<div className='xl:flex justify-between hidden items-center xl:px-32 px-14 py-3 bg-gradient-to-r from-indigo-300 via-white to-indigo-300 border border-gray-200 rounded-2xl shadow-2xl h-16 w-full xl:mt-20 mt-4 backdrop-blur-md' style={{ backgroundImage: 'url("https://example.com/elegant-pattern-bg.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
   {/* Left Section - Icons */}
-  <div className='flex items-center space-x-4'>
-    <span className='group flex items-center space-x-2 px-4 py-2 rounded-lg cursor-pointer bg-red-600 border border-gray-200 hover:bg-red-600 transition duration-300'>
-      <FontAwesomeIcon icon={faHouse} className='text-[14px] text-white hover:text-white' />
-      <h3 className='text-[14px] font-semibold text-white group-hover:text-white cursor-pointer'>Home</h3>
+  <div className='flex items-center space-x-6'>
+    <span className='group flex items-center space-x-2 px-4 py-2 rounded-full cursor-pointer bg-gradient-to-r from-pink-500 to-red-500 border border-transparent hover:bg-gradient-to-l hover:from-red-600 hover:to-pink-600 transition duration-300 shadow-lg'>
+      <FontAwesomeIcon icon={faHouse} className='text-[16px] text-white' />
+      <h3 className='text-[15px] font-semibold text-white group-hover:text-white'>Home</h3>
     </span>
 
-    <span className='group cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-lg bg-white border border-gray-200 hover:bg-red-600 transition duration-300'>
-      <FontAwesomeIcon icon={faCarSide} className='text-[14px] group-hover:text-white color2' />
-      <h3 className='text-[14px] font-semibold color1 group-hover:text-white cursor-pointer'>Cars</h3>
+    <span className='group cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-full bg-white border border-gray-300 hover:bg-gradient-to-r from-pink-500 to-red-500 transition duration-300 shadow-lg'>
+      <FontAwesomeIcon icon={faCarSide} className='text-[16px] text-gray-600 group-hover:text-white' />
+      <h3 className='text-[15px] font-semibold text-gray-600 group-hover:text-white'>Cars</h3>
     </span>
 
-    <span className='group cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-lg bg-white border border-gray-200 hover:bg-red-600 transition duration-300'>
-      <FontAwesomeIcon icon={faMobileScreenButton} className='text-[14px] group-hover:text-white color2' />
-      <h3 className='text-[14px] font-semibold color1 group-hover:text-white cursor-pointer'>Mobile</h3>
+    <span className='group cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-full bg-white border border-gray-300 hover:bg-gradient-to-r from-pink-500 to-red-500 transition duration-300 shadow-lg'>
+      <FontAwesomeIcon icon={faMobileScreenButton} className='text-[16px] text-gray-600 group-hover:text-white' />
+      <h3 className='text-[15px] font-semibold text-gray-600 group-hover:text-white'>Mobile</h3>
     </span>
 
-    <span className='group cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-lg bg-white border border-gray-200 hover:bg-red-600 transition duration-300'>
-      <FontAwesomeIcon icon={faWarehouse} className='text-[14px] group-hover:text-white color2' />
-      <h3 className='text-[14px] font-semibold color1 group-hover:text-white cursor-pointer'>Property</h3>
+    <span className='group cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-full bg-white border border-gray-300 hover:bg-gradient-to-r from-pink-500 to-red-500 transition duration-300 shadow-lg'>
+      <FontAwesomeIcon icon={faWarehouse} className='text-[16px] text-gray-600 group-hover:text-white' />
+      <h3 className='text-[15px] font-semibold text-gray-600 group-hover:text-white'>Property</h3>
     </span>
 
-    <span className='group cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-lg bg-white border border-gray-200 hover:bg-red-600 transition duration-300'>
-      <FontAwesomeIcon icon={faGraduationCap} className='text-[14px] group-hover:text-white color2' />
-      <h3 className='text-[14px] font-semibold color1 group-hover:text-white cursor-pointer'>Academics</h3>
+    <span className='group cursor-pointer flex items-center space-x-2 px-4 py-2 rounded-full bg-white border border-gray-300 hover:bg-gradient-to-r from-pink-500 to-red-500 transition duration-300 shadow-lg'>
+      <FontAwesomeIcon icon={faGraduationCap} className='text-[16px] text-gray-600 group-hover:text-white' />
+      <h3 className='text-[15px] font-semibold text-gray-600 group-hover:text-white'>Academics</h3>
     </span>
   </div>
 
   {/* Right Section - Home, Blogs, Contact Us */}
-  <div className='flex items-center space-x-6 text-[14px] font-semibold color1 whitespace-nowrap'>
-    <h3 className='hover:text-red-600 hover:cursor-pointer transition duration-300'>Home</h3>
-    <h3 className='hover:text-red-600 hover:cursor-pointer transition duration-300'>Blogs</h3>
-    <h3 className='hover:text-red-600 hover:cursor-pointer transition duration-300'>Contact Us</h3>
+  <div className='flex items-center space-x-8 text-[15px] font-semibold text-gray-700 tracking-wide'>
+    <h3 className='hover:text-red-600 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'>Home</h3>
+    <h3 className='hover:text-red-600 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'>Blogs</h3>
+    <h3 className='hover:text-red-600 cursor-pointer transition duration-300 ease-in-out transform hover:scale-105'>Contact Us</h3>
   </div>
 </div>
 
@@ -108,49 +105,53 @@ const handleclick = ()=>{
     </button>
 </div>
    {/* Centered Navbar */}
-   <div className='bg-gray-100 w-full border-b-2 border-gray-200 h-20 px-20 py-8 xl:flex items-center hidden justify-center fixede  '  style={{ top: 0 }}>
+   <div className='bg-gradient-to-r from-blue-600 via-pink-500 to-purple-600 z-50 w-full shadow-lg h-20 px-20 py-2 xl:flex items-center hidden justify-center fixed' style={{ top: 0 }}>
   {/* Left Section - Messages, Favourites, Notifications */}
-  <div className='flex items-center space-x-8'>
-    <span className='flex items-center space-x-1'>
-      <FontAwesomeIcon icon={faMessage} className='text-[15px] text-gray-500' />
-      <h3 className='text-[14px] font-helveticaLight translate-y-[-1px] color1 hover:text-red-600 hover:cursor-pointer'>Messages</h3>
+  <div className='flex items-center space-x-10'>
+    <span className='flex items-center space-x-2 hover:text-red-600'>
+      <FontAwesomeIcon icon={faMessage} className='text-[16px] text-gray-200' />
+      <h3 className='text-[15px] font-helveticaLight text-gray-200 hover:text-red-600 cursor-pointer'>Messages</h3>
     </span>
-    <span className='flex items-center space-x-1'>
-      <FontAwesomeIcon icon={faHeart} className='text-[15px] text-gray-500' />
-      <h3 className='text-[14px] font-helveticaLight translate-y-[-1px] color1 hover:text-red-600 hover:cursor-pointer'>Favourites</h3>
+    <span className='flex items-center space-x-2 hover:text-white'>
+      <FontAwesomeIcon icon={faHeart} className='text-[16px] text-gray-200' />
+      <h3 className='text-[15px] font-helveticaLight text-gray-200 hover:text-red-600 cursor-pointer'>Favourites</h3>
     </span>
-    <span className='flex items-center space-x-1'>
-      <FontAwesomeIcon icon={faBell} className='text-[15px] text-gray-500' />
-      <h3 className='text-[14px] font-helveticaLight translate-y-[-1px] color1 hover:text-red-600 hover:cursor-pointer'>Notifications</h3>
+    <span className='flex items-center space-x-2 hover:text-white'>
+      <FontAwesomeIcon icon={faBell} className='text-[16px] text-gray-200' />
+      <h3 className='text-[15px] font-helveticaLight text-gray-200 hover:text-red-600 cursor-pointer'>Notifications</h3>
     </span>
   </div>
 
   {/* Search Bar */}
-  <div className='relative w-[700px] px-32'>
+  <div className='relative w-[700px] mx-10'>
     <input 
       type='search' 
-      className='rounded-3xl font-helveticaLight xl:pl-14  lg:pl-10 border-b-2 border-gray-300 focus:outline-none focus:ring-0 py-2 w-[500px]' 
+      className='rounded-full text-gray-700 pl-14 pr-4 border border-gray-300 focus:border-white focus:outline-none focus:ring-2 focus:ring-white transition duration-300 ease-in-out py-2 w-[500px]' 
       placeholder='Search...'
     />
     <FontAwesomeIcon 
       icon={faMagnifyingGlass} 
-      className='absolute left-36 top-1/2 transform text-[15px] -translate-y-1/2 text-black' 
+      className='absolute left-5 top-1/2 transform -translate-y-1/2 text-white text-[18px]' 
     />
   </div>
 
   {/* Right Section - Buttons */}
   <Link to={"/placeadd"}>
-  <button className='bg-[#D50055] hover:bg-[#b3004588] transition duration-300 ease-in-out  text-white font-bold h-10 w-36 py-2 px-4 rounded-lg text-[13px] flex items-center space-x-2'>
-    <FontAwesomeIcon icon={faCirclePlus} className='text-[17px] text-gray-100' />
-    <span className='whitespace-nowrap text-[13px] font-helveticaLight '>Place an Ad</span>
-  </button>
+    <button className='bg-pink-600 hover:bg-pink-500 transition duration-300 ease-in-out text-white font-bold h-12 w-36 py-2 px-4 rounded-full text-[14px] flex items-center space-x-2'>
+      <FontAwesomeIcon icon={faCirclePlus} className='text-[18px] text-gray-100' />
+      <span className='text-[14px] font-helveticaLight'>Place an Ad</span>
+    </button>
   </Link>
 
-  <button className='bg-[#36454fd3] hover:bg-[#36454f71] text-white font-bold h-10 w-24 mx-3 py-2 px-4 rounded-lg text-[13px] flex items-center space-x-2'>
-    <FontAwesomeIcon icon={faUser} className='text-[17px] text-gray-100' />
-    <span className='whitespace-nowrap text-[13px] font-helveticaLight'>Sign in</span>
+  <button className='bg-gray-800 hover:bg-gray-700 transition duration-300 ease-in-out text-white font-bold h-12 w-28 mx-4 py-2 px-4 rounded-full text-[14px] flex items-center space-x-2'>
+    <FontAwesomeIcon icon={faUser} className='text-[18px] text-gray-100' />
+    <span className='text-[14px] font-helveticaLight'>Sign in</span>
   </button>
 </div>
+
+
+
+
 
 
 
