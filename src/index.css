@@ -322,3 +322,329 @@ top: 35px;
     max-width: 100%; /* Full width on mobile */
   }
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f7fc;
+  color: #333;
+}
+
+.postdetail-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  max-width: 1200px;
+  margin: auto;
+  gap: 30px;
+  flex-wrap: wrap;
+  flex-direction: row; /* Default to row layout for larger screens */
+}
+
+.post-main {
+  width: 70%; /* Default width for PC */
+  background: linear-gradient(145deg, #ffffff, #f1f1f1);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+}
+
+.product-name {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.product-info p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.icons-container {
+  margin-top: 20px;
+}
+
+.icons-container span {
+  font-size: 1.8rem;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.icons-container span:hover {
+  color: #007BFF;
+  transform: scale(1.1);
+}
+
+.share-buttons {
+  margin-top: 25px;
+}
+
+.share-button {
+  padding: 12px 25px;
+  margin-right: 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 1.1rem;
+}
+
+.share-button:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+
+.facebook {
+  background-color: #3b5998;
+  color: white;
+}
+
+.twitter {
+  background-color: #1DA1F2;
+  color: white;
+}
+
+.linkedin {
+  background-color: #0077b5;
+  color: white;
+}
+
+.product-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-top: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.post-right {
+  width: 28%; /* Default width for PC */
+  display: flex;
+  flex-direction: column;
+}
+
+.right-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.price {
+  margin-bottom: 20px;
+}
+
+.price-text {
+  font-size: 2.2rem;
+  color: #2ecc71;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.user-details {
+  text-align: center;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 3px solid #ddd;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.user-join-date,
+.user-number,
+.user-email {
+  color: #555;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.user-contact p {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+.user-contact p svg {
+  margin-right: 10px;
+  color: #555;
+}
+
+.user-actions {
+  margin-top: 25px;
+}
+
+.action-button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  background-color: #007BFF;
+  color: white;
+  font-size: 1.1rem;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.action-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Mobile Responsive Styling */
+@media (max-width: 768px) {
+  .postdetail-container {
+    flex-direction: column !important; /* Force stacking vertically */
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .post-main,
+  .post-right {
+    width: 100% !important; /* Make both sections 100% width */
+    padding: 20px;
+  }
+
+  .product-name {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+
+  .product-info p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .icons-container span {
+    font-size: 1.5rem;
+    margin-right: 15px;
+  }
+
+  .share-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+
+  .product-image img {
+    margin-top: 20px;
+    border-radius: 8px;
+  }
+
+  .price-text {
+    font-size: 1.8rem;
+  }
+
+  .user-details {
+    padding: 15px;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .profile-pic {
+    width: 90px;
+    height: 90px;
+  }
+
+  .user-name {
+    font-size: 1.1rem;
+  }
+
+  .user-join-date,
+  .user-number,
+  .user-email {
+    font-size: 1rem;
+  }
+
+  .user-actions {
+    margin-top: 15px;
+  }
+
+  .action-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+}
+
+/* Very Small Mobile Devices */
+@media (max-width: 480px) {
+  .postdetail-container {
+    padding: 15px;
+  }
+
+  .post-main,
+  .post-right {
+    padding: 15px;
+    width: 100%; /* Ensure both sections are full width */
+  }
+
+  .product-name {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  .product-info p {
+    font-size: 0.9rem;
+  }
+
+  .icons-container span {
+    font-size: 1.3rem;
+    margin-right: 12px;
+  }
+
+  .share-button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+
+  .product-image img {
+    margin-top: 15px;
+  }
+
+  .price-text {
+    font-size: 1.6rem;
+  }
+
+  .user-details {
+    padding: 12px;
+  }
+
+  .profile-pic {
+    width: 80px;
+    height: 80px;
+  }
+
+  .user-name {
+    font-size: 1rem;
+  }
+
+  .user-join-date,
+  .user-number,
+  .user-email {
+    font-size: 0.9rem;
+  }
+
+  .action-button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+}

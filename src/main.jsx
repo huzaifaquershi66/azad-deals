@@ -7,6 +7,7 @@ import Listing from './components/Listingpage'; // Listing component
 import ScrollToTop from './components/Scroolontop'; // Import the ScrollToTop component
 import './index.css'; // Ensure your CSS is being loaded
 import Placeadd from './components/Placeadd';
+import Postdetail from './components/Postdetail';
 
 // Create the router
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: '/placeadd', // Route for the Listing component
         element: <Placeadd/>, // Render the Listing component
+      },
+      {
+        path: '/postdetail', // Route for the Listing component
+        element: <Postdetail/>, // Render the Listing component
       },
     ],
   },

@@ -6,7 +6,7 @@ import { faHouse, faBuilding, faLandmark, faTags,  faWarehouse } from '@fortawes
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-
+import axios from 'axios';
 // Leaflet marker icon fix for React Leaflet
 // delete L.Icon.Default.prototype._getIconUrl;
 // L.Icon.Default.mergeOptions({
@@ -219,18 +219,27 @@ const handleCityClick = (city) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-
+  
           // Set the marker position
           setMarkerPosition([latitude, longitude]);
           setIsLocationSet(true);
-
-          // Optionally fetch the address using a reverse geocoding API
-          fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
+  
+          // OpenStreetMap Reverse Geocoding API URL
+          const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`;
+  
+          // Fetch address using OpenStreetMap Reverse Geocoding API
+          fetch(url)
             .then((response) => response.json())
             .then((data) => {
-              if (data && data.display_name) {
-                const address = data.display_name;
-                setFormData((prevData) => ({ ...prevData, location: address }));
+              if (data && data.address) {
+                const { city, state, country, suburb, neighbourhood, road, town, village } = data.address; // Extract city, state, country, and area (suburb/neighbourhood)
+  
+                // Determine the best available area information (street, suburb, town, village)
+                const area = road || suburb || neighbourhood || town || village || "Area not available"; // Fallback to a default message if area is not found
+                const address = `${area}, ${city}, ${state}, ${country}`; // Construct the full address
+  
+                // Update the formData state with the formatted address
+                setFormData((prevData) => ({ ...prevData, location: `Registered Location: ${address}` }));
               } else {
                 alert("Unable to fetch the address.");
               }
@@ -243,19 +252,34 @@ const handleCityClick = (city) => {
         (error) => {
           console.error("Error fetching location:", error);
           alert("Unable to retrieve location.");
+        },
+        {
+          enableHighAccuracy: true,  // This forces a more accurate result
+          timeout: 10000,            // Set a timeout to avoid hanging if location is not available
+          maximumAge: 0              // Don't use cached location
         }
       );
+    } else {
+      alert("Geolocation is not supported by this browser.");
     }
   };
-
+  
   const LocationUpdater = () => {
     const map = useMap();
-    if (isLocationSet) {
+    if (isLocationSet && markerPosition) {
+      // Fly to the new location with a smooth zoom effect
       map.flyTo(markerPosition, map.getZoom());
     }
     return null;
   };
+
+ 
   
+  // JSX for Input Field:
+
+  
+  
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -991,7 +1015,7 @@ const handleCityClick = (city) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-5 sm:p-10">
-    <div className="w-full flex flex-col md:flex-grow bg-white shadow-2xl rounded-3xl overflow-hidden md:px-32 px-4">
+    <div className="w-full flex flex-col md:flex-grow bg-white shadow-2xl rounded-3xl overflow-hidden md:px-80 px-4">
     {/* Left Side: Ad Form */}
     <div className="w-full  p-8 sm:p-12 text-gray-800 flex flex-col bg-white rounded-3xl shadow-lg border border-gray-200 transition duration-300 transform">
     <h2 className="text-4xl font-montserrat font-extrabold text-center mb-8 text-indigo-900 tracking-wide uppercase shadow-lg">
@@ -1208,32 +1232,31 @@ const handleCityClick = (city) => {
   
 
   
-  <div className="relative w-full mx-auto">
-      <div className="relative">
-        <FontAwesomeIcon
-          icon={faLocationDot}
-          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 transition-transform duration-200 hover:scale-110 hover:text-blue-500"
-        />
-        <input
-          type="text"
-          placeholder="Click to get your location"
-          value={formData.location}
-          onClick={handleInputClickss} // Trigger location fetch on click
-          readOnly
-          className="h-12 w-full rounded-full pl-10 pr-4 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-blue-400 transition-all duration-300"
-        />
-      </div>
-      {/* <p className="mt-2 text-gray-700">Location: {formData.location}</p> */}
-
-      <MapContainer center={markerPosition} zoom={13} style={{ height: "400px", width: "100%", marginTop:"20px" }}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
-        {isLocationSet && <Marker position={markerPosition} />}
-        <LocationUpdater />
-      </MapContainer>
+ <div className="relative w-full mx-auto">
+    <div className="relative">
+      <FontAwesomeIcon
+        icon={faLocationDot}
+        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 transition-transform duration-200 hover:scale-110 hover:text-blue-500"
+      />
+      <input
+        type="text"
+        placeholder="Click to get your location"
+        value={formData.location}  // Bind the input field to formData.location
+        onClick={handleInputClickss} // Trigger location fetch on click
+        readOnly
+        className="h-12 w-full rounded-full pl-10 pr-4 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-blue-400 transition-all duration-300"
+      />
     </div>
+
+    <MapContainer center={markerPosition} zoom={13} style={{ height: "400px", width: "100%", marginTop: "20px" }}>
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+      />
+      {isLocationSet && <Marker position={markerPosition} />}
+      <LocationUpdater />
+    </MapContainer>
+  </div>
   
   {/* Additional Images Upload */}
 

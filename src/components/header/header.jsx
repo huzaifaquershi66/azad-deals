@@ -108,17 +108,17 @@ const handleclick = ()=>{
    <div className='bg-gradient-to-r from-blue-600 via-pink-500 to-purple-600 z-50 w-full shadow-lg h-20 px-20 py-2 xl:flex items-center hidden justify-center fixed' style={{ top: 0 }}>
   {/* Left Section - Messages, Favourites, Notifications */}
   <div className='flex items-center space-x-10'>
-    <span className='flex items-center space-x-2 hover:text-red-600'>
-      <FontAwesomeIcon icon={faMessage} className='text-[16px] text-gray-200' />
-      <h3 className='text-[15px] font-helveticaLight text-gray-200 hover:text-red-600 cursor-pointer'>Messages</h3>
+    <span className='flex items-center space-x-2 hover:text-red-600 hover:underline'>
+      <FontAwesomeIcon icon={faMessage} className='text-[18px] text-gray-200' />
+      <h3 className='text-[18px] font-helveticaLight text-gray-200 hover:text-red-600 cursor-pointer transition duration-300 ease-in-out'>Messages</h3>
     </span>
-    <span className='flex items-center space-x-2 hover:text-white'>
-      <FontAwesomeIcon icon={faHeart} className='text-[16px] text-gray-200' />
-      <h3 className='text-[15px] font-helveticaLight text-gray-200 hover:text-red-600 cursor-pointer'>Favourites</h3>
+    <span className='flex items-center space-x-2 hover:text-red-600 hover:underline'>
+      <FontAwesomeIcon icon={faHeart} className='text-[18px] text-gray-200' />
+      <h3 className='text-[18px] font-helveticaLight text-gray-200 hover:text-red-600 cursor-pointer transition duration-300 ease-in-out'>Favourites</h3>
     </span>
-    <span className='flex items-center space-x-2 hover:text-white'>
-      <FontAwesomeIcon icon={faBell} className='text-[16px] text-gray-200' />
-      <h3 className='text-[15px] font-helveticaLight text-gray-200 hover:text-red-600 cursor-pointer'>Notifications</h3>
+    <span className='flex items-center space-x-2 hover:text-red-600 hover:underline'>
+      <FontAwesomeIcon icon={faBell} className='text-[18px] text-gray-200' />
+      <h3 className='text-[18px] font-helveticaLight text-gray-200 hover:text-red-600 cursor-pointer transition duration-300 ease-in-out'>Notifications</h3>
     </span>
   </div>
 
@@ -137,16 +137,17 @@ const handleclick = ()=>{
 
   {/* Right Section - Buttons */}
   <Link to={"/placeadd"}>
-    <button className='bg-pink-600 hover:bg-pink-500 transition duration-300 ease-in-out text-white font-bold h-12 w-36 py-2 px-4 rounded-full text-[14px] flex items-center space-x-2'>
-      <FontAwesomeIcon icon={faCirclePlus} className='text-[18px] text-gray-100' />
-      <span className='text-[14px] font-helveticaLight'>Place an Ad</span>
-    </button>
-  </Link>
-
-  <button className='bg-gray-800 hover:bg-gray-700 transition duration-300 ease-in-out text-white font-bold h-12 w-28 mx-4 py-2 px-4 rounded-full text-[14px] flex items-center space-x-2'>
-    <FontAwesomeIcon icon={faUser} className='text-[18px] text-gray-100' />
-    <span className='text-[14px] font-helveticaLight'>Sign in</span>
+  <button className='bg-pink-600 hover:bg-pink-400 transition duration-300 ease-in-out text-white font-bold h-12 w-36 py-2 px-4 rounded-full text-[16px] flex items-center space-x-2'>
+    <FontAwesomeIcon icon={faCirclePlus} className='text-[16px] text-gray-100' />
+    <span className='text-[14px] font-helveticaLight'>Place an Ad</span>
   </button>
+</Link>
+
+<button className='bg-gray-800 hover:bg-gray-600 transition duration-300 ease-in-out text-white font-bold h-12 w-28 mx-4 py-2 px-4 rounded-full text-[16px] flex items-center space-x-2'>
+  <FontAwesomeIcon icon={faUser} className='text-[18px] text-gray-100' />
+  <span className='text-[16px] font-helveticaLight'>Sign in</span>
+</button>
+
 </div>
 
 

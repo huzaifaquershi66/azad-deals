@@ -276,7 +276,7 @@ const handleCityClick = (city) => {
   
   return (
     <>
-<div className="relative w-full h-[450px] rounded-lg px-0 flex lg:my-[20px] my-0 items-center justify-center">
+<div className="relative w-full h-[450px] rounded-lg px-0 md:px-40 flex lg:my-[20px] my-0 items-center justify-center">
   {/* Background Image with Darken Filter */}
   <img
     className="object-cover w-full h-full xl:px-10 md:px-4 filter brightness-100 rounded-lg" // Added rounded-lg to image for rounded corners
@@ -864,6 +864,7 @@ const handleCityClick = (city) => {
         <FontAwesomeIcon icon={faChevronLeft} className='text-lg' />
       </button>
     )}
+    <Link to="/postdetail">
 
     <div
       ref={carouselRef}
@@ -910,7 +911,7 @@ const handleCityClick = (city) => {
         </div>
       ))}
     </div>
-
+    </Link>
     {/* Right Scroll Button */}
     <button
       className='absolute right-4 top-40 transform -translate-y-1/2 z-10 
