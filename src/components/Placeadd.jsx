@@ -1228,7 +1228,38 @@ const handleCityClick = (city) => {
 
 
   {/* Location Input */}
+  <div className="mt-4">
+        <label className="text-lg font-semibold text-gray-800">Is Deliverable</label>
+        <div className="mt-2 flex items-center space-x-4">
+          <div className="flex items-center">
+            <input
+              type="radio"
+              id="yes"
+              name="deliverable"
+              // checked={isDeliverable === "yes"}
+              // onChange={() => setIsDeliverable("yes")}
+              className="h-4 w-4 text-green-600 focus:ring-green-500"
+            />
+            <label htmlFor="yes" className="ml-2 text-sm text-gray-700">
+              Yes
+            </label>
+          </div>
 
+          <div className="flex items-center">
+            <input
+              type="radio"
+              id="no"
+              name="deliverable"
+              // checked={isDeliverable === "no"}
+              // onChange={() => setIsDeliverable("no")}
+              className="h-4 w-4 text-red-600 focus:ring-red-500"
+            />
+            <label htmlFor="no" className="ml-2 text-sm text-gray-700">
+              No
+            </label>
+          </div>
+        </div>
+        </div>
   
 
   

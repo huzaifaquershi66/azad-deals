@@ -9,7 +9,42 @@ import { faBars, faTh } from '@fortawesome/free-solid-svg-icons'
 // Unique and popular cities
 const uniqueCities = Array.from(new Set(cities));
 const popularCities = ['Karachi', 'Lahore', 'Islamabad', 'Faisalabad', 'Rawalpindi', 'Multan'];
-
+const statesWithCities = {
+  Punjab: [
+    "Lahore", "Faisalabad", "Rawalpindi", "Multan", "Gujranwala", "Sialkot", "Bahawalpur",
+    "Sargodha", "Sheikhupura", "Jhang", "Gujrat", "Kasur", "Rahim Yar Khan", "Sahiwal",
+    "Okara", "Wah Cantonment", "Dera Ghazi Khan", "Chiniot", "Kamoke", "Hafizabad",
+    "Mandi Bahauddin", "Toba Tek Singh", "Jhelum", "Sadiqabad", "Muzaffargarh", "Vehari",
+    "Khushab", "Pakpattan", "Narowal", "Khanewal", "Mianwali", "Bhakkar", "Bahawalnagar"
+  ],
+  Sindh: [
+    "Karachi", "Hyderabad", "Sukkur", "Larkana", "Mirpur Khas", "Shaheed Benazirabad",
+    "Jacobabad", "Shikarpur", "Dadu", "Thatta", "Badin", "Khairpur", "Umerkot", "Naushero Feroze",
+    "Ghotki", "Sanghar", "Mithi", "Kandhkot", "Tando Allahyar", "Tando Muhammad Khan",
+    "Moro", "Kotri", "Hala", "Kunri", "Sehwan", "Sakrand"
+  ],
+  Balochistan: [
+    "Quetta", "Gwadar", "Turbat", "Khuzdar", "Sibi", "Zhob", "Loralai", "Chaman",
+    "Pishin", "Kalat", "Dera Murad Jamali", "Hub", "Musakhel", "Jafarabad", "Nushki",
+    "Panjgur", "Surab", "Barkhan", "Dera Allah Yar", "Usta Muhammad", "Lasbela",
+    "Kharan", "Washuk", "Awaran", "Kohlu", "Qila Saifullah", "Qila Abdullah", "Mastung"
+  ],
+  KhyberPakhtunkhwa: [
+    "Peshawar", "Abbottabad", "Mardan", "Swat", "Kohat", "Dera Ismail Khan", "Bannu",
+    "Charsadda", "Nowshera", "Swabi", "Haripur", "Mansehra", "Karak", "Lakki Marwat",
+    "Buner", "Dir", "Shangla", "Tank", "Battagram", "Lower Dir", "Upper Dir", "Hangu",
+    "Mingora", "Timergara", "Parachinar", "Mardan", "Malakand"
+  ],
+  Islamabad: ["Islamabad"],
+  GilgitBaltistan: [
+    "Gilgit", "Skardu", "Hunza", "Chilas", "Ghanche", "Ghizer", "Astore", "Kharmang",
+    "Shigar", "Nagar"
+  ],
+  AzadKashmir: [
+    "Muzaffarabad", "Mirpur", "Rawalakot", "Bagh", "Kotli", "Bhimber", "Pallandri",
+    "Hajira", "Dadyal", "Athmuqam", "Barnala"
+  ]
+};
 
 const initialProducts = [
   // Mobiles
@@ -244,19 +279,23 @@ const ListingPage = () => {
   const [products, setProducts] = useState([])// Track number of visible products
   const [isGridView, setIsGridView] = useState(true);
   const [likedProducts, setLikedProducts] = useState({});
-  const [selectedState, setSelectedState] = useState('');
+
   const [selectedCategory, setSelectedCategory] = useState("mobiles");
   const [featured, setFeatured] = useState(false);  // State for Featured checkbox
   const [urgent, setUrgent] = useState(false);
+  const [selectedState, setSelectedState] = useState("");
+  const [cities, setCities] = useState([]);
   
   const observerRef = useRef(null);
   const stateOptions = ['Punjab', 'Sindh', 'Balochistan', 'KPK', 'Gilgit-Baltistan'];
   
   // Handle state selection
-  const handleStateChange = (e) => {
-    setSelectedState(e.target.value);
+
+  const handleStateChange = (event) => {
+    const selected = event.target.value;
+    setSelectedState(selected);
+    setCities(statesWithCities[selected] || []);
   };
-  
   // Handle category selection
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
@@ -404,7 +443,7 @@ useEffect(() => {
 
   return (
     <>
-    <div className="h-64 w-full px-4 py-2 md:h-80 lg:h-96 lg:px-40">
+    <div className="h-64 w-full px-4 py-2 md:h-80 lg:h-72 lg:px-96">
   <img
     className="object-cover h-full rounded w-full"
     src="https://www.lg.com/levant_en/images/plp-b2c/levanten-mobilephones-hero-1-d.jpg"
@@ -412,10 +451,10 @@ useEffect(() => {
   />
 </div>
 
-<div className="relative p-10 sm:p-12 md:p-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white rounded-3xl shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-3xl mt-8 sm:mt-12 overflow-hidden">
+{/* <div className="relative p-10 sm:p-12 md:p-16 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white rounded-3xl shadow-2xl transition-all duration-300  hover:shadow-3xl mt-8 sm:mt-12 overflow-hidden">
   <div className="absolute inset-0 opacity-20 bg-gradient-to-r from-indigo-700 to-purple-600 blur-2xl animate-gradient-motion"></div>
-  <div className="absolute -top-12 -left-12 w-44 h-44 bg-gradient-to-br from-purple-500 via-pink-400 to-yellow-300 rounded-full opacity-30 blur-2xl animate-pulse"></div>
-  <div className="absolute bottom-6 right-6 w-32 h-32 bg-gradient-to-br from-blue-500 to-green-300 rounded-full opacity-25 blur-2xl animate-pulse delay-100"></div>
+  <div className="absolute -top-12 -left-12 w-44 h-44 bg-gradient-to-br from-purple-500 via-pink-400 to-yellow-300 rounded-full opacity-30 blur-2xl "></div>
+  <div className="absolute bottom-6 right-6 w-32 h-32 bg-gradient-to-br from-blue-500 to-green-300 rounded-full opacity-25 blur-2xl "></div>
 
   <div className="relative z-10 flex items-center space-x-4 sm:space-x-6">
     <span className="text-white bg-indigo-700 rounded-full p-4 shadow-lg">
@@ -423,7 +462,7 @@ useEffect(() => {
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
       </svg>
     </span>
-    <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight drop-shadow-lg leading-tight">Mobile Listings in Pakistan</h1>
+    <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight drop-shadow-lg ">Mobile Listings in Pakistan</h1>
   </div>
 
   <p className="relative z-10 mt-5 sm:mt-6 text-sm sm:text-lg text-gray-200 max-w-md sm:max-w-lg leading-relaxed tracking-wide">
@@ -436,7 +475,7 @@ useEffect(() => {
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
     </svg>
   </button>
-</div>
+</div> */}
 
 
 
@@ -475,152 +514,156 @@ useEffect(() => {
     </select>
   </div>
 
+
   {/* State Selection */}
-  <div className="mb-6">
-    <label className="text-lg font-semibold text-gray-800">Select State</label>
-    <select
-      value={selectedState}
-      onChange={handleStateChange}
-      className="mt-3 p-3 border border-gray-300 rounded-full w-full focus:outline-none focus:ring-4 focus:ring-blue-400 shadow-md transition-all duration-300 hover:bg-blue-50/90 hover:border-blue-400 hover:shadow-lg"
-    >
-      <option value="" disabled>Select State</option>
-      <option value="punjab">Punjab</option>
-      <option value="sindh">Sindh</option>
-      <option value="balochistan">Balochistan</option>
-      <option value="kpk">Khyber Pakhtunkhwa</option>
-      <option value="gilgit-baltistan">Gilgit Baltistan</option>
-    </select>
-  </div>
+  <div className="mb-6 ">
+      <h2 className="text-xl font-semibold text-gray-700">Select State and City</h2>
+      
+      {/* State Selector */}
+      <label htmlFor="state" className="block mt-4 text-gray-600">State</label>
+      <select
+        id="state"
+        value={selectedState}
+        onChange={handleStateChange}
+        className="mt-3 p-3 border border-gray-300 rounded-full w-full focus:outline-none focus:ring-4 focus:ring-blue-400 shadow-md transition-all duration-300 hover:bg-blue-50/90 hover:border-blue-400 hover:shadow-lg"
+      >
+        <option value="">Select a State</option>
+        {Object.keys(statesWithCities).map((state) => (
+          <option key={state} value={state}>{state}</option>
+        ))}
+      </select>
 
-  {/* Price Range */}
-  <div className="mb-6">
-    <label className="text-lg font-semibold text-gray-800">Price Range</label>
-    <div className="flex items-center mt-4">
-      <input
-        type="range"
-        min="0"
-        max="400000"
-        value={maxPrice}
-        onChange={(e) => setMaxPrice(e.target.value)}
-        className="w-full h-3 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full cursor-pointer shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-        style={{
-          backgroundSize: `${(maxPrice / 400000) * 100}% 100%`,
-          transition: 'background-size 0.5s ease-in-out',
-        }}
-      />
-      <span className="ml-4 text-lg font-semibold text-blue-600">₨{maxPrice}</span>
+      {/* City Selector */}
+      <label htmlFor="city" className="block mt-4 text-gray-600">City</label>
+      <select
+        id="city"
+        className="mt-3 p-3 border border-gray-300 rounded-full w-full focus:outline-none focus:ring-4 focus:ring-blue-400 shadow-md transition-all duration-300 hover:bg-blue-50/90 hover:border-blue-400 hover:shadow-lg"
+        disabled={!selectedState}
+      >
+        <option value="">Select a City</option>
+        {cities.map((city) => (
+          <option key={city} value={city}>{city}</option>
+        ))}
+      </select>
     </div>
-    <div className="flex justify-between font-semibold text-sm text-gray-500 mt-2">
-      <span>From pkr 0</span>
-      <span>Min pkr 400,000</span>
-    </div>
-  </div>
-
-  {/* Featured and Urgent Checkboxes */}
-  <div className="mb-6">
-    <div className="flex items-center space-x-4">
-      <label className="flex items-center text-lg font-semibold text-gray-800">
-        <input
-          type="checkbox"
-          className="mr-3 h-5 w-5 text-purple-500 border-gray-300 rounded focus:ring-purple-400 transition-transform duration-200 hover:scale-110"
-          onChange={handleFeaturedChange}
-        />
-        Featured
-      </label>
-      <label className="flex items-center text-lg font-semibold text-gray-800">
-        <input
-          type="checkbox"
-          className="mr-3 h-5 w-5 text-red-500 border-gray-300 rounded focus:ring-red-400 transition-transform duration-200 hover:scale-110"
-          onChange={handleUrgentChange}
-        />
-        Urgent
-      </label>
-    </div>
-  </div>
-
-  {/* City Search */}
-  <div className="mb-6">
-    <label className="text-lg font-semibold text-gray-800">Search City</label>
-    <div className="relative">
-      <input
-        type="text"
-        readOnly
-        placeholder="Search City"
-        onClick={handleInputClick}
-        className="h-12 w-full rounded-full pl-10 pr-10 border border-gray-300 bg-white/80 shadow-md focus:ring-4 focus:ring-blue-400 hover:bg-blue-50/80 transition-all duration-300"
-      />
-      <FontAwesomeIcon
-        icon={faLocationDot}
-        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 transition-transform duration-200 hover:scale-110 hover:text-blue-500"
-      />
-      <FontAwesomeIcon
-        icon={faAngleDown}
-        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-600 transition-transform duration-200 hover:scale-110 hover:text-blue-500"
-      />
-
-      {showCities && (
-        <div className="absolute left-0 right-0 mt-2 border border-gray-300 rounded-2xl bg-white/90 shadow-lg z-50 p-4 backdrop-blur-md animate-fadeIn">
-          <input
-            type="search"
-            value={searchTerm}
-            onChange={handleSearchChange}
-            className="h-12 w-full rounded-full pl-10 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-blue-400 transition-all duration-300"
-          />
-          <div className="h-48 overflow-y-auto mt-2">
-            <ul className="space-y-2">
-              {filteredCities.map((city, index) => (
-                <li
-                  key={index}
-                  onClick={() => handleCityClick(city)}
-                  className="cursor-pointer hover:bg-blue-100 rounded-lg p-2 transition duration-200 text-gray-700"
-                >
-                  {city}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
-    </div>
-  </div>
-
-  {/* Popular Cities */}
-  <div className="mt-6">
-    <h2 className="text-lg font-semibold text-gray-800">Popular Cities</h2>
-    <div className="space-y-3 mt-3">
-      {popularCities.map((city) => (
-        <label key={city} className="flex items-center hover:bg-purple-50 rounded-full p-3 transition duration-300 shadow-sm text-gray-800">
+  <div className="mt-4 flex items-center space-x-6">
+        <div className="flex items-center">
           <input
             type="checkbox"
-            className="mr-3 h-5 w-5 text-purple-500 border-gray-300 rounded focus:ring-purple-400 transition-transform duration-200 hover:scale-110"
+            // checked={isFeatured}
+            // onChange={() => setIsFeatured(!isFeatured)}
+            id="featured"
+            className="h-4 w-4 text-blue-600 focus:ring-blue-500"
           />
-          <span>{city}</span>
-        </label>
-      ))}
+          <label htmlFor="featured" className="ml-2 text-lg font-bold text-gray-700">
+            Featured
+          </label>
+        </div>
+
+        <div className="flex items-center">
+          <input
+            type="checkbox"
+            // checked={isUrgent}
+            // onChange={() => setIsUrgent(!isUrgent)}
+            id="urgent"
+            className="h-4 w-4 text-red-600 focus:ring-red-500"
+          />
+          <label htmlFor="urgent" className="ml-2 text-lg font-bold text-gray-700">
+            Urgent
+          </label>
+        </div>
+        </div>
+        <div className="mt-4">
+        <label className="text-lg font-semibold text-gray-800">Is Deliverable</label>
+        <div className="mt-2 flex items-center space-x-4">
+          <div className="flex items-center">
+            <input
+              type="radio"
+              id="yes"
+              name="deliverable"
+              // checked={isDeliverable === "yes"}
+              // onChange={() => setIsDeliverable("yes")}
+              className="h-4 w-4 text-green-600 focus:ring-green-500"
+            />
+            <label htmlFor="yes" className="ml-2 text-sm text-gray-700">
+              Yes
+            </label>
+          </div>
+
+          <div className="flex items-center">
+            <input
+              type="radio"
+              id="no"
+              name="deliverable"
+              // checked={isDeliverable === "no"}
+              // onChange={() => setIsDeliverable("no")}
+              className="h-4 w-4 text-red-600 focus:ring-red-500"
+            />
+            <label htmlFor="no" className="ml-2 text-sm text-gray-700">
+              No
+            </label>
+          </div>
+        </div>
+        </div>
+  {/* Price Range */}
+  <div className='mt-4'>
+      <label className="text-lg font-semibold  text-gray-800">Price Range</label>
+      <div className="flex items-center justify-between mt-4">
+        {/* Min Price Input */}
+        <input
+          type="number"
+          min="0"
+          max={maxPrice}
+          value={minPrice}
+          onChange={(e) => setMinPrice(e.target.value)}
+          className="w-1/3 p-2 border border-gray-300 rounded-l-md"
+        />
+
+        <span className="mx-2 text-lg font-semibold text-gray-800">-</span>
+
+        {/* Max Price Input */}
+        <input
+          type="number"
+          min={minPrice}
+          max="400000"
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(e.target.value)}
+          className="w-1/3 p-2 border border-gray-300 rounded-r-md"
+        />
+      </div>
+
+      {/* Price Range Labels */}
+      <div className="flex justify-between font-semibold text-sm text-gray-500 mt-2">
+        <span>From ₨{minPrice}</span>
+        <span>To ₨{maxPrice}</span>
+      </div>
+
+      {/* Range Slider */}
+      <div className="mt-4">
+        <input
+          type="range"
+          min="0"
+          max="400000"
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(e.target.value)}
+          className="w-full h-3 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full cursor-pointer shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          style={{
+            backgroundSize: `${(maxPrice / 400000) * 100}% 100%`,
+            transition: "background-size 0.5s ease-in-out",
+          }}
+        />
+        <span className="ml-4 text-lg font-semibold text-blue-600">₨{maxPrice}</span>
+      </div>
+
+      {/* Range Labels */}
+      <div className="flex justify-between font-semibold text-sm text-gray-500 mt-2">
+        <span>From pkr 0</span>
+        <span>Max pkr 400,000</span>
+      </div>
     </div>
-  </div>
+    </div>
 
-  {/* Action Buttons */}
-  <div className="justify-center mt-10">
-    <button
-      onClick={handleFilterClick}
-      className="bg-gradient-to-r from-green-500 to-teal-500 text-white w-full max-w-xs px-12 py-3 mb-4 rounded-full shadow-lg transition-transform transform hover:scale-105 hover:from-teal-500 hover:to-green-500 focus:outline-none font-semibold hover:shadow-2xl focus:ring-4 focus:ring-teal-300 focus:ring-opacity-50 active:scale-95"
-    >
-      <FontAwesomeIcon icon={faSearch} className="mr-2 text-lg" />
-      Search
-    </button>
-
-    <button
-      onClick={resetFilters}
-      className="bg-gradient-to-r from-blue-500 to-purple-500 text-white w-full max-w-xs px-12 py-3 rounded-full shadow-lg transition-transform transform hover:scale-105 hover:from-purple-500 hover:to-blue-500 focus:outline-none font-semibold"
-    >
-      <FontAwesomeIcon icon={faTimes} className="mr-2" />
-      Reset Filters
-    </button>
-  </div>
-</div>
-
-
+   
 <div className="bg-white rounded-lg p-8 shadow-xl transition-transform duration-300 hover:shadow-2xl md:col-span-3">
   <div className="flex justify-between items-center mb-6">
     <div className="flex items-center space-x-4">
