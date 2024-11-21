@@ -4,7 +4,7 @@ import { FaFacebookF, FaTwitter, FaLinkedinIn,FaRedditAlien} from 'react-icons/f
 import { useState } from 'react';
 import ImageCarousel from './Imageclaures';
 
-import { faChevronLeft,faStar, faChevronRight,  faHome, faGraduationCap, faCar,faPhoneAlt,faHeart,faFlag, faDownload, faPrint, faBookmark, faShareAlt ,faCalendar,faIdBadge,faTint,faUserTie,faMobile ,faBoxOpen,faMobileAlt,faPalette,faMemory,faShoppingCart,faCalendarAlt,faPaintBrush } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft,faStar, faSms, faChevronRight,  faHome, faGraduationCap, faCar,faPhoneAlt,faHeart,faFlag, faDownload, faPrint, faBookmark, faShareAlt ,faCalendar,faIdBadge,faTint,faUserTie,faMobile ,faBoxOpen,faMobileAlt,faPalette,faMemory,faShoppingCart,faCalendarAlt,faPaintBrush } from '@fortawesome/free-solid-svg-icons';
 
 
 import { 
@@ -21,6 +21,7 @@ import {
 
 const Postdetail = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isImageChanging, setIsImageChanging] = useState(false);
   const images = [
     "https://enews.hamariweb.com/wp-content/uploads/2023/06/iphone-14-review-lead-social-1663099148.jpg",
     "https://mir-s3-cdn-cf.behance.net/projects/404/436f7f180145769.Y3JvcCwxMDA3LDc4OCwxOTcsMA.jpg",
@@ -35,10 +36,11 @@ const Postdetail = () => {
   const handlePrevImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : images.length - 1));
   };
-
+  
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex < images.length - 1 ? prevIndex + 1 : 0));
   };
+  
   const products = [
     {
       image: "https://classiads.designinvento.net/elementor/classiads-wind/wp-content/uploads/elementor/thumbs/8-3-q0w4yxvjnnopcomqg22dp2q3ey8ruwk8pbau6nxs0o.jpg",
@@ -93,16 +95,16 @@ const Postdetail = () => {
   </button>
 
   {/* Download Button */}
-  <button className="flex flex-col items-center bg-gray-100 border-2 border-gray-300 hover:bg-blue-500 hover:text-white text-gray-700 rounded-xl p-4 h-16 shadow-lg transform hover:scale-105 transition-all duration-300">
+  {/* <button className="flex flex-col items-center bg-gray-100 border-2 border-gray-300 hover:bg-blue-500 hover:text-white text-gray-700 rounded-xl p-4 h-16 shadow-lg transform hover:scale-105 transition-all duration-300">
     <FontAwesomeIcon icon={faDownload} className="text-xl mb-1" />
     <span className="text-sm font-medium">Download</span>
-  </button>
+  </button> */}
 
   {/* Print Button */}
-  <button className="flex flex-col items-center bg-gray-100 border-2 border-gray-300 hover:bg-blue-500 hover:text-white text-gray-700 rounded-xl p-4 h-16 shadow-lg transform hover:scale-105 transition-all duration-300">
+  {/* <button className="flex flex-col items-center bg-gray-100 border-2 border-gray-300 hover:bg-blue-500 hover:text-white text-gray-700 rounded-xl p-4 h-16 shadow-lg transform hover:scale-105 transition-all duration-300">
     <FontAwesomeIcon icon={faPrint} className="text-xl mb-1" />
     <span className="text-sm font-medium">Print</span>
-  </button>
+  </button> */}
 
   {/* Bookmark Button */}
   <button className="flex flex-col items-center bg-gray-100 border-2 border-gray-300 hover:bg-blue-500 hover:text-white text-gray-700 rounded-xl p-4 h-16 shadow-lg transform hover:scale-105 transition-all duration-300">
@@ -137,41 +139,51 @@ const Postdetail = () => {
       </div>
 
       {/* Main Product Image with Navigation */}
-      <div className="mt-6 sm:mt-0 rounded-lg shadow-xl w-full h-[600px] overflow-hidden relative">
-        {/* Left Chevron */}
-        <button
-  onClick={handlePrevImage}
-  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-300"
->
-  <FontAwesomeIcon icon={faChevronLeft} className="text-xl text-gray-800" />
-</button>
+      <div className="mt-6 sm:mt-0 rounded-lg shadow-xl w-full h-[600px] overflow-hidden relative bg-black">
+  {/* Left Chevron */}
+  <button
+    onClick={handlePrevImage}
+    className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-300 z-10"
+  >
+    <FontAwesomeIcon icon={faChevronLeft} className="text-xl text-gray-800" />
+  </button>
 
-<img
-  className="w-full h-auto object-cover"
-  src={mainImage}
-  alt="Product"
-/>
+  {/* Image with opacity transition */}
+  <div className="w-full h-full absolute top-0 left-0 transition-opacity duration-500 ease-in-out">
+    {images.map((image, index) => (
+      <img
+        key={index}
+        className={`w-full h-full object-cover absolute transition-opacity duration-500 ease-in-out ${
+          index === currentImageIndex ? "opacity-100" : "opacity-0"
+        }`}
+        src={image}
+        alt={`Product ${index}`}
+      />
+    ))}
+  </div>
 
-<button
-  onClick={handleNextImage}
-  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-300"
->
-  <FontAwesomeIcon icon={faChevronRight} className="text-xl text-gray-800" />
-</button>
-      </div>
+  {/* Right Chevron */}
+  <button
+    onClick={handleNextImage}
+    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-300 z-10"
+  >
+    <FontAwesomeIcon icon={faChevronRight} className="text-xl text-gray-800" />
+  </button>
+</div>
 
-      {/* Thumbnail Images */}
-      <div className="flex mt-1 gap-1">
-        {images.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            alt={`Thumbnail ${index}`}
-            className="w-16 h-16 sm:w-36 sm:h-36  object-cover rounded-lg cursor-pointer"
-            onClick={() => setCurrentImageIndex(index)}
-          />
-        ))}
-      </div>
+{/* Thumbnail Images */}
+<div className="flex mt-1 gap-1">
+  {images.map((image, index) => (
+    <img
+      key={index}
+      src={image}
+      alt={`Thumbnail ${index}`}
+      className="w-16 h-16 sm:w-36 sm:h-36 object-cover rounded-lg cursor-pointer transform hover:scale-110 transition-all duration-300"
+      onClick={() => setCurrentImageIndex(index)}
+    />
+  ))}
+</div>
+
 
       <div className="flex flex-wrap gap-8 text-xs sm:text-sm lg:text-lg font-montserrat bg-white text-gray-600 mt-20">
   {/* Product Info with Icons */}
@@ -234,161 +246,11 @@ const Postdetail = () => {
 
 
 
-<div className="mt-10 space-y-8">
-  {/* Mobile Features Section */}
-  <div className="bg-gray-50 border rounded-lg font-sansing p-6 shadow-sm">
-  <h2 className="text-lg lg:text-xl font-bold font-roboto text-gray-800 mb-4">Mobile Features:</h2>
-  <div className="flex flex-wrap gap-4 text-gray-600">
-    {[
-      "Touchscreen",
-      "3G / 4G LTE",
-      "Memory Card",
-      "SDIO",
-      "Built-in Camera",
-      "Auto Focus",
-      "Built-in Flash",
-      "Video Recorder",
-      "Bluetooth",
-      "Wi-Fi",
-      "Dual SIM",
-      "USB",
-      "Media Sharing",
-    ].map((feature, index) => (
-      <span
-        key={index}
-        className="w-full sm:w-[30%] lg:w-[30%] flex items-center justify-center gap-2 border p-2 rounded-md shadow-sm bg-white"
-      >
-        <span className="text-green-500 text-lg font-bold">✔</span>
-        <span>{feature}</span>
-      </span>
-    ))}
-  </div>
-</div>
-
-  {/* Description Section */}
-  <div className="bg-gray-50 border rounded-lg p-6 shadow-sm">
-    <h2 className="text-lg lg:text-xl font-bold font-roboto text-gray-800 mb-4">Description:</h2>
-    <p className="text-gray-600 leading-relaxed font-roboto">
-      ClassiAds includes 20+ category templates, making it great for those hoping to create specific classified sites.
-      As an admin, simply approve seller applications, and they can manage their ads in a front-end panel. The default
-      listing type is free, but you can elect to charge users to feature their ads in high-traffic site areas for increased
-      engagement and visibility.
-    </p>
-    <p className="text-gray-600 leading-relaxed mt-4 font-roboto">
-      ClassiAds can also integrate with MailChimp, enabling communication between admin and sellers and buyers and sellers.
-      You can make additional customizations with Elementor.
-    </p>
-  </div>
-</div>
 
 
-<div className="bg-gray-50 border rounded-lg p-6 shadow-sm mt-6">
-  <h2 className="text-xl lg:text-2xl font-bold font-helveticaLight text-gray-800 mb-4">Contact Information:</h2>
-  <div className="flex flex-col text-gray-600">
-    {/* Price */}
-    <div className="flex items-center pb-4 border-b border-gray-300 font-manrope">
-      <span className="font-semibold text-lg text-gray-800 w-28">Price:</span>
-      <span className="text-lg">$950 <span className="text-green-500">Fixed</span></span>
-    </div>
 
-    {/* Categories */}
-    <div className="flex items-center py-4 border-b border-gray-300">
-      <span className="font-semibold text-lg text-gray-800 w-28">Categories:</span>
-      <span className="text-lg text-blue-500">Apple</span>
-      <span className="mx-2 text-lg text-gray-400">|</span>
-      <span className="text-lg text-blue-500">Mobile Phones</span>
-    </div>
 
-    {/* Phone */}
-    <div className="flex items-center py-4 border-b border-gray-300">
-      <span className="font-semibold text-lg text-gray-800 w-28">Phone:</span>
-      <span className="text-lg text-gray-800">+9234567899</span>
-    </div>
 
-    {/* Website */}
-    <div className="flex items-center py-4 border-b border-gray-300">
-      <span className="font-semibold text-lg text-gray-800 w-28">Website:</span>
-      <a
-        href="#"
-        className="text-lg text-blue-500 underline hover:text-blue-700"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        View Our Site
-      </a>
-    </div>
-
-    {/* Email */}
-    <div className="flex items-center pt-4">
-      <span className="font-semibold text-lg text-gray-800 w-28">Email:</span>
-      <a
-        href="mailto:help.designinvento@gmail.com"
-        className="text-lg text-blue-500 underline hover:text-blue-700"
-      >
-        help.designinvento@gmail.com
-      </a>
-    </div>
-  </div>
-</div>
-
-<div className="mt-10">
-  <h2 className="text-xl lg:text-2xl font-bold text-gray-800 font-montserrat mb-4">Product Video:</h2>
-  <div className="w-full h-auto rounded-lg shadow-md">
-    <iframe
-      width="560"
-      height="315"
-      src="https://www.youtube.com/embed/I54K1K3dv-Q?si=mffLR1Gsv28I7WPu"
-      title="YouTube video player"
-      frameBorder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      referrerPolicy="strict-origin-when-cross-origin"
-      allowFullScreen
-      className="w-full h-[530px] rounded-lg shadow-md"
-    ></iframe>
-  </div>
-</div>
-
-<div className="mt-10 bg-gray-50 border rounded-lg p-8 shadow-lg">
-  <h2 className="text-2xl lg:text-3xl font-bold text-gray-800 font-roboto mb-6">User Reviews</h2>
-  <div className="bg-white p-6 rounded-lg shadow-lg">
-    <div className="flex items-start mb-6">
-      {/* Avatar or User Icon */}
-      <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwYOG2Cjk3GC6Yh368KtsWRLpUir4-CNT2nw&s"
-        alt="User Avatar"
-        className="w-16 h-16 rounded-full mr-6"
-      />
-      <div>
-        <h3 className="text-xl font-roboto font-semibold text-gray-800">DesignInvento</h3>
-        <p className="text-sm text-gray-500">January 24, 2023, 5:17 pm</p>
-      </div>
-    </div>
-
-    {/* Star Rating */}
-    <div className="flex items-center mb-6">
-      {/* 5 stars, full and empty */}
-      <svg className="w-5 h-5 text-yellow-500" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27l6.18 3.73-1.64-7.03 5.36-4.73-7.19-.61L12 2 9.29 8.63l-7.19.61 5.36 4.73-1.64 7.03L12 17.27z"></path></svg>
-      <svg className="w-5 h-5 text-yellow-500" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27l6.18 3.73-1.64-7.03 5.36-4.73-7.19-.61L12 2 9.29 8.63l-7.19.61 5.36 4.73-1.64 7.03L12 17.27z"></path></svg>
-      <svg className="w-5 h-5 text-yellow-500" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27l6.18 3.73-1.64-7.03 5.36-4.73-7.19-.61L12 2 9.29 8.63l-7.19.61 5.36 4.73-1.64 7.03L12 17.27z"></path></svg>
-      <svg className="w-5 h-5 text-yellow-500" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27l6.18 3.73-1.64-7.03 5.36-4.73-7.19-.61L12 2 9.29 8.63l-7.19.61 5.36 4.73-1.64 7.03L12 17.27z"></path></svg>
-      <svg className="w-5 h-5 text-gray-300" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.27l6.18 3.73-1.64-7.03 5.36-4.73-7.19-.61L12 2 9.29 8.63l-7.19.61 5.36 4.73-1.64 7.03L12 17.27z"></path></svg>
-    </div>
-
-    <p className="text-lg text-gray-700 mb-6 font-roboto" >
-      ClassiAds includes 20+ category templates, making it great for those hoping to create specific classified sites. As an admin, simply approve seller applications, and they can manage their ads in a front-end panel. The default listing type is free, but you can elect to charge users to feature their ads in high-traffic site areas for increased engagement and visibility.
-    </p>
-    <p className="text-lg text-gray-700 mb-6 font-roboto">
-      ClassiAds can also integrate with MailChimp, enabling communication between admin and sellers and buyers and sellers. You can make additional customizations with Elementor.
-    </p>
-  </div>
-
-  {/* Post a New Review */}
-  <div className="mt-8 border-t pt-6">
-    <p className="text-gray-600 text-lg font-roboto">
-      You must be logged in to post a comment.
-    </p>
-  </div>
-</div>
 
 <div className="p-8 bg-gray-100 min-h-screen">
       {/* Ensure products are displayed in a single column */}
@@ -562,31 +424,40 @@ const Postdetail = () => {
 </div>
 <div className="w-full max-w-screen-xl mx-auto mt-8 px-4">
   {/* Div 1 (Blue) */}
-  <div className="flex items-center space-x-4 bg-blue-800 border border-blue-700 rounded-lg p-6 shadow-lg hover:shadow-xl transition duration-300 ease-in-out w-full mb-6">
-    <FontAwesomeIcon icon={faPhoneAlt} className="text-3xl text-blue-400" />
+  <div className="flex items-center space-x-4 bg-blue-700 border border-blue-600 rounded-lg p-4 shadow-md hover:shadow-lg transition duration-300 ease-in-out w-full mb-6">
+    {/* Phone Icon */}
+    <FontAwesomeIcon icon={faPhoneAlt} className="text-2xl text-blue-300" />
     <div>
-      <p className="text-xl font-semibold text-white">Click To Show Number</p>
-      <p className="text-xl text-gray-300 font-mono">+14 8xxxxxx</p>
+      {/* Title */}
+      <p className="text-lg font-medium text-white">Click to Show Number</p>
+      {/* Phone Number */}
+      <p className="text-sm text-gray-200 font-mono mt-1">+14 8xxxxxx</p>
     </div>
   </div>
+{/* </div> */}
 
   {/* Div 2 (Green) */}
-  <div className="flex items-center space-x-4 bg-green-800 border border-green-700 rounded-lg p-6 shadow-lg hover:shadow-xl transition duration-300 ease-in-out w-full mb-6">
-    <FontAwesomeIcon icon={faPhoneAlt} className="text-3xl text-green-400" />
-    <div>
-      <p className="text-xl font-semibold text-white">Click To Show Number</p>
-      <p className="text-xl text-gray-300 font-mono">+14 8xxxxxx</p>
-    </div>
+  <div className="flex items-center space-x-4 bg-green-700 border border-green-600 rounded-lg p-4 shadow-md hover:shadow-lg transition duration-300 ease-in-out w-full mb-6">
+  {/* Phone Icon */}
+  <FontAwesomeIcon icon={faPhoneAlt} className="text-2xl text-green-300" />
+  <div>
+    {/* Title */}
+    <p className="text-lg font-medium text-white">Click to Show Number</p>
+    {/* Phone Number */}
+    <p className="text-sm text-gray-200 font-mono mt-1">+14 8xxxxxx</p>
   </div>
+</div>
+
 
   {/* Div 3 (Orange) */}
   <div className="flex items-center space-x-4 bg-orange-800 border border-orange-700 rounded-lg p-6 shadow-lg hover:shadow-xl transition duration-300 ease-in-out w-full mb-6">
-    <FontAwesomeIcon icon={faEnvelope} className="text-3xl text-orange-400" />
-    <div>
-      <p className="text-xl font-semibold text-white">Send Email</p>
-      <button className="text-blue-400 hover:underline text-sm font-semibold mt-2">Send</button>
+      {/* Replace faEnvelope with faSms */}
+      <FontAwesomeIcon icon={faSms} className="text-3xl text-orange-400" />
+      <div>
+        <p className="text-xl font-semibold text-white">Text Now</p>
+        
+      </div>
     </div>
-  </div>
 </div>
 
 
@@ -614,46 +485,7 @@ const Postdetail = () => {
 {/* <div className="w-full   mt-8 px-4"> */}
 <ImageCarousel/>
 {/* </div> */}
-<div className="w-full max-w-screen-xl mx-auto mt-8 px-4 md:h-[420px] h-[740px] bg-white z-50 border-2 border-gray-200 rounded-xl shadow-lg font-manrope">
-  <h2 className="text-4xl font-bold text-center text-gray-800 mb-10 mt-4">Categories</h2>
-  <div className="flex flex-wrap gap-8 justify-center">
-    {/* Mobile Category */}
-    <div className="bg-blue-500 p-10 rounded-lg shadow-xl text-white flex items-center justify-start hover:bg-blue-600 transition duration-300 ease-in-out w-full sm:w-4/5 md:w-3/5 lg:w-2/5 transform hover:scale-105 hover:shadow-2xl overflow-hidden">
-      <FontAwesomeIcon icon={faMobileAlt} className="text-5xl mr-6" />
-      <div className="flex flex-col max-w-full">
-        <h3 className="text-lg font-semibold leading-tight whitespace-nowrap overflow-hidden text-ellipsis">Mobile</h3>
-        <p className="text-lg text-gray-300 whitespace-nowrap overflow-hidden text-ellipsis">7 Items</p>
-      </div>
-    </div>
 
-    {/* Property Category */}
-    <div className="bg-green-500 p-10 rounded-lg shadow-xl text-white flex items-center justify-start hover:bg-green-600 transition duration-300 ease-in-out w-full sm:w-4/5 md:w-3/5 lg:w-2/5 transform hover:scale-105 hover:shadow-2xl overflow-hidden">
-      <FontAwesomeIcon icon={faHome} className="text-4xl mr-6" />
-      <div className="flex flex-col max-w-full">
-        <h3 className="text-lg font-semibold leading-tight whitespace-nowrap overflow-hidden text-ellipsis">Property</h3>
-        <p className="text-lg text-gray-300 whitespace-nowrap overflow-hidden text-ellipsis">12 Items</p>
-      </div>
-    </div>
-
-    {/* Academics Category */}
-    <div className="bg-orange-500 p-10 rounded-lg shadow-xl text-white flex items-center justify-start hover:bg-orange-600 transition duration-300 ease-in-out w-full sm:w-4/5 md:w-3/5 lg:w-2/5 transform hover:scale-105 hover:shadow-2xl overflow-hidden">
-      <FontAwesomeIcon icon={faGraduationCap} className="text-2xl mr-6" />
-      <div className="flex flex-col max-w-full">
-        <h3 className="text-sm font-semibold leading-tight whitespace-nowrap overflow-hidden text-ellipsis">Academics</h3>
-        <p className="text-lg text-gray-300 whitespace-nowrap overflow-hidden text-ellipsis">5 Items</p>
-      </div>
-    </div>
-
-    {/* Cars Category */}
-    <div className="bg-red-500 p-10 rounded-lg shadow-xl text-white flex items-center justify-start hover:bg-red-600 transition duration-300 ease-in-out w-full sm:w-4/5 md:w-3/5 lg:w-2/5 transform hover:scale-105 hover:shadow-2xl overflow-hidden">
-      <FontAwesomeIcon icon={faCar} className="text-4xl mr-6" />
-      <div className="flex flex-col max-w-full">
-        <h3 className="text-lg font-semibold leading-tight whitespace-nowrap overflow-hidden text-ellipsis">Cars</h3>
-        <p className="text-lg text-gray-300 whitespace-nowrap overflow-hidden text-ellipsis">8 Items</p>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 
@@ -677,4 +509,4 @@ const Postdetail = () => {
   );
 };
 
-export default Postdetail;
+export  {Postdetail};

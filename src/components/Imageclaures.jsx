@@ -1,79 +1,64 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlayCircle } from "@fortawesome/free-solid-svg-icons";
 
-const ImageCarousel = () => {
-  // List of images to display
-  const images = [
-    "https://enews.hamariweb.com/wp-content/uploads/2023/06/iphone-14-review-lead-social-1663099148.jpg",
-    "https://enews.hamariweb.com/wp-content/uploads/2023/06/iphone-14-review-lead-social-1663099148.jpg",
-    
-    "https://enews.hamariweb.com/wp-content/uploads/2023/06/iphone-14-review-lead-social-1663099148.jpg",
-    "https://enews.hamariweb.com/wp-content/uploads/2023/06/iphone-14-review-lead-social-1663099148.jpg",
+const VideoCarousel = () => {
+  // List of video URLs
+  const videoSrc =
+    "https://videos.pexels.com/video-files/4232959/4232959-hd_1920_1080_24fps.mp4"; // Replace with your own video URL
 
-  ];
+  // State to manage hover state
+  const [isHovered, setIsHovered] = useState(false);
 
-  // State to manage the current image index
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  // Reference to the video element
+  const videoRef = useRef(null);
 
-  // Set an interval to automatically change the image every 3 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) =>
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 3000); // Change image every 3 seconds
-
-    return () => clearInterval(interval); // Clean up the interval on component unmount
-  }, []);
-
-  // Function to change the image manually (prev/next)
-  const goToNext = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
+  // Handle hover: play video when hovered, and pause when not hovered
+  const handleMouseEnter = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      // Start the video from the interesting part, e.g., 10 seconds
+      videoRef.current.currentTime = 10;
+    }
+    setIsHovered(true);
   };
 
-  const goToPrev = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    setIsHovered(false);
   };
 
   return (
     <div className="w-full max-w-screen-xl mx-auto mt-8 px-4">
-      {/* Image Carousel Div */}
-      <div className="relative w-full h-80 bg-gray-200 rounded-lg overflow-hidden shadow-lg">
-        <div
-          className="flex transition-all duration-700 ease-in-out"
-          style={{
-            transform: `translateX(-${currentImageIndex * 100}%)`,
-          }}
-        >
-          {images.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              alt={`Carousel Image ${index + 1}`}
-              className="w-full h-full object-cover"
+      {/* Video Carousel Div */}
+      <div className="relative w-full h-80 bg-gray-200 rounded-lg overflow-hidden shadow-xl transition-transform duration-300 ease-in-out transform hover:scale-105">
+        {/* Play Icon Overlay */}
+        {!isHovered && (
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10 bg-black bg-opacity-40 p-3 rounded-full">
+            <FontAwesomeIcon
+              icon={faPlayCircle}
+              size="3x"
+              className="opacity-80"
             />
-          ))}
-        </div>
+          </div>
+        )}
 
-        {/* Navigation Arrows */}
-        <button
-          onClick={goToPrev}
-          className="absolute top-1/2 left-0 transform -translate-y-1/2 text-white bg-black bg-opacity-50 p-2 rounded-full z-10"
-        >
-          &#8249;
-        </button>
-        <button
-          onClick={goToNext}
-          className="absolute top-1/2 right-0 transform -translate-y-1/2 text-white bg-black bg-opacity-50 p-2 rounded-full z-10"
-        >
-          &#8250;
-        </button>
+        {/* Video Element */}
+        <video
+          ref={videoRef}
+          src={videoSrc}
+          className="w-full h-full object-cover"
+          muted
+          loop
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          preload="auto"
+        />
       </div>
     </div>
   );
 };
 
-export default ImageCarousel;
+export default VideoCarousel;

@@ -72,25 +72,55 @@ const PlaceAdd = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [advancedSearch, setAdvancedSearch] = useState(false);
   const [showCities, setshowCities] = useState(false);
+  const [isPreview, setIsPreview] = useState(false);
   const [isLocationSet, setIsLocationSet] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(true);
+const [isAdPosted, setIsAdPosted] = useState(false);
+
   
     const [propertyPurpose, setPropertyPurpose] = useState('');
     const [markerPosition, setMarkerPosition] = useState([51.505, -0.09])
     const [media, setMedia] = useState(Array(10).fill(null));
     const [titleImage, setTitleImage] = useState(null);
+    const [showPreview, setShowPreview] = useState(false);
+
+    const [selectedCity, setSelectedCity] = useState("");
+
 
   
  
   const [propertyType, setPropertyType] = useState('');
   const [selectedState, setSelectedState] = useState("");
   const [cities, setCities] = useState([]);
+  const [videoFile, setVideoFile] = useState(null);
 
-  const handleStateChange = (event) => {
-    const selected = event.target.value;
-    setSelectedState(selected);
-    setCities(statesWithCities[selected] || []);
+const handleVideoChange = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    setVideoFile(URL.createObjectURL(file)); // Generate preview URL
+  }
+};
+const handlePostAd = () => {
+  setIsFormVisible(false);  // Hide the form
+  setIsAdPosted(true);      // Show the confirmation message
+};
+
+
+const handleStateChange = (event) => {
+  const state = event.target.value;
+  setSelectedState(state);
+  setSelectedCity(""); // Reset city when state changes
+  setCities(statesWithCities[state] || []);
+};
+  const handleCityChange = (event) => {
+    const city = event.target.value;
+    setSelectedCity(city);
+    // Find the selected city's coordinates
+    const cityData = statesWithCities[selectedState]?.find((item) => item.city === city);
+    if (cityData) {
+      setMarkerPosition(cityData.coords); // Update marker position
+    }
   };
- 
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -219,27 +249,38 @@ const handleCityClick = (city) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-  
-          // Set the marker position
+
+          // Update marker position
           setMarkerPosition([latitude, longitude]);
-          setIsLocationSet(true);
-  
+
           // OpenStreetMap Reverse Geocoding API URL
           const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`;
-  
-          // Fetch address using OpenStreetMap Reverse Geocoding API
+
+          // Fetch address from OpenStreetMap
           fetch(url)
             .then((response) => response.json())
             .then((data) => {
               if (data && data.address) {
-                const { city, state, country, suburb, neighbourhood, road, town, village } = data.address; // Extract city, state, country, and area (suburb/neighbourhood)
-  
-                // Determine the best available area information (street, suburb, town, village)
-                const area = road || suburb || neighbourhood || town || village || "Area not available"; // Fallback to a default message if area is not found
-                const address = `${area}, ${city}, ${state}, ${country}`; // Construct the full address
-  
-                // Update the formData state with the formatted address
-                setFormData((prevData) => ({ ...prevData, location: `Registered Location: ${address}` }));
+                const {
+                  city,
+                  state,
+                  country,
+                  suburb,
+                  neighbourhood,
+                  road,
+                  town,
+                  village,
+                } = data.address;
+
+                const area =
+                  road || suburb || neighbourhood || town || village || "Area not available";
+                const address = `${area}, ${city}, ${state}, ${country}`;
+
+                // Update location in formData
+                setFormData((prevData) => ({
+                  ...prevData,
+                  location: `Registered Location: ${address}`,
+                }));
               } else {
                 alert("Unable to fetch the address.");
               }
@@ -254,9 +295,9 @@ const handleCityClick = (city) => {
           alert("Unable to retrieve location.");
         },
         {
-          enableHighAccuracy: true,  // This forces a more accurate result
-          timeout: 10000,            // Set a timeout to avoid hanging if location is not available
-          maximumAge: 0              // Don't use cached location
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0,
         }
       );
     } else {
@@ -321,9 +362,9 @@ const handleCityClick = (city) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add validation logic here if necessary
-    alert("Ad posted successfully!");
+    setIsPreview(true);
   };
+
   const handlePropertyPurposeChange = (e) => {
     const { value } = e.target;
     setPropertyPurpose(value);
@@ -1017,6 +1058,7 @@ const handleCityClick = (city) => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-5 sm:p-10">
     <div className="w-full flex flex-col md:flex-grow bg-white shadow-2xl rounded-3xl overflow-hidden md:px-80 px-4">
     {/* Left Side: Ad Form */}
+    {!isPreview ? (
     <div className="w-full  p-8 sm:p-12 text-gray-800 flex flex-col bg-white rounded-3xl shadow-lg border border-gray-200 transition duration-300 transform">
     <h2 className="text-4xl font-montserrat font-extrabold text-center mb-8 text-indigo-900 tracking-wide uppercase shadow-lg">
     Post Your Ad
@@ -1166,65 +1208,151 @@ const handleCityClick = (city) => {
       ))}
     </div>
 
+    <div className="mb-6 flex flex-col items-center">
+  <h1 className="font-manrope font-bold text-[24px] sm:text-[28px] md:text-[32px] text-center text-gray-800 mb-4">
+    Video Upload
+  </h1>
+  <input
+    type="file"
+    onChange={handleVideoChange}
+    className="hidden"
+    id="video-upload"
+    accept="video/*"
+  />
+  <label
+    htmlFor="video-upload"
+    className="cursor-pointer flex items-center justify-center bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 rounded-xl p-3 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 relative overflow-hidden group"
+  >
+    {videoFile ? (
+      <video
+        src={videoFile}
+        controls
+        className="h-full w-full object-cover rounded-lg"
+      />
+    ) : (
+      <>
+        <FontAwesomeIcon
+          icon={faUpload}
+          className="text-gray-100 text-3xl sm:text-4xl md:text-5xl transition-transform duration-300 group-hover:scale-110"
+        />
+        <span className="text-gray-100 font-medium text-sm sm:text-base md:text-lg text-center mt-2 group-hover:opacity-90">
+          Upload Video
+        </span>
+      </>
+    )}
+
+    {/* Subtle hover effect overlay */}
+    <div className="absolute inset-0 bg-gradient-to-tr from-gray-900/50 to-gray-900/30 rounded-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+  </label>
+</div>
 
 
   {/* Dynamic Fields */}
   {renderCategoryFields()}
 
   {/* Price Input */}
-  <div className="flex flex-col">
-    <label htmlFor="price" className="text-lg font-helveticaLight  mb-2">Price (in Rs)</label>
+  <div className="flex flex-col mb-6">
+  <label htmlFor="price" className="text-lg font-light mb-2">
+    Price (in Rs)
+  </label>
+  <input
+    id="price"
+    type="text"
+    name="price"
+    value={formData.price}
+    onChange={handleInputChange}
+    placeholder="Enter price (in Rs)"
+    className="w-full p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
+  />
+</div>
+
+<div className="p-6 w-full mx-auto bg-gray-100 rounded-md shadow-md">
+  <h2 className="text-xl font-semibold text-gray-700">Select State and City</h2>
+
+  {/* State Selector */}
+  <label htmlFor="state" className="block mt-4 text-gray-600">
+    State
+  </label>
+  <select
+    id="state"
+    value={selectedState}
+    onChange={handleStateChange}
+    className="w-full p-2 mt-1 border rounded-md"
+  >
+    <option value="">Select a State</option>
+    {Object.keys(statesWithCities).map((state) => (
+      <option key={state} value={state}>
+        {state}
+      </option>
+    ))}
+  </select>
+
+  {/* City Selector */}
+  <label htmlFor="city" className="block mt-4 text-gray-600">
+    City
+  </label>
+  <select
+    id="city"
+    value={selectedCity}
+    onChange={handleCityChange}
+    className="w-full p-2 mt-1 border rounded-md"
+    disabled={!selectedState}
+  >
+    <option value="">Select a City</option>
+    {cities.map((city) => (
+      <option key={city} value={city}>
+        {city}
+      </option>
+    ))}
+  </select>
+</div>
+
+{/* Location Input and Map */}
+<div className="relative w-full mx-auto mt-6">
+  <div className="relative">
+    <FontAwesomeIcon
+      icon={faLocationDot}
+      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 transition-transform duration-200 hover:scale-110 hover:text-blue-500"
+    />
     <input
-      id="price"
       type="text"
-      name="price"
-      value={formData.price}
-      onChange={handleInputChange}
-      placeholder="Price (in Rs)"
-      className="input-style w-full p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
+      placeholder="Click to get your location"
+      value={formData.location}
+      onClick={handleInputClickss}
+      readOnly
+      className="h-12 w-full rounded-full pl-10 pr-4 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-blue-400 transition-all duration-300"
     />
   </div>
-  <div className="p-6 w-full mx-auto bg-gray-100 rounded-md shadow-md">
-      <h2 className="text-xl font-semibold text-gray-700">Select State and City</h2>
-      
-      {/* State Selector */}
-      <label htmlFor="state" className="block mt-4 text-gray-600">State</label>
-      <select
-        id="state"
-        value={selectedState}
-        onChange={handleStateChange}
-        className="w-full p-2 mt-1 border rounded-md"
-      >
-        <option value="">Select a State</option>
-        {Object.keys(statesWithCities).map((state) => (
-          <option key={state} value={state}>{state}</option>
-        ))}
-      </select>
 
-      {/* City Selector */}
-      <label htmlFor="city" className="block mt-4 text-gray-600">City</label>
-      <select
-        id="city"
-        className="w-full p-2 mt-1 border rounded-md"
-        disabled={!selectedState}
-      >
-        <option value="">Select a City</option>
-        {cities.map((city) => (
-          <option key={city} value={city}>{city}</option>
-        ))}
-      </select>
-    </div>
-{/* 
-  
-    <Marker
-      position={[51.505, -0.09]} // Default position, replace with actual coordinates if available
-      icon={new L.Icon({
-        iconUrl: '/marker-icon.png',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-      })}
-    />
-   */}
+  {/* Map Container */}
+  <div className="mt-6">
+    <MapContainer
+      center={markerPosition}
+      zoom={13}
+      style={{ height: "400px", width: "100%" }}
+    >
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+      />
+      <Marker
+        position={markerPosition}
+        icon={new L.Icon({
+          iconUrl: "/marker-icon.png",
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+        })}
+      />
+    </MapContainer>
+  </div>
+</div>
+
+
+
+
+
+
+
 
 
   {/* Location Input */}
@@ -1262,42 +1390,18 @@ const handleCityClick = (city) => {
         </div>
   
 
-  
- <div className="relative w-full mx-auto">
-    <div className="relative">
-      <FontAwesomeIcon
-        icon={faLocationDot}
-        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 transition-transform duration-200 hover:scale-110 hover:text-blue-500"
-      />
-      <input
-        type="text"
-        placeholder="Click to get your location"
-        value={formData.location}  // Bind the input field to formData.location
-        onClick={handleInputClickss} // Trigger location fetch on click
-        readOnly
-        className="h-12 w-full rounded-full pl-10 pr-4 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-blue-400 transition-all duration-300"
-      />
-    </div>
 
-    <MapContainer center={markerPosition} zoom={13} style={{ height: "400px", width: "100%", marginTop: "20px" }}>
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-      />
-      {isLocationSet && <Marker position={markerPosition} />}
-      <LocationUpdater />
-    </MapContainer>
-  </div>
   
   {/* Additional Images Upload */}
 
 
   {/* Submit Button */}
   <button
+  //  onClick={() => setShowPreview(!showPreview)}
   type="submit"
   className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full py-4 text-lg font-bold shadow-lg hover:from-purple-600 hover:to-pink-500 hover:shadow-xl transform transition-all duration-300 hover:scale-105"
 >
-  Post Ad
+  Preview AD
 </button>
 
 
@@ -1306,10 +1410,12 @@ const handleCityClick = (city) => {
 </form>
 
     </div>
+  
+) : (
 
-    {/* Right Side: Live Preview */}
-   
-    <div className="h-[650px] relative mt-4   w-full md:max-w-[500px] bg-gradient-to-r from-gray-600 to-gray-900 p-6 sm:p-8 rounded-2xl shadow-3xl border border-gray-300 transform transition-transform duration-300 ease-out hover:shadow-2xl md:mt-20 hover:border-gray-500 md:mx-4 lg:mx-auto">
+
+  <div className="h-[650px] relative mt-4 w-full md:max-w-[500px] bg-gradient-to-r from-gray-600 to-gray-900 p-6 sm:p-8 rounded-2xl shadow-3xl border border-gray-300 transform transition-transform duration-300 ease-out hover:shadow-2xl md:mt-20 hover:border-gray-500 md:mx-4 lg:mx-auto">
+
   {/* Live Preview Badge with Pulse Effect */}
   <span className="absolute top-2 left-1/2 transform -translate-x-1/2 font-helveticaLight text-white font-bold bg-gradient-to-r from-orange-500 to-purple-700 rounded-full px-4 py-2 shadow-lg z-20 transition-transform duration-200 hover:scale-110 animate-pulse">
     Live Preview
@@ -1351,29 +1457,29 @@ const handleCityClick = (city) => {
         <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2 text-xl text-purple-500" />
         <span className="text-lg font-medium">{formData.location || 'Your Location'}</span>
       </p>
-      
-      {/* Additional Images */}
-      {/* <div className="grid grid-cols-2 gap-3 mt-4">
-        {formData.additionalImages.map((img, index) => (
-          <img
-            key={index}
-            src={img}
-            alt={`Additional Preview ${index + 1}`}
-            className="w-full h-24 object-cover rounded-lg shadow-md border border-gray-300 transition-transform duration-300 hover:scale-105 hover:shadow-xl transform hover:rotate-3"
-          />
-        ))}
-      </div> */}
 
     </div>
   </div>
- </div> 
 
- 
+  {/* Confirm and Post Button */}
+  <div className="flex justify-center mt-6">
+    <button
+      onClick={handlePostAd}
+      className="px-6 py-3 bg-green-600 text-white rounded-lg shadow-lg hover:bg-green-700 transition-all duration-300 transform hover:scale-105">
+      Confirm and Post
+    </button>
+  </div>
+  
+</div>
+
+  
+)}
+
 
   </div>
 
 
-
+  
 
 
 

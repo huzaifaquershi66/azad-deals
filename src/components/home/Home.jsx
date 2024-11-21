@@ -276,10 +276,10 @@ const handleCityClick = (city) => {
   
   return (
     <>
-<div className="relative w-full h-[450px] rounded-lg px-0 md:px-40 flex lg:my-[20px] my-0 items-center justify-center">
+<div className="relative w-full h-[450px] rounded-lg   flex lg:my-[20px] my-0 items-center justify-center">
   {/* Background Image with Darken Filter */}
   <img
-    className="object-cover w-full h-full xl:px-10 md:px-4 filter brightness-100 rounded-lg" // Added rounded-lg to image for rounded corners
+    className="object-cover w-full h-full  filter brightness-100 " // Added rounded-lg to image for rounded corners
     src={banner}
     alt="Background"
   />
@@ -766,74 +766,74 @@ const handleCityClick = (city) => {
   </div>
 
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-    {/* Sample Card */}
-    <div className="relative rounded-3xl overflow-hidden bg-gray-900 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 h-80 flex flex-col opacity-0 transition-opacity duration-700 animate-fadeIn">
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-transparent rounded-3xl"></div>
-      <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
-        <img 
-          src="https://www.igeeksblog.com/wp-content/uploads/2024/09/Download-iPhone-16-and-16-Pro-Max-Wallpapers.jpg" 
-          alt="Mobiles" 
-          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-lg transform hover:scale-110 transition-all duration-500"
-        />
-        <h3 className="text-3xl font-semibold text-white mb-2">Mobiles</h3>
-        <p className="text-white text-sm text-center">Discover the latest trends and technology.</p>
-        <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-500 transition-colors duration-300 hover:shadow-lg hover:ring-2 hover:ring-blue-300">
-          Shop Now
-        </button>
-      </div>
-    </div>
-
-    {/* Properties Card */}
-    <div className="relative rounded-3xl overflow-hidden bg-gray-900 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 h-80 flex flex-col opacity-0 transition-opacity duration-700 animate-fadeIn">
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-transparent rounded-3xl"></div>
-      <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
-        <img 
-          src="https://cdn.pixabay.com/photo/2017/07/17/00/54/house-2511060_640.jpg" 
-          alt="Properties" 
-          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-lg transform hover:scale-110 transition-all duration-500"
-        />
-        <h3 className="text-3xl font-semibold text-white mb-2">Properties</h3>
-        <p className="text-white text-sm text-center">Find your perfect home today.</p>
-        <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-500 transition-colors duration-300 hover:shadow-lg hover:ring-2 hover:ring-blue-300">
-          Explore
-        </button>
-      </div>
-    </div>
-
-    {/* Cars Card */}
-    <div className="relative rounded-3xl overflow-hidden bg-gray-900 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 h-80 flex flex-col opacity-0 transition-opacity duration-700 animate-fadeIn">
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-transparent rounded-3xl"></div>
-      <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
-        <img 
-          src="https://www.isharearena.com/wp-content/uploads/2012/11/wallpaper-2426837.jpg" 
-          alt="Cars" 
-          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-lg transform hover:scale-110 transition-all duration-500"
-        />
-        <h3 className="text-3xl font-semibold text-white mb-2">Cars</h3>
-        <p className="text-white text-sm text-center">Explore our range of luxury cars.</p>
-        <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-500 transition-colors duration-300 hover:shadow-lg hover:ring-2 hover:ring-blue-300">
-          View Cars
-        </button>
-      </div>
-    </div>
-
-    {/* Education Card */}
-    <div className="relative rounded-3xl overflow-hidden bg-gray-900 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 h-80 flex flex-col opacity-0 transition-opacity duration-700 animate-fadeIn">
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-transparent rounded-3xl"></div>
-      <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
-        <img 
-          src="https://watermark.lovepik.com/photo/50089/0761.jpg_wh1200.jpg" 
-          alt="Education" 
-          className="object-cover rounded-lg w-60 h-40 mb-4 border-4 border-white shadow-lg transform hover:scale-110 transition-all duration-500"
-        />
-        <h3 className="text-2xl font-semibold text-white mb-2">Education</h3>
-        <p className="text-white text-sm text-center">Empower yourself with education.</p>
-        <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-500 transition-colors duration-300 hover:shadow-lg hover:ring-2 hover:ring-blue-300">
-          Learn More
-        </button>
-      </div>
+  {/* Sample Card */}
+  <div className="relative rounded-3xl overflow-hidden bg-gray-900 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 h-full flex flex-col opacity-0 transition-opacity duration-700 animate-fadeIn">
+    <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-transparent rounded-3xl"></div>
+    <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
+      <img 
+        src="https://www.igeeksblog.com/wp-content/uploads/2024/09/Download-iPhone-16-and-16-Pro-Max-Wallpapers.jpg" 
+        alt="Mobiles" 
+        className="object-cover rounded-lg w-full h-40 mb-4 border-4 border-white shadow-lg transform hover:scale-110 transition-all duration-500"
+      />
+      <h3 className="text-2xl sm:text-3xl font-semibold text-white mb-2 text-center">Mobiles</h3>
+      <p className="text-white text-sm text-center mb-4">Discover the latest trends and technology.</p>
+      <button className="mt-4 px-8 py-3 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-500 transition-colors duration-300 hover:shadow-lg hover:ring-2 hover:ring-blue-300">
+        Shop Now
+      </button>
     </div>
   </div>
+
+  {/* Properties Card */}
+  <div className="relative rounded-3xl overflow-hidden bg-gray-900 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 h-full flex flex-col opacity-0 transition-opacity duration-700 animate-fadeIn">
+    <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-transparent rounded-3xl"></div>
+    <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
+      <img 
+        src="https://cdn.pixabay.com/photo/2017/07/17/00/54/house-2511060_640.jpg" 
+        alt="Properties" 
+        className="object-cover rounded-lg w-full h-40 mb-4 border-4 border-white shadow-lg transform hover:scale-110 transition-all duration-500"
+      />
+      <h3 className="text-2xl sm:text-3xl font-semibold text-white mb-2 text-center">Properties</h3>
+      <p className="text-white text-sm text-center mb-4">Find your perfect home today.</p>
+      <button className="mt-4 px-8 py-3 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-500 transition-colors duration-300 hover:shadow-lg hover:ring-2 hover:ring-blue-300">
+        Explore
+      </button>
+    </div>
+  </div>
+
+  {/* Cars Card */}
+  <div className="relative rounded-3xl overflow-hidden bg-gray-900 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 h-full flex flex-col opacity-0 transition-opacity duration-700 animate-fadeIn">
+    <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-transparent rounded-3xl"></div>
+    <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
+      <img 
+        src="https://www.isharearena.com/wp-content/uploads/2012/11/wallpaper-2426837.jpg" 
+        alt="Cars" 
+        className="object-cover rounded-lg w-full h-40 mb-4 border-4 border-white shadow-lg transform hover:scale-110 transition-all duration-500"
+      />
+      <h3 className="text-2xl sm:text-3xl font-semibold text-white mb-2 text-center">Cars</h3>
+      <p className="text-white text-sm text-center mb-4">Explore our range of luxury cars.</p>
+      <button className="mt-4 px-8 py-3 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-500 transition-colors duration-300 hover:shadow-lg hover:ring-2 hover:ring-blue-300">
+        View Cars
+      </button>
+    </div>
+  </div>
+
+  {/* Education Card */}
+  <div className="relative rounded-3xl overflow-hidden bg-gray-900 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 h-full flex flex-col opacity-0 transition-opacity duration-700 animate-fadeIn">
+    <div className="absolute inset-0 bg-gradient-to-t from-black via-gray-900 to-transparent rounded-3xl"></div>
+    <div className="p-6 flex flex-col items-center justify-between h-full relative z-10">
+      <img 
+        src="https://watermark.lovepik.com/photo/50089/0761.jpg_wh1200.jpg" 
+        alt="Education" 
+        className="object-cover rounded-lg w-full h-40 mb-4 border-4 border-white shadow-lg transform hover:scale-110 transition-all duration-500"
+      />
+      <h3 className="text-2xl sm:text-3xl font-semibold text-white mb-2 text-center">Azad Education</h3>
+      <p className="text-white text-sm text-center mb-4">Empower yourself with education.</p>
+      <button className="mt-4 px-8 py-3 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-500 transition-colors duration-300 hover:shadow-lg hover:ring-2 hover:ring-blue-300">
+        Learn More
+      </button>
+    </div>
+  </div>
+</div>
 </div>
 
 
