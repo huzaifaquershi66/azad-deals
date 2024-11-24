@@ -1,12 +1,16 @@
+
+
+
 import React, { useState, useEffect,useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera, faUpload, faMobileAlt, faHome, faCar, faGraduationCap,faMapMarkerAlt,faLocationDot,faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faCamera, faUpload, faMobileAlt, faHome, faCar, faGraduationCap,faMapMarkerAlt,faLocationDot,faAngleDown,faEnvelope,faPhone,faBriefcase,faUser,faAd,faUsers,faStar } from '@fortawesome/free-solid-svg-icons';
 import cities from './header/cites';
-import { faHouse, faBuilding, faLandmark, faTags,  faWarehouse } from '@fortawesome/free-solid-svg-icons';
+import { faHouse, faBuilding, faLandmark, faTags,  faWarehouse,faShower } from '@fortawesome/free-solid-svg-icons';
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import axios from 'axios';
+import azaddealing from "../assets/azaddealing.jpg"
 // Leaflet marker icon fix for React Leaflet
 // delete L.Icon.Default.prototype._getIconUrl;
 // L.Icon.Default.mergeOptions({
@@ -76,6 +80,8 @@ const PlaceAdd = () => {
   const [isLocationSet, setIsLocationSet] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(true);
 const [isAdPosted, setIsAdPosted] = useState(false);
+const [currentStep, setCurrentStep] = useState(1);
+
 
   
     const [propertyPurpose, setPropertyPurpose] = useState('');
@@ -105,7 +111,17 @@ const handlePostAd = () => {
   setIsAdPosted(true);      // Show the confirmation message
 };
 
+const goToNextStep = () => {
+    if (currentStep < 5) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
 
+  const goToPreviousStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
 const handleStateChange = (event) => {
   const state = event.target.value;
   setSelectedState(state);
@@ -148,7 +164,7 @@ const handleStateChange = (event) => {
     { name: 'Mobiles', icon: faMobileAlt },
     { name: 'Property', icon: faHome },
     { name: 'Cars', icon: faCar },
-    { name: 'Academics', icon: faGraduationCap },
+    // { name: 'Academics', icon: faGraduationCap },
   ];
 
   const propertyTypes = {
@@ -436,7 +452,7 @@ const handleCityClick = (city) => {
       className="input-style font-roboto cursor-pointer w-full p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
     >
       <option value="New">New</option>
-      <option value="Old">Old</option>
+      <option value="Old">Used</option>
     </select>
   </div>
   <div className="mb-4">
@@ -476,180 +492,140 @@ const handleCityClick = (city) => {
 
   return (
     <div className="property-form">
-      {/* Select Purpose (Sell or Rent) */}
-      <label className="section-label">Purpose:</label>
-      <div className="button-group">
+    {/* Purpose Selection */}
+    <label className="section-label">Purpose:</label>
+    <div className="button-group">
+      <button
+        type="button"
+        className={`button-style ${formData.purpose === 'Sell' ? 'selected' : ''} default-sell`}
+        onClick={() => setFormData((prevFormData) => ({ ...prevFormData, purpose: 'Sell' }))}
+      >
+        <FontAwesomeIcon icon={faTags} /> Sell
+      </button>
+      <button
+        type="button"
+        className={`button-style ${formData.purpose === 'Rent' ? 'selected' : ''}`}
+        onClick={() => setFormData((prevFormData) => ({ ...prevFormData, purpose: 'Rent' }))}
+      >
+        <FontAwesomeIcon icon={faWarehouse} /> Rent
+      </button>
+    </div>
+  
+    {/* Property Category Selection */}
+    <label className="section-label">Property Category:</label>
+    <div className="button-group">
+      <button
+        type="button"
+        className={`button-style ${formData.propertyCategory === 'Home' ? 'selected' : ''} default-home`}
+        onClick={() => setFormData((prevFormData) => ({ ...prevFormData, propertyCategory: 'Home' }))}
+      >
+        <FontAwesomeIcon icon={faHome} /> Home
+      </button>
+      <button
+        type="button"
+        className={`button-style ${formData.propertyCategory === 'Plots' ? 'selected' : ''}`}
+        onClick={() => setFormData((prevFormData) => ({ ...prevFormData, propertyCategory: 'Plots' }))}
+      >
+        <FontAwesomeIcon icon={faLandmark} /> Plots
+      </button>
+      <button
+        type="button"
+        className={`button-style ${formData.propertyCategory === 'Commercial' ? 'selected' : ''}`}
+        onClick={() => setFormData((prevFormData) => ({ ...prevFormData, propertyCategory: 'Commercial' }))}
+      >
+        <FontAwesomeIcon icon={faBuilding} /> Commercial
+      </button>
+    </div>
+  
+    {/* Property Type Selection */}
+    <label className="section-label">Property Type:</label>
+    <div className="button-group">
+      {(propertyTypes[formData.propertyCategory || 'Home'] || []).map((type) => (
         <button
+          key={type}
           type="button"
-          className={`button-style ${formData.purpose === 'Sell' ? 'selected' : ''} default-sell`}
-          onClick={() => setFormData((prevFormData) => ({ ...prevFormData, purpose: 'Sell' }))}
+          className={`button-style ${formData.propertyType === type ? 'selected' : ''}`}
+          onClick={() => setFormData((prevFormData) => ({ ...prevFormData, propertyType: type }))}
         >
-          <FontAwesomeIcon icon={faTags} /> Sell
+          <FontAwesomeIcon icon={faHouse} /> {type}
         </button>
+      ))}
+    </div>
+  
+    {/* Area Size and Unit Selector */}
+    <label className="section-label">Enter Area Size:</label>
+    <div className="area-size-group">
+      <input
+        type="number"
+        placeholder="Enter units"
+        value={formData.areaSize || ''}
+        onChange={(e) => setFormData((prevFormData) => ({
+          ...prevFormData,
+          areaSize: e.target.value,
+        }))}
+        className="area-input"
+      />
+      <select
+        value={formData.areaUnit || 'marla'}
+        onChange={(e) => setFormData((prevFormData) => ({
+          ...prevFormData,
+          areaUnit: e.target.value,
+        }))}
+        className="unit-select"
+      >
+        <option value="marla">Marla</option>
+        <option value="sq.ft">Sq. Ft.</option>
+        <option value="sq.m">Sq. M</option>
+        <option value="sq.yd">Sq. Yd</option>
+        <option value="kanal">Kanal</option>
+      </select>
+    </div>
+  
+    {/* Features and Amenities Section */}
+    <h1 className="section-label">Features and Amenities</h1>
+    <div className="button-group">
+  {/* Bedroom Section */}
+  <div className="button-section">
+    <div className="button-section-title font-helveticaLight font-semibold">Bedrooms</div>
+    <div className="button-row">
+      {[...Array(10)].map((_, index) => (
         <button
-          type="button"
-          className={`button-style ${formData.purpose === 'Rent' ? 'selected' : ''}`}
-          onClick={() => setFormData((prevFormData) => ({ ...prevFormData, purpose: 'Rent' }))}
+          key={index}
+          className={`button-style ${formData.bedrooms === (index + 1) ? 'selected' : ''}`}
+          onClick={() => setFormData((prevFormData) => ({ ...prevFormData, bedrooms: index + 1 }))}
         >
-          <FontAwesomeIcon icon={faWarehouse} /> Rent
+          {index === 9 ? '🔟+' : index + 1}
         </button>
-      </div>
-
-      {/* Select Property Category (Home, Plots, Commercial) */}
-      <label className="section-label">Property Category:</label>
-      <div className="button-group">
-        <button
-          type="button"
-          className={`button-style  ${formData.propertyCategory === 'Home' ? 'selected' : ''} default-home`}
-          onClick={() => {
-            setFormData((prevFormData) => ({
-              ...prevFormData,
-              propertyCategory: 'Home',
-              propertyType: propertyTypes['Home'][0], // Reset property type to first item in Home
-            }));
-          }}
-        >
-          <FontAwesomeIcon icon={faHome} /> Home
-        </button>
-        <button
-          type="button"
-          className={`button-style ${formData.propertyCategory === 'Plots' ? 'selected' : ''}`}
-          onClick={() => {
-            setFormData((prevFormData) => ({
-              ...prevFormData,
-              propertyCategory: 'Plots',
-              propertyType: propertyTypes['Plots'][0], // Reset property type to first item in Plots
-            }));
-          }}
-        >
-          <FontAwesomeIcon icon={faLandmark} /> Plots
-        </button>
-        <button
-          type="button"
-          className={`button-style ${formData.propertyCategory === 'Commercial' ? 'selected' : ''}`}
-          onClick={() => {
-            setFormData((prevFormData) => ({
-              ...prevFormData,
-              propertyCategory: 'Commercial',
-              propertyType: propertyTypes['Commercial'][0], // Reset property type to first item in Commercial
-            }));
-          }}
-        >
-          <FontAwesomeIcon icon={faBuilding} /> Commercial
-        </button>
-      </div>
-
-      {/* Select Property Type based on Category */}
-      <label className="section-label">Property Type:</label>
-      <div className="button-group">
-        {(propertyTypes[formData.propertyCategory || 'Home'] || []).map((type) => (
-          <button
-            key={type}
-            type="button"
-            className={`button-style ${formData.propertyType === type ? 'selected' : ''}`}
-            onClick={() => setFormData((prevFormData) => ({ ...prevFormData, propertyType: type }))}
-          >
-            <FontAwesomeIcon icon={faHouse} /> {type}
-          </button>
-        ))}
-      </div>
-      {/* Area Size Input and Unit Selector */}
-      <label className="section-label">Enter Area Size:</label>
-      <div className="area-size-group">
-        <input
-          type="number"
-          placeholder="Enter units"
-          value={formData.areaSize || ''}
-          onChange={(e) => setFormData((prevFormData) => ({
-            ...prevFormData,
-            areaSize: e.target.value,
-          }))}
-          className="area-input"
-        />
-        <select
-          value={formData.areaUnit || 'marla'}
-          onChange={(e) => setFormData((prevFormData) => ({
-            ...prevFormData,
-            areaUnit: e.target.value,
-          }))}
-          className="unit-select"
-        >
-          <option value="marla">Marla</option>
-          <option value="sq.ft">Sq. Ft.</option>
-          <option value="sq.m">Sq. M</option>
-          <option value="sq.yd">Sq. Yd</option>
-          <option value="kanal">Kanal</option>
-        </select>
-      </div>
-      <h1 className='section-label'>Feature and Amenities</h1>
-      <div class="button-group">
-     
-
-  <div class="button-section ">
-    <div class="button-section-title " className='font-helveticaLight font-semibold'>Bedrooms</div>
-    <div class="button-style">
-      <span class="icon" className='font-helveticaLight'>🏠</span> Studio
-    </div>
-    <div class="button-style">
-      <span class="icon">1</span>
-    </div>
-    <div class="button-style">
-      <span class="icon">2</span>
-    </div>
-    <div class="button-style">
-      <span class="icon">3</span>
-    </div>
-    <div class="button-style">
-      <span class="icon">4</span>
-    </div>
-    <div class="button-style">
-      <span class="icon">5</span>
-    </div>
-    <div class="button-style">
-      <span class="icon">6</span>
-    </div>
-    <div class="button-style">
-      <span class="icon">7</span>
-    </div>
-    <div class="button-style">
-      <span class="icon">8</span>
-    </div>
-    <div class="button-style">
-      <span class="icon">9</span> 
-    </div>
-    <div class="button-style">
-      <span class="icon">🔟+</span> 
+      ))}
     </div>
   </div>
 
-
-  <div class="button-section">
-    <div class="button-section-title" className='font-helveticaLight font-semibold'>Bathrooms</div>
-    <div class="button-style">
-      <span class="icon">🚿</span> 1
-    </div>
-    <div class="button-style">
-      <span class="icon">🚿</span> 2
-    </div>
-    <div class="button-style">
-      <span class="icon">🚿</span> 3
-    </div>
-    <div class="button-style">
-      <span class="icon">🚿</span> 4
-    </div>
-    <div class="button-style">
-      <span class="icon">🚿</span> 5
-    </div>
-    <div class="button-style">
-      <span class="icon">🚿</span> 6
-    </div>
-    <div class="button-style">
-      <span class="icon">🚿</span> 6+
+  {/* Bathroom Section */}
+  <div className="button-section">
+    <div className="button-section-title font-helveticaLight font-semibold">Bathrooms</div>
+    <div className="button-row">
+      {[...Array(7)].map((_, index) => (
+        <button
+          key={index}
+          className={`button-style ${formData.bathrooms === (index + 1) ? 'selected' : ''}`}
+          onClick={() => setFormData((prevFormData) => ({ ...prevFormData, bathrooms: index + 1 }))}
+        >
+          <FontAwesomeIcon icon={faShower} /> {index + 1}
+        </button>
+      ))}
+      <button
+        className={`button-style ${formData.bathrooms === '6+' ? 'selected' : ''}`}
+        onClick={() => setFormData((prevFormData) => ({ ...prevFormData, bathrooms: '6+' }))}
+      >
+        <FontAwesomeIcon icon={faShower} /> 6+
+      </button>
     </div>
   </div>
 </div>
 
-    </div>
+  </div>
+  
+  
   );
 
 
@@ -1055,161 +1031,225 @@ const handleCityClick = (city) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-5 sm:p-10">
-    <div className="w-full flex flex-col md:flex-grow bg-white shadow-2xl rounded-3xl overflow-hidden md:px-80 px-4">
+    <>
+<div className="relative w-full h-[600px] font-raleway">
+  {/* Gradient Background */}
+  <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 shadow-lg opacity-80"></div>
+
+  {/* Background Image */}
+  <img 
+    src={azaddealing} 
+    className="h-full w-full object-cover opacity-60" 
+  />
+
+  {/* Profile and Stats Section */}
+  <div className="absolute inset-0 flex items-center justify-center px-6 sm:px-10 mt-[350px] sm:mt-[500px]">
+    <div className="bg-white w-full sm:w-[90%] p-6 sm:p-14 rounded-xl shadow-xl flex flex-col sm:flex-row justify-between items-center">
+      
+      {/* User Profile Details */}
+      <div className="flex flex-col items-center sm:flex-row sm:items-center sm:w-1/2">
+        {/* Profile Picture */}
+        <img 
+          src="https://mironcoder-classicads.netlify.app/assets/ltr/images/avatar/01.jpg" 
+          alt="Profile" 
+          className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-8 border-gradient-to-r from-purple-500 to-pink-500 shadow-xl"
+        />
+        
+        {/* User Info */}
+        <div className="mt-6 sm:mt-0 sm:ml-10 text-gray-800 space-y-4 text-center sm:text-left">
+          <h2 className="text-2xl sm:text-3xl font-bold flex items-center justify-center gap-3">
+            <FontAwesomeIcon icon={faUser} className="text-purple-500" /> Gackon Honson
+          </h2>
+          <p className="text-lg sm:text-xl text-gray-500 flex items-center gap-3">
+            <FontAwesomeIcon icon={faBriefcase} className="text-blue-500" /> New Seller
+          </p>
+          <p className="text-lg sm:text-xl flex items-center gap-3">
+            <FontAwesomeIcon icon={faPhone} className="text-green-500" /> (123) 000-1234
+          </p>
+          <p className="text-lg sm:text-xl flex items-center gap-3">
+            <FontAwesomeIcon icon={faEnvelope} className="text-red-500" /> gackon@gmail.com
+          </p>
+          <p className="text-lg sm:text-xl flex items-center gap-3">
+            <FontAwesomeIcon icon={faMapMarkerAlt} className="text-yellow-500" /> Los Angeles, West America
+          </p>
+        </div>
+      </div>
+
+      {/* Statistics Section */}
+      <div className="flex gap-6 sm:gap-10 justify-center mt-8 sm:mt-10 w-full sm:w-auto">
+        {/* Listing Ads */}
+        <div className="bg-gradient-to-br from-purple-700 to-purple-500 p-6 sm:p-8 rounded-xl shadow-lg text-center w-48 sm:w-64 h-48 sm:h-52 flex flex-col items-center justify-center">
+          <h3 className="text-2xl sm:text-3xl font-bold text-white flex items-center justify-center gap-3">
+            <FontAwesomeIcon icon={faAd} /> 2433
+          </h3>
+          <p className="text-lg text-white mt-2 sm:mt-3">Listing Ads</p>
+        </div>
+
+        {/* Total Followers */}
+        <div className="bg-gradient-to-br from-pink-700 to-pink-500 p-6 sm:p-8 rounded-xl shadow-lg text-center w-48 sm:w-64 h-48 sm:h-52 flex flex-col items-center justify-center">
+          <h3 className="text-2xl sm:text-3xl font-bold text-white flex items-center justify-center gap-3">
+            <FontAwesomeIcon icon={faUsers} /> 2433
+          </h3>
+          <p className="text-lg text-white mt-2 sm:mt-3">Total Followers</p>
+        </div>
+
+        {/* Total Reviews */}
+        <div className="bg-gradient-to-br from-red-700 to-red-500 p-6 sm:p-8 rounded-xl shadow-lg text-center w-48 sm:w-64 h-48 sm:h-52 flex flex-col items-center justify-center">
+          <h3 className="text-2xl sm:text-3xl font-bold text-white flex items-center justify-center gap-3">
+            <FontAwesomeIcon icon={faStar} /> 2433
+          </h3>
+          <p className="text-lg text-white mt-2 sm:mt-3">Total Reviews</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+    <div className="min-h-screen mt-60 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-5 sm:p-10">
+    <div className="w-full flex flex-col md:flex-grow  shadow-2xl rounded-3xl overflow-hidden md:px-80 px-4">
     {/* Left Side: Ad Form */}
     {!isPreview ? (
-    <div className="w-full  p-8 sm:p-12 text-gray-800 flex flex-col bg-white rounded-3xl shadow-lg border border-gray-200 transition duration-300 transform">
-    <h2 className="text-4xl font-montserrat font-extrabold text-center mb-8 text-indigo-900 tracking-wide uppercase shadow-lg">
-    Post Your Ad
-</h2>
+<div className="w-full p-8 sm:p-12 text-gray-800 flex flex-col rounded-3xl shadow-xl border border-gray-200 transition duration-300 transform bg-gradient-to-br from-indigo-50 via-purple-50 to-teal-50">
+      <h2 className="text-4xl font-montserrat font-extrabold text-center mb-8 text-indigo-900 tracking-wide uppercase shadow-lg transform hover:scale-105 transition-all">
+       Ad Information
+      </h2>
 
+      {/* Step 1: Category Selection and Title/Description */}
+      {currentStep === 1 && (
+        <>
+          {/* Category selection */}
+          <div className="flex flex-wrap justify-center gap-4 mb-10">
+            {categories.map(({ name, icon }) => (
+              <button
+                key={name}
+                onClick={() => handleCategorySelect(name)}
+                className={`flex items-center justify-center px-8 py-4 rounded-full font-bold text-lg shadow-lg transition-all duration-300 transform
+                  ${category === name
+                    ? "bg-gradient-to-r from-blue-600 to-blue-800 text-white shadow-2xl scale-105 hover:scale-110"
+                    : "bg-gray-200 text-gray-700 hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 hover:text-white hover:shadow-xl hover:scale-105"}`}
+                title={`Select ${name}`}
+              >
+                <FontAwesomeIcon icon={icon} className="mr-3 text-xl" />
+                {name}
+              </button>
+            ))}
+          </div>
 
+          {/* Title and Description Fields */}
+          <form onSubmit={handleSubmit} className="space-y-8 font-helveticaLight">
+            <div className="flex flex-col">
+              <label htmlFor="title" className="text-lg mb-2 font-semibold text-gray-700">Ad Title</label>
+              <input
+                id="title"
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleInputChange}
+                placeholder="Ad Title"
+                className="w-full p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-lg hover:shadow-2xl"
+              />
+            </div>
 
+            <div className="flex flex-col">
+              <label htmlFor="description" className="text-lg mb-2 font-semibold text-gray-700">Ad Description</label>
+              <textarea
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                placeholder="Ad Description"
+                rows="4"
+                className="w-full p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-lg hover:shadow-2xl"
+              />
+            </div>
+          </form>
+        </>
+      )}
 
-        {/* Category Selection Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-10">
-    {categories.map(({ name, icon }) => (
-        <button
-            key={name}
-            onClick={() => handleCategorySelect(name)}
-            className={`flex items-center justify-center px-8 py-4 rounded-full font-bold text-lg shadow-lg transition-all duration-300 transform
-                ${category === name 
-                    ? `bg-gradient-to-r from-blue-600 to-blue-800 text-white shadow-xl scale-110 hover:scale-110` 
-                    : `bg-gray-200 text-gray-700 hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 hover:text-white hover:shadow-lg hover:scale-105`}`}
-            title={`Select ${name}`} // Tooltip for user guidance
-        >
-            <FontAwesomeIcon icon={icon} className="mr-3 text-xl" />
-            {name}
-        </button>
-    ))}
-</div>
-
-
-
-        {/* Ad Form */}
-        <form onSubmit={handleSubmit} className="space-y-8 font-helveticaLight">
-  {/* Title Input */}
-  <div className="flex flex-col">
-    <label htmlFor="title" className="text-lg  mb-2">Ad Title</label>
-    <input
-      id="title"
-      type="text"
-      name="title"
-      value={formData.title}
-      onChange={handleInputChange}
-      placeholder="Ad Title"
-      className="input-style w-full p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
+      {/* Step 2: Title Image Upload */}
+     {currentStep === 2 && (
+     
+  <div className="mb-6 flex flex-col items-center relative group">
+  <h1 className='font-manrope font-bold text-[20px] text-center mb-4'>Title Image</h1>
+    {/* Title Image Upload Section */}
+   <input
+  type="file"
+  onChange={handleTitleImageChange}
+  className="hidden"
+  id="title-image-upload"
+  accept="image/*"
+/>
+<label
+  htmlFor="title-image-upload"
+  className="cursor-pointer flex items-center justify-center w-56 h-56 sm:w-64 sm:h-64 bg-gradient-to-br from-teal-500 via-blue-500 to-indigo-600 rounded-2xl p-6 shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 relative overflow-hidden group"
+>
+  {formData.titleImage ? (
+    <img
+      src={formData.titleImage}
+      alt="Title preview"
+      className="w-full h-full object-cover rounded-2xl transition-transform duration-300 group-hover:scale-105"
     />
+  ) : (
+    <>
+      <FontAwesomeIcon
+        icon={faUpload}
+        className="text-white text-4xl mb-2 transition-transform duration-300 group-hover:rotate-180"
+      />
+      <span className="text-white font-semibold text-sm sm:text-base text-center">
+        Upload Image
+      </span>
+    </>
+  )}
+</label>
 
-  </div>
-  
 
-  {/* Description Input */}
-  <div className="flex flex-col">
-    <label htmlFor="description" className="text-lg mb-2">Ad Description</label>
-    <textarea
-      id="description"
-      name="description"
-      value={formData.description}
-      onChange={handleInputChange}
-      placeholder="Ad Description"
-      rows="4"
-      className="input-style w-full p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
-    />
-  </div>
- 
-  <h1 className='font-manrope font-bold text-[20px]'>Title Image</h1>
-  <div className="mb-6 flex flex-col items-center">
+    {/* Additional Images Upload Section */}
+    <h1 className="font-manrope font-bold text-[20px] text-center mb-4">Additional Images</h1>
+ <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+  {media.map((item, index) => (
+    <div key={index} className="relative group">
       <input
         type="file"
-        onChange={handleTitleImageChange}
+        onChange={(e) => handleMediaChange(e, index)}
         className="hidden"
-        id="title-image-upload"
-        accept="image/*"
+        id={`media-upload-${index}`}
+        accept="image/*,video/*"
       />
       <label
-        htmlFor="title-image-upload"
-        className="cursor-pointer flex items-center justify-center bg-gradient-to-br from-blue-400 via-cyan-500 to-green-600 rounded-lg p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 relative overflow-hidden"
+        htmlFor={`media-upload-${index}`}
+        className="flex items-center justify-center bg-gradient-to-br from-gray-800 via-gray-900 to-black rounded-lg cursor-pointer shadow-xl hover:shadow-2xl transition-all duration-300 w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 relative overflow-hidden group"
       >
-        {titleImage ? (
-          <img
-            src={titleImage}
-            alt="Title preview"
-            className="h-full w-full object-cover rounded-lg"
-          />
+        {item ? (
+          item.includes("video") ? (
+            <video
+              src={item}
+              controls
+              className="h-full w-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+            />
+          ) : (
+            <img
+              src={item}
+              alt="Selected media"
+              className="h-full w-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+            />
+          )
         ) : (
-          <>
-            <FontAwesomeIcon icon={faUpload} className="mr-1 text-gray-100 text-2xl sm:text-3xl md:text-4xl" />
-            <span className="text-gray-100 font-medium text-sm sm:text-base md:text-lg text-center">
-              Upload Image
-            </span>
-          </>
+          <FontAwesomeIcon icon={faUpload} className="text-white text-2xl sm:text-3xl" />
         )}
-
-        {/* Overlay that will be displayed when the image is hovered */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-transparent rounded-lg opacity-0 hover:opacity-30 transition-opacity duration-300"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 to-transparent rounded-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
       </label>
-
-      {/* If there's a selected image, it will display on top of the previous preview */}
-      {titleImage && (
-        <div className="absolute top-0 left-0 w-full h-full rounded-lg overflow-hidden">
-          {/* <img
-            // src={titleImage}
-     
-            className="absolute top-0 left-0 w-full h-full object-cover rounded-lg opacity-70"
-          /> */}
-        </div>
-      )}
     </div>
-
-
-
-    <div>
-  
+  ))}
 </div>
 
 
-  {/* Title Image Upload */}
-  <h1 className='font-manrope font-bold text-[20px]'>Additional Images</h1>
-  <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-      {media.map((item, index) => (
-        <div key={index} className="relative">
-          <input
-            type="file"
-            onChange={(e) => handleMediaChange(e, index)}
-            className="hidden"
-            id={`media-upload-${index}`}
-            accept="image/*,video/*"
-          />
-          <label
-            htmlFor={`media-upload-${index}`}
-            className="flex items-center justify-center bg-gray-800 rounded-md cursor-pointer shadow-lg hover:bg-gray-700 transition duration-300 w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36"
-          >
-            {item ? (
-              item.includes("video") ? (
-                <video
-                  src={item}
-                  controls
-                  className="h-full w-full object-cover rounded-md"
-                />
-              ) : (
-                <img
-                  src={item}
-                  alt="Selected media"
-                  className="h-full w-full object-cover rounded-md"
-                />
-              )
-            ) : (
-              <FontAwesomeIcon icon={faUpload} className="text-white text-xl sm:text-2xl" />
-            )}
-          </label>
-        </div>
-      ))}
-    </div>
 
-    <div className="mb-6 flex flex-col items-center">
-  <h1 className="font-manrope font-bold text-[24px] sm:text-[28px] md:text-[32px] text-center text-gray-800 mb-4">
+    {/* Video Upload Section */}
+   <div className="mb-6 flex flex-col items-center">
+  <h1 className="font-manrope font-semibold text-[22px] sm:text-[24px] md:text-[26px] text-center text-gray-900 mb-4">
     Video Upload
   </h1>
   <input
@@ -1221,111 +1261,78 @@ const handleCityClick = (city) => {
   />
   <label
     htmlFor="video-upload"
-    className="cursor-pointer flex items-center justify-center bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 rounded-xl p-3 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 relative overflow-hidden group"
+    className="cursor-pointer flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-500 rounded-full p-4 sm:p-5 md:p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 relative overflow-hidden group"
   >
     {videoFile ? (
       <video
         src={videoFile}
         controls
-        className="h-full w-full object-cover rounded-lg"
+        className="h-full w-full object-cover rounded-full transition-transform duration-300 group-hover:scale-105"
       />
     ) : (
       <>
         <FontAwesomeIcon
           icon={faUpload}
-          className="text-gray-100 text-3xl sm:text-4xl md:text-5xl transition-transform duration-300 group-hover:scale-110"
+          className="text-white text-3xl sm:text-4xl md:text-5xl transition-transform duration-300 group-hover:scale-105"
         />
-        <span className="text-gray-100 font-medium text-sm sm:text-base md:text-lg text-center mt-2 group-hover:opacity-90">
+        <span className="text-white font-medium text-xs sm:text-sm md:text-base text-center mt-3 group-hover:opacity-90">
           Upload Video
         </span>
       </>
     )}
-
-    {/* Subtle hover effect overlay */}
-    <div className="absolute inset-0 bg-gradient-to-tr from-gray-900/50 to-gray-900/30 rounded-xl opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+    <div className="absolute inset-0 bg-gradient-to-br from-black/30 to-transparent rounded-full opacity-0 group-hover:opacity-40 transition-opacity duration-300"></div>
   </label>
 </div>
 
-
-  {/* Dynamic Fields */}
-  {renderCategoryFields()}
-
-  {/* Price Input */}
-  <div className="flex flex-col mb-6">
-  <label htmlFor="price" className="text-lg font-light mb-2">
-    Price (in Rs)
-  </label>
-  <input
-    id="price"
-    type="text"
-    name="price"
-    value={formData.price}
-    onChange={handleInputChange}
-    placeholder="Enter price (in Rs)"
-    className="w-full p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
-  />
-</div>
-
-<div className="p-6 w-full mx-auto bg-gray-100 rounded-md shadow-md">
-  <h2 className="text-xl font-semibold text-gray-700">Select State and City</h2>
-
-  {/* State Selector */}
-  <label htmlFor="state" className="block mt-4 text-gray-600">
-    State
-  </label>
-  <select
-    id="state"
-    value={selectedState}
-    onChange={handleStateChange}
-    className="w-full p-2 mt-1 border rounded-md"
-  >
-    <option value="">Select a State</option>
-    {Object.keys(statesWithCities).map((state) => (
-      <option key={state} value={state}>
-        {state}
-      </option>
-    ))}
-  </select>
-
-  {/* City Selector */}
-  <label htmlFor="city" className="block mt-4 text-gray-600">
-    City
-  </label>
-  <select
-    id="city"
-    value={selectedCity}
-    onChange={handleCityChange}
-    className="w-full p-2 mt-1 border rounded-md"
-    disabled={!selectedState}
-  >
-    <option value="">Select a City</option>
-    {cities.map((city) => (
-      <option key={city} value={city}>
-        {city}
-      </option>
-    ))}
-  </select>
-</div>
-
-{/* Location Input and Map */}
-<div className="relative w-full mx-auto mt-6">
-  <div className="relative">
-    <FontAwesomeIcon
-      icon={faLocationDot}
-      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 transition-transform duration-200 hover:scale-110 hover:text-blue-500"
-    />
-    <input
-      type="text"
-      placeholder="Click to get your location"
-      value={formData.location}
-      onClick={handleInputClickss}
-      readOnly
-      className="h-12 w-full rounded-full pl-10 pr-4 border border-gray-300 focus:outline-none focus:ring-4 focus:ring-blue-400 transition-all duration-300"
-    />
   </div>
+)}
 
-  {/* Map Container */}
-  <div className="mt-6">
+
+      {/* Step 3: Price and Location */}
+      {currentStep === 3 && (
+        <>
+          {renderCategoryFields()}
+ 
+          <div className="flex flex-col mb-6">
+            <label htmlFor="price" className="text-lg font-light mb-2">Price (in Rs)</label>
+            <input
+              id="price"
+              type="text"
+              name="price"
+              value={formData.price}
+              onChange={handleInputChange}
+              placeholder="Enter price (in Rs)"
+              className="w-full p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
+            />
+          </div>
+
+          <div className="mt-4">
+            <label className="text-lg font-semibold text-gray-800">Select State and City</label>
+
+            <label htmlFor="state" className="block mt-4 text-gray-600">State</label>
+            <select
+              id="state"
+              value={formData.state}
+              onChange={handleStateChange}
+              className="w-full p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
+            >
+              <option value="">Select a State</option>
+              {/* Add your states here */}
+            </select>
+
+            <label htmlFor="city" className="block mt-4 text-gray-600">City</label>
+            <select
+              id="city"
+              value={formData.city}
+              onChange={handleCityChange}
+              className="w-full p-4 text-lg rounded-lg border-2 border-gray-300 bg-gray-50 focus:outline-none focus:border-purple-600 transition duration-300 transform focus:scale-105 shadow-md"
+              disabled={!formData.state}
+            >
+              <option value="">Select a City</option>
+              {/* Add your city options here */}
+            </select>
+          </div>
+          <div className="mt-6">
     <MapContainer
       center={markerPosition}
       zoom={13}
@@ -1345,7 +1352,7 @@ const handleCityClick = (city) => {
       />
     </MapContainer>
   </div>
-</div>
+ {/* </div>   */}
 
 
 
@@ -1388,28 +1395,39 @@ const handleCityClick = (city) => {
           </div>
         </div>
         </div>
-  
+        </>
+      )}
 
+      {/* Step Navigation Buttons */}
+      <div className="flex justify-between mt-6">
+        {currentStep > 1 && (
+          <button
+            onClick={goToPreviousStep}
+            className="px-6 py-3 bg-gray-600 text-white rounded-full transition-all duration-300 hover:bg-gray-700"
+          >
+            Previous
+          </button>
+        )}
 
-  
-  {/* Additional Images Upload */}
-
-
-  {/* Submit Button */}
-  <button
-  //  onClick={() => setShowPreview(!showPreview)}
-  type="submit"
-  className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full py-4 text-lg font-bold shadow-lg hover:from-purple-600 hover:to-pink-500 hover:shadow-xl transform transition-all duration-300 hover:scale-105"
->
-  Preview AD
-</button>
-
-
-
-
-</form>
-
+        {currentStep < 3 ? (
+          <button
+            onClick={goToNextStep}
+            className="px-6 py-3 bg-blue-600 text-white rounded-full transition-all duration-300 hover:bg-blue-700"
+          >
+            Next
+          </button>
+        ) : (
+          <button
+            type="submit"
+            className="px-6 py-3 bg-green-600 text-white rounded-full transition-all duration-300 hover:bg-green-700"
+          >
+            Submit
+          </button>
+        )}
+      </div>
     </div>
+
+  
   
 ) : (
 
@@ -1491,7 +1509,7 @@ const handleCityClick = (city) => {
 
 
 
-
+</>
 
   
 

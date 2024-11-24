@@ -248,7 +248,20 @@ const Postdetail = () => {
 
 
 
-
+<div className="w-full mx-auto mt-8 p-6 font-roboto  shadow-lg rounded-lg">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Description:</h2>
+      <p className="text-gray-700 leading-relaxed">
+        ClassiAds includes 20+ category templates, making it great for those hoping to create
+        specific classified sites. As an admin, simply approve seller applications, and they can
+        manage their ads in a front-end panel. The default listing type is free, but you can elect
+        to charge users to feature their ads in high-traffic site areas for increased engagement
+        and visibility.
+      </p>
+      <p className="mt-4 text-gray-700 leading-relaxed">
+        ClassiAds can also integrate with MailChimp, enabling communication between admin and
+        sellers and buyers and sellers. You can make additional customizations with Elementor.
+      </p>
+    </div>
 
 
 

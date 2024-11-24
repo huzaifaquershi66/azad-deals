@@ -648,3 +648,126 @@ body {
     font-size: 0.9rem;
   }
 }
+.property-form {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  margin: auto;
+}
+
+.section-label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.button-style {
+  background-color: #f0f0f0;
+  border: 1px solid #ff7e5f;
+  border-radius: 5px;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #121112;
+
+  transition: background-color 0.3s, border-color 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.button-style:hover {
+  background-color: #ddd;
+  border-color: #bbb;
+}
+
+.selected {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.button-section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.button-section {
+  flex: 1;
+  padding: 10px;
+}
+.area-size-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.area-input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 100%;
+  flex: 1;
+}
+
+.unit-select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  flex: 1;
+  min-width: 120px;
+}
+
+.font-helveticaLight {
+  font-family: 'Helvetica Light', sans-serif;
+}
+/* Ensures the button sections are aligned horizontally */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Aligns buttons within each section */
+.button-section {
+  flex: 1;
+  padding: 10px;
+}
+
+/* Makes the buttons align horizontally within each section */
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* space between buttons */
+}
+
+/* Styling for the buttons */
+.button-style {
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-style.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.button-section-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}

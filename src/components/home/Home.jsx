@@ -16,6 +16,7 @@ import academics from './academics';
 import cities from '../header/cites';
 import { useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import azaddealing from "../../assets/azaddealing.jpg"
 const uniqueCities = Array.from(new Set(cities));
 const Home = () => {
   const carouselRef = useRef(null)
@@ -276,11 +277,11 @@ const handleCityClick = (city) => {
   
   return (
     <>
-<div className="relative w-full h-[450px] rounded-lg   flex lg:my-[20px] my-0 items-center justify-center">
+<div className="relative w-full h-[600px] rounded-lg   flex lg:my-[20px] my-0 items-center justify-center">
   {/* Background Image with Darken Filter */}
   <img
-    className="object-cover w-full h-full  filter brightness-100 " // Added rounded-lg to image for rounded corners
-    src={banner}
+    className="object-cover  w-full h-full  filter brightness-100 " // Added rounded-lg to image for rounded corners
+    src={azaddealing}
     alt="Background"
   />
 
@@ -289,7 +290,7 @@ const handleCityClick = (city) => {
 {/* <div className='absolute inset-0 h-40 w-40 flex items-center z-50 justify-center  md:my-0 md:mx-[630px]'>
   <img src={logo} className='object-cover h-full w-full z-50'/>
 </div> */}
-<div className='absolute  inset-0 flex items-center justify-center md:mt-[300px] mt-0'>
+<div className='absolute z-50  inset-0 flex items-center justify-center md:mt-[630px] mt-0'>
       <div className='flex items-center md:space-x-4 space-x-2 bg-white h-14 md:w-96 w-[310px] md:px-6 px-2 font-sans md:text-[14px] text-[12px] rounded-t-xl z-10 shadow-lg'>
         
         <button 
@@ -322,7 +323,7 @@ const handleCityClick = (city) => {
       </div>
     </div>
 
-<div className='absolute inset-0 flex items-center justify-center md:mt-[410px] mt-52 px-4'>
+<div className='absolute inset-0 flex items-center justify-center md:mt-[685px] mt-52 px-4'>
   <div className='flex flex-col md:flex-row items-center md:h-14 h-40 w-[400px] xl:w-[900px] lg:w-[900px] md:w-[700px] bg-gray-100 rounded-lg shadow-xl p-4 transition-transform duration-300 hover:shadow-2xl bg-opacity-95'>
     
     <div className='flex items-center mx-2 relative w-full md:w-[45%]'>
@@ -392,7 +393,7 @@ const handleCityClick = (city) => {
 
 
 {toggleAdvancedSearch && searchCategory === 'Property' && (
-  <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border  border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'md:w-[500px] w-[300px] ' : ' md:w-[500px] w-[300px]'}} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
+  <div className={`md:mt-[710px] z-50 mt-[400px] p-4 border  border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'md:w-[500px] w-[300px] ' : ' md:w-[500px] w-[300px]'}} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
     <div className='flex items-center space-x-5'>
     <h3 className='font-helveticaLight text-lg '>Advanced Search</h3>
     <label class="switch" >
@@ -482,7 +483,7 @@ const handleCityClick = (city) => {
 )}
 
 {toggleAdvancedSearch && searchCategory === 'Cars' && (
-  <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border  border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'md:w-[500px] w-[300px] ' : ' md:w-[500px] w-[300px]'}} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
+  <div className={`md:mt-[710px] z-50 mt-[400px] p-4 border  border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'md:w-[500px] w-[300px] ' : ' md:w-[500px] w-[300px]'}} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
     <div className='flex items-center space-x-5'>
     <h3 className='font-helveticaLight text-lg '>Advanced Search</h3>
     <label class="switch" >
@@ -574,7 +575,7 @@ const handleCityClick = (city) => {
   </div>
 )}
  {toggleAdvancedSearch && searchCategory === 'Mobile' && (
-        <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'md:w-[500px] w-[300px] ' : ' md:w-[500px] w-[300px]'}} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
+        <div className={`md:mt-[710px] z-50 mt-[400px] p-4 border border-gray-300 ${advancedSearchInput ? 'h-10' : 'h-20'} rounded-lg ${advancedSearchInput ? 'md:w-[500px] w-[300px] ' : ' md:w-[500px] w-[300px]'}} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
           <div className='flex items-center space-x-5'>
             <h3 className='font-helveticaLight text-lg'>Advanced Search</h3>
             <label className="switch">
@@ -667,7 +668,7 @@ const handleCityClick = (city) => {
       )}
 
 {toggleAdvancedSearch && searchCategory === 'Academics' && (
-        <div className={`md:mt-[450px] z-50 mt-[400px] p-4 border border-gray-300 ${advancedSearchInput ? 'h-16' : 'h-20'} rounded-lg ${advancedSearchInput ? 'md:w-[500px] w-[300px] ' : ' md:w-[500px] w-[300px]'} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
+        <div className={`md:mt-[710px] z-50 mt-[400px] p-4 border border-gray-300 ${advancedSearchInput ? 'h-16' : 'h-20'} rounded-lg ${advancedSearchInput ? 'md:w-[500px] w-[300px] ' : ' md:w-[500px] w-[300px]'} absolute inset-1 bg-white w-4/5 mx-auto flex flex-col items-center`}>
           <div className='flex items-center space-x-5'>
             <h3 className='font-helveticaLight text-lg'>Advanced Search</h3>
             <label className="switch">
@@ -761,7 +762,7 @@ const handleCityClick = (city) => {
     </div>
     <div className="w-full mx-auto py-20 xl:px-36 px-4 bg-gradient-to-b from-white via-gray-100 to-gray-200">
   <div className="text-center mb-16">
-    <h2 className="text-4xl md:text-5xl font-bold font-serif text-gray-800 mb-4 tracking-wider">Our Premium Categories</h2>
+    <h2 className="text-4xl md:text-5xl font-bold font-serif text-gray-800 mt-20 tracking-wider">Our Premium Categories</h2>
     <p className="text-lg text-gray-600 font-serif max-w-xl mx-auto">Explore a variety of exclusive collections curated just for you</p>
   </div>
 
